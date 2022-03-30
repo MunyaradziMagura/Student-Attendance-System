@@ -1,9 +1,8 @@
 from pyzbar.pyzbar import *
 from PIL import Image
 
-qr_code = 'qr_code.png'
-#performs decoding of qr_code.png image
-qr_code_decode = decode(Image.open(qr_code))
+#performs decoding of qr_code.png image and printing of each codes details
+for i in range(30):
+    qr_code_decode = decode(Image.open('./students/student_{0}.png'.format(i)))
+    print(qr_code_decode)
 
-#prints out the details of the decoded qr code image
-print(qr_code_decode)
