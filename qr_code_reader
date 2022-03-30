@@ -1,0 +1,9 @@
+from pyzbar.pyzbar import *
+from PIL import Image
+
+qr_code = 'qr_code.png'
+#performs decoding of qr_code.png image
+qr_code_decode = decode(Image.open(qr_code))
+
+#prints out the details of the decoded qr code image
+print(qr_code_decode)
