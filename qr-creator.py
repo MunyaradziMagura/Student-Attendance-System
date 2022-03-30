@@ -1,39 +1,26 @@
 from datetime import date
 import qrcode
+import random
 
-# device fingerprinting algorithm
-deviceFingerPrint = "location,time,language,device-parameters, "
-date = date.today()
-student = {
-    "FName": "Phoebe",
-    "LName": "Dynevor",
-    "StudentID": "123456789",
-    "class": "IT Project",
-    "Date": date,
-    "Contact": "0412345678",
-    "DeviceHash": str(hash(deviceFingerPrint))
-}
 
-student2 = {
-    "FName": "Zack",
-    "LName": "Anderson",
-    "StudentID": "110202346",
-    "class": "IT Project",
-    "Date": date,
-    "Contact": "082625093",
-    "DeviceHash": str(hash(deviceFingerPrint))
-}
+def createStudent():
+    for i in range(30):
+        # device fingerprinting algorithm
+        deviceFingerPrint = "location,time,language,device-parameters, "
+        student = {
+            "FName": f"{i}",
+            "LName": f"{i}",
+            "StudentID": random.randrange(100000, 999999),
+            "class": "IT Project",
+            "Date": date.today(),
+            "Contact": "04" + str(random.randrange(00000000, 99999999)),
+        }
+        # add hash to student dictionary
+        student.update({"DeviceHash": str(
+            hash(str(student.get("StudentID")) + student.get("Contact")))})
+        image = qrcode.make(student)
+        type(image)
+        image.save(f"students/student_{i}.png")
 
-image = qrcode.make(student)
-image2 = qrcode.make(student2)
 
-type(image)
-
-image.save("qr_code.png")
-image2.save("qr_code2.png")
-
-#VERY basic validation
-if student.get("DeviceHash") == student2.get("DeviceHash"):
-    print("Invalid")
-else:
-    print("Valid")
+createStudent()
