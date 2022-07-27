@@ -2,10 +2,10 @@ import React from 'react';
 //import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import './styles/index.css';
-import Login from './components/Login';
-import StudentDashboard from './components/StudentDashboard';
-import StudentProfile from './components/StudentProfile';
-import LecturerDashboard from './components/LecturerDashboard';
+import Login from './pages/Login';
+import StudentDashboard from './pages/StudentDashboard';
+import StudentProfile from './pages/StudentProfile';
+import LecturerDashboard from './pages/LecturerDashboard';
 
 function App() {
   return (
