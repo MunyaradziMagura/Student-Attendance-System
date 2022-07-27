@@ -1,4 +1,4 @@
-const Login = () => {
+function Login() {
   return (
     <div className="Login">
         <form>
