@@ -1,31 +1,50 @@
-import React from 'react';
+import React from "react";
 //import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import './styles/index.css';
-import Login from './pages/Login';
-import StudentDashboard from './pages/StudentDashboard';
-import StudentProfile from './pages/StudentProfile';
-import LecturerDashboard from './pages/LecturerDashboard';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import "./styles/index.css";
+import { Navbar } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
+import Login from "./pages/Login";
+import StudentDashboard from "./pages/StudentDashboard";
+import StudentProfile from "./pages/StudentProfile";
+import LecturerDashboard from "./pages/LecturerDashboard";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <nav>
-          <Link to="/login" style={{padding: 20}}>Login</Link>
-          <Link to="/studentdashboard" style={{padding: 20}}>Student Dashboard</Link>
-          <Link to="/studentprofile" style={{padding: 20}}>Student Profile</Link>
-          <Link to="/lecturerdashboard" style={{padding: 20}}>Lecturer Dashboard</Link>
-        </nav>
+        <Navbar variant="dark" style={{ padding: 20 }}>
+          {/* add logo */}
+          <Navbar.Brand>UNISA</Navbar.Brand>
+          <nav>
+            <Link to="/login"  className="navButtons">
+              Login
+            </Link>
+          </nav>
+          <nav className="navBlock">
+            <Link to="/studentdashboard" className="navButtons">
+              Student Dashboard
+            </Link>
+          </nav>
+          <nav className="navBlock">
+            <Link to="/studentprofile"  className="navButtons">
+              Student Profile
+            </Link>
+          </nav>
+          <nav className="navBlock">
+            <Link to="/lecturerdashboard"  className="navButtons">
+              Lecturer Dashboard
+            </Link>
+          </nav>
+        </Navbar>
         <Routes>
-          <Route path="/studentdashboard" element={<StudentDashboard/>}/>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/studentprofile" element={<StudentProfile/>}/>
-          <Route path="/lecturerdashboard" element={<LecturerDashboard/>}/>
+          <Route path="/studentdashboard" element={<StudentDashboard />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/studentprofile" element={<StudentProfile />} />
+          <Route path="/lecturerdashboard" element={<LecturerDashboard />} />
         </Routes>
       </Router>
     </div>
-
   );
 }
 
