@@ -16,7 +16,6 @@ import './styles/index.css';
 import './styles/login.css'
 import reportWebVitals from './reportWebVitals';
 import App from './App';
-import Login from './components/Login';
 // create root varible for root div
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // render root div

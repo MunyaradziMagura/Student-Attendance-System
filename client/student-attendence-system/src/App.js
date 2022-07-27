@@ -1,32 +1,32 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
+//import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import './styles/index.css';
 import Login from './components/Login';
+import StudentDashboard from './components/StudentDashboard';
+import StudentProfile from './components/StudentProfile';
+import LecturerDashboard from './components/LecturerDashboard';
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <nav style={{margin: 10}}>
-          <Link to="studentdashboard" style={{padding: 5}}>
-            Student Dashboard
-          </Link>
-              <Routes>
-                <Route path="studentdashboard" element={<StudentDashboard/>} />
-              </Routes>
+        <nav>
+          <Link to="/login" style={{padding: 20}}>Login</Link>
+          <Link to="/studentdashboard" style={{padding: 20}}>Student Dashboard</Link>
+          <Link to="/studentprofile" style={{padding: 20}}>Student Profile</Link>
+          <Link to="/lecturerdashboard" style={{padding: 20}}>Lecturer Dashboard</Link>
         </nav>
-      
-      </Router>        
-      <Login/>
+        <Routes>
+          <Route path="/studentdashboard" element={<StudentDashboard/>}/>
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/studentprofile" element={<StudentProfile/>}/>
+          <Route path="/lecturerdashboard" element={<LecturerDashboard/>}/>
+        </Routes>
+      </Router>
     </div>
-  );
-}
 
-function StudentDashboard() {
-  return (
-      <h2>Student Dashboard</h2>
-  )
+  );
 }
 
 export default App;
