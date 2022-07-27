@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 const Navigation = () => {
     return (
-      <Navbar variant="dark" style={{ padding: 20 }}>
+      <Navbar variant="dark" style={{ padding: 20}}>
       {/* add logo */}
       <Navbar.Brand>UNISA</Navbar.Brand>
       <nav>
