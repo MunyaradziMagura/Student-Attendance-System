@@ -3,11 +3,12 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import QRCode from '../components/QRCode'
+import StudentClasses from '../components/StudentClasses'
 function StudentHome() {
   return (
     <div>
       {/* nav */}
-      <StudentNavigation userName={"Tom"}></StudentNavigation>
+      <StudentNavigation userName={"Kursie"}></StudentNavigation>
       
       {/* body */}
       <Container>
@@ -19,7 +20,8 @@ function StudentHome() {
         <Container fluid>
       <Row>
         <Col>
-          <QRCode/>
+        <StudentClasses></StudentClasses>
+          {/* <QRCode/> */}
         </Col>
       </Row>
     </Container>
