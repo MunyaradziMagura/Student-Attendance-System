@@ -1,13 +1,9 @@
-import React from "react";
+import React from 'react';
 //import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import "./styles/index.css";
-import { Navbar } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.css";
-import Login from "./pages/Login";
-import StudentHome from "./pages/StudentHome";
-import Dashboard from "./pages/Dashboard";
-import Navigation from "./components/Navigation"
+import { BrowserRouter as Router, Routes, Route, Link, parsePath } from 'react-router-dom'
+import './styles/index.css';
+import Login from './pages/Login';
+
 function App() {
   return (
     <div className="App">
@@ -20,7 +16,9 @@ function App() {
           <Route path="/StudentHome" element={<StudentHome/>} />
         </Routes>
       </Router>
+      <Login />
     </div>
+
   );
 }
 
