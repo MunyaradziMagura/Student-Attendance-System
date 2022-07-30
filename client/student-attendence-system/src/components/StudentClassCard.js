@@ -15,7 +15,7 @@ const StudentClassCard = ({classesObject, varientList}) => {
     //  create card clickable background
     <ListGroup.Item onClick={() => alert("hello")} action variant={varientList[index + 1]} id="studentClasses">
         {/* create card */}
-        <Card  bg="primary" border={varientList[index -1]} style={{ width: '100%', top: "-2rem" }}>
+        <Card text={varientList[index].toLowerCase() === 'light' ? 'dark' : 'white'} bg="primary" border={varientList[index -1]} style={{ width: '100%', top: "-2rem" }}>
         
         {/* get class name  */}
         <Card.Header id="classDetails">{classesObject[key].Name}</Card.Header>
