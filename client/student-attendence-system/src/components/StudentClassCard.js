@@ -22,7 +22,7 @@ const StudentClassCard = ({classesObject, varientList}) => {
 
         {/* class details */}
         <ListGroup horizontal>
-        <ListGroup.Item id="classDetails" variant={varientList[index]}>Location</ListGroup.Item>
+        <ListGroup.Item id="classDetails" variant={varientList[index]}>Lecturer</ListGroup.Item>
         <ListGroup.Item id="classDetails" variant={varientList[index]}>{classesObject[key].LectureName}</ListGroup.Item>
         </ListGroup>
         {/* class date  */}
