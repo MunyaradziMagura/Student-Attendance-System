@@ -1,4 +1,4 @@
-function StudentProfile() {
+function StudentHome() {
   return (
     <div>
         <h2>Student Profile</h2>
@@ -6,4 +6,4 @@ function StudentProfile() {
   )
 }
 
-export default StudentProfile
+export default StudentHome
