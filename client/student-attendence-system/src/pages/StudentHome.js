@@ -2,6 +2,7 @@ import StudentNavigation from "../components/StudentNavigation"
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import QRCode from '../components/QRCode'
 function StudentHome() {
   return (
     <div>
@@ -14,8 +15,14 @@ function StudentHome() {
         {/* left */}
         <Col></Col>
         {/* body */}
-        <Col xs={10}>
-            hello world
+        <Col xs={12}>
+        <Container fluid>
+      <Row>
+        <Col className="bg-dark">
+          <QRCode/>
+        </Col>
+      </Row>
+    </Container>
         </Col>
         {/* right */}
         <Col></Col>
