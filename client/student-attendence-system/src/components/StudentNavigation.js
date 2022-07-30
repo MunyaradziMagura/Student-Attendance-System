@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { IoHome, IoPersonCircleOutline, IoBook } from "react-icons/io5";
+
 function CollapsibleExample(props) {
   return (
     <Navbar collapseOnSelect expand="lg" variant="dark" width>
