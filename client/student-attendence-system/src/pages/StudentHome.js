@@ -7,7 +7,7 @@ function StudentHome() {
   return (
     <div>
       {/* nav */}
-      <StudentNavigation userName={"Zack"}></StudentNavigation>
+      <StudentNavigation userName={"Tom"}></StudentNavigation>
       
       {/* body */}
       <Container>
@@ -18,7 +18,7 @@ function StudentHome() {
         <Col xs={12}>
         <Container fluid>
       <Row>
-        <Col className="bg-dark">
+        <Col>
           <QRCode/>
         </Col>
       </Row>
