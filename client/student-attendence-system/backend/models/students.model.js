@@ -22,5 +22,16 @@ const studentSchema = new Schema ({
         unique: false,
         trim: true
     },
-    timestamps: true
-})
+    program: {
+        type: String,
+        required: true,
+        unique: false,
+        trim: true
+    }, 
+}, {
+    timestamps: true,   
+});
+
+const Student = mongoose.model('Student', studentSchema)
+
+module.exports = Student;
