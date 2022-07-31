@@ -1,0 +1,30 @@
+/* page drop down links */
+#navPageLink {
+    font-size: 2rem;
+}
+#navPageLinkIcon{
+    position: relative;
+    top: -0.3rem;
+}
+
+/* student classes */
+#studentClasses{
+    top: 2rem;
+    color: #0052a0;
+    font-size: 2rem;
+
+}
+#classHeading, #classHeadingBall {
+    font-size: 2rem;
+    font-weight: bold;
+}
+#classHeading{
+    text-align: center;
+    text-indent: 0%;
+    color: #0052a0;
+}
+
+#classDetails{
+    width: 100%;
+
+}
