@@ -12,13 +12,13 @@ const courseSchema = new Schema ({
     courseCode: {
         type: String,
         required: true,
-        unique: false,
+        unique: true,
         trim: true
     },
     classes: {
         type: Object,
         required: true,
-        unique: true,
+        unique: false,
         trim: true
     },
     semester: {
