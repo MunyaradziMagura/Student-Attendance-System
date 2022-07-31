@@ -20,28 +20,28 @@ router.route('/add').post((req, res) => {
             });
         })
         .catch((error) => {
-            response.status(500).send("Error creating user")
+            res.status(500).send("Error creating user"),
+            error
         });
     });
 });
 
 router.route('/login').post((req, res) => {
     User.findOne({email: req.body.email})
-    .then((user) => {
-        bcrypt.compare(request.body.password, user.password)
-        .catch((error) => {
-            response.status(400).send({
-                message: "Password do not match",
+    .then((emailCheck)=>{
+        if(!emailCheck) {
+            return res.status(400).send({
+                message: "Emails do not match",
                 error,
-            })
+            });
+        }
+
+        res.status(200).send({
+            message: "Login Successful"
         })
+
     })
-    .catch((e) => {
-        res.status(404).send({
-            message: "Email not found",
-            e,
-        });
-    });
+
 })
 
 module.exports = router;
