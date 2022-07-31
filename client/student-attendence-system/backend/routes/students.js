@@ -1,9 +1,9 @@
 const router = require('express').Router();
-let user = require('../models/students.model');
+let student = require('../models/students.model');
 
 router.route('/').get((req, res) => {
     course.find()
-    .then(user => res.json(user))
+    .then(student => res.json(user))
     .catch(err => res.status(400).json('Error: ' + err))
 });
 
@@ -13,7 +13,7 @@ router.route('/add').post((req, res) => {
     const lastName = req.body.lastName;
     const program = req.body.program;
 
-    const new_user = new user({
+    const new_student = new student({
         userName,
         firstName,
         lastName,
@@ -21,7 +21,7 @@ router.route('/add').post((req, res) => {
     });
 
 
-    new_user.save()
+    new_student.save()
     .then(() => res.json('New User Added!'))
     .catch((err => res.status(400).json('Error: ' + err)))
 });
