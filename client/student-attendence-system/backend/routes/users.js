@@ -37,7 +37,7 @@ router.route('/login').post((req, res) => {
         })
     })
     .catch((e) => {
-        response.status(404).send({
+        res.status(404).send({
             message: "Email not found",
             e,
         });
