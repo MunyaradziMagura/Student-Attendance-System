@@ -20,7 +20,7 @@ function StudentHome() {
         <Container fluid>
       <Row>
         <Col>
-        <StudentClasses></StudentClasses>
+        <StudentClasses/>
           {/* <QRCode/> */}
         </Col>
       </Row>

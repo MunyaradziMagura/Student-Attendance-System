@@ -6,12 +6,15 @@ import Card from 'react-bootstrap/Card';
 import React from "react";
 const StudentClassCard = ({classesObject, varientList}) => {
     return (
+        
         <ListGroup>
+
         <ListGroup.Item className="d-flex justify-content-between align-items-start" id="classHeading">CLASSES <Badge id="classHeadingBall" bg="primary" pill>{Object.keys(classesObject).length}</Badge> </ListGroup.Item>
         {/* visualise students classes */}
         {
             // loop through object 
         Object.keys(classesObject).map((key, index) =>
+
     //  create card clickable background
     <ListGroup.Item onClick={() => alert("hello")} action variant={varientList[index + 1]} id="studentClasses">
         {/* create card */}
@@ -25,11 +28,13 @@ const StudentClassCard = ({classesObject, varientList}) => {
         <ListGroup.Item id="classDetails" variant={varientList[index]}>Lecturer</ListGroup.Item>
         <ListGroup.Item id="classDetails" variant={varientList[index]}>{classesObject[key].LectureName}</ListGroup.Item>
         </ListGroup>
+
         {/* class date  */}
         <ListGroup horizontal>
         <ListGroup.Item id="classDetails" variant={varientList[index]}>Class Date</ListGroup.Item>
         <ListGroup.Item id="classDetails" variant={varientList[index]}>{classesObject[key].Date}</ListGroup.Item>
         </ListGroup>
+
         {/* class location */}
         <ListGroup horizontal>
         <ListGroup.Item id="classDetails" variant={varientList[index]}>Location </ListGroup.Item>
