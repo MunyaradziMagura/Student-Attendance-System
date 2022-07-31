@@ -1,15 +1,27 @@
-function Login() {
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+
+const Login = () => {
   return (
     <div className="Login">
         <form>
             <h1>Login</h1>
             <div>
-                <label>Username:</label>
-                <input type="text" name="username" id="username"/>
+                <InputGroup className="mb-3">
+        <InputGroup.Text id="basic-addon3">
+        Username:
+        </InputGroup.Text>
+        <Form.Control id="basic-url" aria-describedby="basic-addon3" />
+      </InputGroup>
             </div>
             <div>
-                <label>Password:</label>
-                <input type="text" name="username" id="password"/>
+            <InputGroup className="mb-3">
+        <InputGroup.Text id="basic-addon3">
+        Password:
+        </InputGroup.Text>
+        <Form.Control id="basic-url" aria-describedby="basic-addon3" />
+      </InputGroup>
+                
             </div>
             <button type="Login">Login</button>
         </form>
