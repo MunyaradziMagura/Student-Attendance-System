@@ -23,9 +23,11 @@ connection.once('open', () => {
 //Imports the 'students' and 'courses' API route endpoints 
 const studentsRouter = require('./routes/students');
 const coursesRouter = require('./routes/courses');
+const userRouter = require('./routes/users')
 
 app.use('/students', studentsRouter);
 app.use('/courses', coursesRouter);
+app.use('/users', userRouter)
 
 app.listen(port, () =>{
     console.log(`Server is running on port: ${port}`);
