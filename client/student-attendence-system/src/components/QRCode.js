@@ -30,7 +30,7 @@ function QRCode(props) {
           <Card.Text style={{color: "white"}}>
           To draw on software engineering principles, practices and research methods and apply professional skills to produce an agreed upon software artefact for a client, while working in a project team.
           </Card.Text>
-          <Button variant="primary">Generate New Code</Button>
+          <Button variant="primary">Download Qr</Button>
         </Card.Body>
       </Card>
     </div>
