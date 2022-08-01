@@ -1,10 +1,12 @@
-const router = require('express').Router();
-let user = require('../models/users.model');
-const bcrypt = require('bcrypt');
-const jwt = require("jsonwebtoken");
-const User = require('../models/users.model');
+import express from "express"
 
-router.route('/add').post((req, res) => {
+const usersRouter = express.Router();
+import user from '../models/users.model.js';
+import bcrypt from 'bcrypt';
+//import jwt = require("jsonwebtoken");
+import User from '../models/users.model.js';
+
+usersRouter.route('/add').post((req, res) => {
     bcrypt
     .hash(req.body.password, 10)
     .then((hashedPassword) => {
@@ -26,7 +28,7 @@ router.route('/add').post((req, res) => {
     });
 });
 
-router.route('/login').post((req, res) => {
+usersRouter.route('/login').post((req, res) => {
     User.findOne({email: req.body.email})
     .then((emailCheck)=>{
         if(!emailCheck) {
@@ -44,5 +46,4 @@ router.route('/login').post((req, res) => {
 
 })
 
-module.exports = router;
-
+export default usersRouter

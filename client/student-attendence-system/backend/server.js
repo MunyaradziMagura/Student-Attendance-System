@@ -1,8 +1,12 @@
-const express = require("express"); //
-const cors = require("cors");
-const mongoose = require("mongoose");
+import express from "express"; //
+import cors from "cors";
+import mongoose from "mongoose";
+import dotenv from "dotenv"
+import studentRouter from "./routes/students.js"
+import coursesRouter from "./routes/courses.js"
+import usersRouter from "./routes/users.js"
 
-require('dotenv').config() //Require statement to import the .env settings file
+dotenv.config() //Require statement to import the .env settings file
 
 const app = express();
 const port = process.env.PORT || 5000; //Run the backend on port 5000
@@ -21,13 +25,13 @@ connection.once('open', () => {
 });
 
 //Imports the 'students' and 'courses' API route endpoints 
-const studentsRouter = require('./routes/students');
-const coursesRouter = require('./routes/courses');
-const userRouter = require('./routes/users')
+//const studentsRouter = require('./routes/students');
+//const coursesRouter = require('./routes/courses');
+//const userRouter = require('./routes/users')
 
-app.use('/students', studentsRouter);
+app.use('/students', studentRouter);
 app.use('/courses', coursesRouter);
-app.use('/users', userRouter)
+app.use('/users', usersRouter)
 
 app.listen(port, () =>{
     console.log(`Server is running on port: ${port}`);

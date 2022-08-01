@@ -1,13 +1,15 @@
-const router = require('express').Router();
-let student = require('../models/students.model');
+import express from "express"
 
-router.route('/').get((req, res) => {
+const studentRouter = express.Router()
+import Student from "../models/students.model.js"
+
+studentRouter.route('/').get((req, res) => {
     course.find()
-    .then(student => res.json(user))
+    .then(Student => res.json(user))
     .catch(err => res.status(400).json('Error: ' + err))
 });
 
-router.route('/add').post((req, res) => {
+studentRouter.route('/add').post((req, res) => {
     const userName = req.body.userName;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
@@ -26,4 +28,4 @@ router.route('/add').post((req, res) => {
     .catch((err => res.status(400).json('Error: ' + err)))
 });
 
-module.exports = router;
+export default studentRouter
