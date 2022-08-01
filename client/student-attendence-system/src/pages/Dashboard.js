@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import YourCourseTable from '../components/YourCourseTable.component';
+import YourCourse from '../components/YourCourse';
 function Dashboard() {
     return (
       <div>
@@ -11,7 +11,7 @@ function Dashboard() {
           <Col sm={8} style={{backgroundColor: 'pink' }}>2 of 2</Col>
         </Row>
       </Container>
-      <YourCourseTable/>
+      <YourCourse/>
       </div>
     );
 }
