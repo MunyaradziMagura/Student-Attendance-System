@@ -6,13 +6,14 @@ import './styles/login.css'
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter } from 'react-router-dom';
 
 // create root varible for root div
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // render root div
 root.render(
   <React.StrictMode>
-    <App />
+      <App />
   </React.StrictMode>
 );
 

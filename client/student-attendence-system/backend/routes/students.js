@@ -4,8 +4,8 @@ const studentRouter = express.Router()
 import Student from "../models/students.model.js"
 
 studentRouter.route('/').get((req, res) => {
-    course.find()
-    .then(Student => res.json(user))
+    Student.find()
+    .then(Student => req.json(Student))
     .catch(err => res.status(400).json('Error: ' + err))
 });
 
@@ -15,7 +15,7 @@ studentRouter.route('/add').post((req, res) => {
     const lastName = req.body.lastName;
     const program = req.body.program;
 
-    const new_student = new student({
+    const new_student = new Student({
         userName,
         firstName,
         lastName,

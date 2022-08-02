@@ -1,10 +1,14 @@
 import express from "express"
-
+import app from "../server.js"
 const usersRouter = express.Router();
 import user from '../models/users.model.js';
 import bcrypt from 'bcrypt';
-//import jwt = require("jsonwebtoken");
 import User from '../models/users.model.js';
+
+
+usersRouter.route("/").get((req, res)=>{
+    res.send("Hello World")
+})
 
 usersRouter.route('/add').post((req, res) => {
     bcrypt
@@ -28,22 +32,23 @@ usersRouter.route('/add').post((req, res) => {
     });
 });
 
-usersRouter.route('/login').post((req, res) => {
-    User.findOne({email: req.body.email})
+//Currently only does the API call for checking of email contained in DB, not for password
+usersRouter.route('/Login').post((req, res) => {
+    User.findOne({email: req.body.email,
+    password: req.body.password})
+    
     .then((emailCheck)=>{
         if(!emailCheck) {
             return res.status(400).send({
-                message: "Emails do not match",
-                error,
+                message: "Emails do not match"
             });
         }
 
         res.status(200).send({
             message: "Login Successful"
         })
-
+        
     })
-
 })
 
 export default usersRouter
