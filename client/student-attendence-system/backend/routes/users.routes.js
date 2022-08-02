@@ -2,8 +2,6 @@ import express from "express"
 const usersRouter = express.Router();
 import bcrypt from 'bcrypt'
 import User from '../models/users.model.js';
-
-
 usersRouter.route("/").get((req, res)=>{
     res.send("Hello you're on the Users Backend page!")
 })
@@ -30,39 +28,43 @@ usersRouter.route('/add').post((req, res) => {
     });
 });
 
-//Currently only does the API call for checking of email contained in DB, not for password
-usersRouter.route('/Login').post( async (req, res) => {
+usersRouter.route('/Login').post(async(req, res) => {
 
     //Finding user from the database with matching credentials
-    const findUser = await User.findOne({
-        email: req.body.email,
-        password: req.body.password
-    })
+    const findUser = await User.collection.findOne(
+        {email: req.body.email},
+        {password: req.body.password})
+    
 
+        const isPasswordValid = bcrypt.compare(req.body.password, findUser.password, function(err, res) {
+                if(!isPasswordValid) {
+                    res.status(400).send("Invalid password!"),
+                    err
+                }
 
-    if(!findUser) {
-        return res.json({status: "Error", error: "Invalid Login!"})
-    }
+                if(isPasswordValid) {
+                    res.status(200).send("Password valid!")
+                }
+            })
+        
+    console.log("Request email:", req.body.email)
+    console.log("Request password:", req.body.password)
+    console.log("DB Email:", findUser.email)
+    console.log("DB Password:", findUser.password)
 
-    //console.log(findUser.email, req.body.email)
-
-
-    const isPasswordValid = bcrypt.compare(req.body.password, findUser.password, function(err, res) {
-        if(err) {
-            return res.json({status: "Error", error: "Invalid password!"})
-        }
-        else if(res) {
-            return res.json({status: "ok"})
-        }
-    })
-
-    console.log(req.body.password)
 
     if(isPasswordValid) {
-        return res.json({status: "ok", user: true})
+        res.status({status: "ok", user: true})
     } else {
-        return res.json({status: "error", user: false})
+        res.json({status: "error", user: false})
     }
+})
+
+    // if(findUser){
+    //     res.json({status: "ok"})
+    // } else if(!findUser){
+    //     res.json({status: "Error", error: "Invalid Login!"})
+    // }
     
     // .then((emailCheck)=>{
     //     if(!emailCheck) {
@@ -85,8 +87,5 @@ usersRouter.route('/Login').post( async (req, res) => {
     //     }
     // })
 
-    console.log(findUser.email, findUser.hashedPassword)
-
-})
 
 export default usersRouter
