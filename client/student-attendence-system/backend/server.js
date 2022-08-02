@@ -4,9 +4,9 @@ import mongoose from "mongoose";
 import dotenv from "dotenv"
 import passport from 'passport-local';
 import bcrypt from 'bcrypt'
-import studentRouter from "./routes/students.js"
-import coursesRouter from "./routes/courses.js"
-import usersRouter from "./routes/users.js"
+import studentRouter from "./routes/students.routes.js"
+import coursesRouter from "./routes/courses.routes.js"
+import usersRouter from "./routes/users.routes.js"
 
 dotenv.config() //Require statement to import the .env settings file
 
@@ -30,12 +30,6 @@ app.use('/api/students', studentRouter);
 app.use('/api/courses', coursesRouter);
 app.use('/api/users', usersRouter)
 app.use("*", (req, res) => res.status(404).json({error: "not found"}))
-
-
-
-// app.listen(port, () =>{
-//     console.log(`Server is running on port: ${port}`);
-// });
 
 
 export default app;
