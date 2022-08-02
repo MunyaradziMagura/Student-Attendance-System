@@ -5,6 +5,9 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import React from "react";
 const StudentClassList = ({classes, varientList}) => {
+
+  
+
   return (
     <ListGroup>
         <ListGroup.Item className="d-flex justify-content-between align-items-start" id="classHeading">CLASSES <Badge id="classHeadingBall" bg="primary" pill>{classes.length}</Badge> </ListGroup.Item>
