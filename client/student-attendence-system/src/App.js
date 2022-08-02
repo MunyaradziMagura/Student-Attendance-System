@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
 import './styles/index.css';
 import Login from './components/Login';
+import Dashboard from './components/Dashboard';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
             Student Dashboard
           </Link>
               <Routes>
-                <Route path="studentdashboard" element={<StudentDashboard/>} />
+                <Route path="studentdashboard" element={<Dashboard/>} />
               </Routes>
         </nav>
       
