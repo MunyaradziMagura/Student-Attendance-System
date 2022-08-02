@@ -4,7 +4,11 @@ import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import React from "react";
+import StudentAttendenceGraph from './StudentAttendenceGraph'
+
 const StudentClassCard = ({classesObject, varientList}) => {
+    const [modalShow, setModalShow] = React.useState(false);
+
     return (
 
         <ListGroup>
@@ -16,7 +20,7 @@ const StudentClassCard = ({classesObject, varientList}) => {
         Object.keys(classesObject).map((key, index) =>
 
     // create card clickable background
-    <ListGroup.Item onClick={() => alert("hello")} action variant={varientList[index + 1]} id="studentClasses">
+    <ListGroup.Item onClick={() => setModalShow(true)} action variant={varientList[index + 1]} id="studentClasses">
         {/* create card */}
         <Card text={varientList[index].toLowerCase() === 'light' ? 'dark' : 'white'} bg="primary" border={varientList[index -1]} style={{ width: '100%', top: "-2rem" }}>
         
@@ -45,7 +49,10 @@ const StudentClassCard = ({classesObject, varientList}) => {
     </ListGroup.Item>
         )
         }
-        
+                <StudentAttendenceGraph
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        />
         </ListGroup>
     );
 }
