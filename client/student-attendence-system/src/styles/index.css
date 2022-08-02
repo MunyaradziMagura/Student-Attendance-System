@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +11,21 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h2 {
+  padding: 10px;
+}
+
+nav {
+  display: flex;
+  color: white;
+}
+
+a {
+  color: white;
+}
+Link{
+  background-color: red;
+  backgroundColor: 'red';
 }
