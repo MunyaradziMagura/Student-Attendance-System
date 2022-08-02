@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard'
 function App() {
   return (
     <div className="App">
+      <Route>
         <nav style={{margin: 10}}>
           <Link to="studentdashboard" style={{padding: 5}}>
             Student Dashboard
@@ -18,6 +19,7 @@ function App() {
                 <Route path="studentdashboard" element={<Dashboard/>} />
               </Routes>
         </nav>
+       </Router>
 
       
     </div>
