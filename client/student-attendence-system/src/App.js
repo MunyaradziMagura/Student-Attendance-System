@@ -5,6 +5,7 @@ import './styles/index.css';
 import Login from './pages/Login';
 import StudentHome from './pages/StudentHome'
 import Dashboard from './pages/Dashboard'
+import YourCourse from './pages/Dashboard-YourCourse';
 function App() {
   return (
     <div className="App">
@@ -14,7 +15,8 @@ function App() {
         <Routes>
           <Route path="/Login" element={<Login />} />
           <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/StudentHome" element={<StudentHome/>} />
+          <Route path="/Dashboard/YourCourse" element={<YourCourse />} />
+          <Route path="/StudentHome" element={<StudentHome/>} />          
         </Routes>
       </Router>
       

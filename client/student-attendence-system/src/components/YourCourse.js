@@ -19,7 +19,7 @@ function YourCourse(props){
         2: {Name: "Network Fundamentals", CategoryCode: "INFT 1012", Units: "4.5", StudyPeriod: "SP1"},
         3: {Name: "Problem Solving and Programming", CategoryCode: "COMP 1039", Units: "4.5", StudyPeriod: "SP2"}
     }
-    var result = {}
+    //var result = {}
     // let y = "SP1";
     // addList(coursesObject, y);
     // coursesObject.forEach(coursesObject => {
@@ -29,6 +29,7 @@ function YourCourse(props){
     // })
      return( <>
      <StudyPeriodDropDown></StudyPeriodDropDown>
+     <div/>
      <YourCourseTable classesObject={coursesObject}></YourCourseTable>
      </>) 
      

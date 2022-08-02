@@ -1,5 +1,5 @@
 import React from "react";
-import dashboarStyle from '../styles/lecturerdashboard.css';
+//import dashboarStyle from '../styles/lecturerdashboard.css';
 
 import Form from "react-bootstrap/Form"
 
