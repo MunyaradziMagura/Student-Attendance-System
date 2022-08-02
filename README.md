@@ -33,6 +33,7 @@ Package Dependencies
     npm install web-vitals
     npm install -g nodemon
     npm install qrcode
+    npm install recharts
 ```
 
 App.js imports
