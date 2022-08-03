@@ -1,14 +1,17 @@
-const express = require("express"); //
-const cors = require("cors");
-const mongoose = require("mongoose");
+import express from "express"; //
+import cors from "cors";
+import mongoose from "mongoose";
+import dotenv from "dotenv"
+import studentRouter from "./api/students.routes.js"
+import coursesRouter from "./api/courses.routes.js"
+import usersRouter from "./api/users.routes.js"
 
-require('dotenv').config() //Require statement to import the .env settings file
+dotenv.config() //Require statement to import the .env settings file
 
 const app = express();
-const port = process.env.PORT || 5000; //Run the backend on port 5000
+const port = process.env.PORT || 8000
 
 app.use(cors())
-app.get("/", (req, res) => res.send("Hello!"))
 app.use(express.json())
 
 const uri = process.env.URI;
@@ -21,12 +24,12 @@ connection.once('open', () => {
 });
 
 //Imports the 'students' and 'courses' API route endpoints 
-const studentsRouter = require('./routes/students');
-const coursesRouter = require('./routes/courses');
+app.use('/api/students', studentRouter);
+app.use('/api/courses', coursesRouter);
+app.use('/api/users', usersRouter)
+//app.use('/', (req, res)=> res.status(200).json({res: "Welcome to the Backend!"}))
+//app.use("*", (req, res) => res.status(404).json({error: "page not found"})) //if navigation to non-existent route
 
-app.use('/students', studentsRouter);
-app.use('/courses', coursesRouter);
-
-app.listen(port, () =>{
-    console.log(`Server is running on port: ${port}`);
-});
+app.listen(port, () => {
+    console.log(`Server is running on: ${port}`)
+})
