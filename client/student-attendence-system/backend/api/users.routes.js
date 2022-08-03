@@ -35,7 +35,8 @@ usersRouter.route('/add').post((req, res) => {
 
 usersRouter.route('/Login').post(async(request, result) => {
 
-        const findUser = {then(resolve, reject) {
+        const findUser = {
+            then(resolve, reject) {
             resolve(User.collection.findOne(
             {email: request.body.email},
             {password: request.body.password})
@@ -43,18 +44,17 @@ usersRouter.route('/Login').post(async(request, result) => {
         }
 
         var user = await findUser;
-        console.log(user);
-
         const validPassword = await bcrypt.compare(
             request.body.password,
             user.password
-        ); 
-
-        if(!validPassword)
-            return result.status(401).send({message: "Invalid Email or Password"});
-        else 
-            return result.status(200).send({message: "Login Successful!"})
+        );
         
+        if(!validPassword) {
+            return result.status(401).send({message: "Invalid Email or Password"});
+        } else {
+            return result.status(200).send({message: "Login Successful!"})
+        }
+
 });
     
 
