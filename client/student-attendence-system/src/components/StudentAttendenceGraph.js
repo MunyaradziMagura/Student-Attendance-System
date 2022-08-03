@@ -1,28 +1,25 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import AttendenceChart from './AttendenceChart';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import AttendenceChart from "./AttendenceChart";
 const StudentAttendenceGraph = (props) => {
-    return (
-        <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton >
-          <Modal.Title id="contained-modal-title-vcenter">
-            <b style={{color: "white"}}>Your Attendence</b>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          <b style={{ color: "white" }}>Your Attendence</b>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
         {/* visualise chart */}
-        <AttendenceChart/>   
-              
-        </Modal.Body>
-      </Modal>
+        <AttendenceChart />
+      </Modal.Body>
+    </Modal>
+  );
+};
 
-    )
-  }
-  
-  export default StudentAttendenceGraph
+export default StudentAttendenceGraph;
