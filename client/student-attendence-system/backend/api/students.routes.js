@@ -5,10 +5,10 @@ import Student from "../models/students.model.js"
 
 studentRouter.route('/').get((req, res) => {
     Student.find()
-    .then(Student => req.json(Student))
+    .then(student => res.json(student))
     .catch(err => res.status(400).json('Error: ' + err))
-});
-
+})
+    
 studentRouter.route('/add').post((req, res) => {
     const userName = req.body.userName;
     const firstName = req.body.firstName;

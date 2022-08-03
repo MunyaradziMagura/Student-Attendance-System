@@ -2,8 +2,11 @@ import express from "express"
 const usersRouter = express.Router();
 import bcrypt from 'bcrypt'
 import User from '../models/users.model.js';
+
 usersRouter.route("/").get((req, res)=>{
-    res.send("Hello you're on the Users Backend page!")
+    User.find()
+    .then(User => res.json(User))
+    .catch(err => res.status(400).json('Error: ' + err))
 })
 
 usersRouter.route('/add').post((req, res) => {
