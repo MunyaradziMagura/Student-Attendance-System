@@ -7,9 +7,7 @@ import React from "react";
 import StudentClassCard from './StudentClassCard'
 import StudentClassList from './StudentClassList'
 // import image from '../'
-function StudentClasses(props) {
-    const width = window.screen.width;
-    const height = window.screen.height;
+function StudentClasses({width}) {
 
     let classesObject = {
         1: {Name: "Web Technology", LectureName: "Erica", Date: "2/2/2020", Location: "mawson"}, 

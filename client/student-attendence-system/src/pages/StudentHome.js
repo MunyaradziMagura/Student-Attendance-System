@@ -16,7 +16,7 @@ function StudentHome(props) {
       pageComponent = <QRCode/>;
       break;
     case "Classes":
-      pageComponent = <StudentClasses/>;
+      pageComponent = <StudentClasses width={window.screen.width}/>;
       break;
     default:
       pageComponent = <QRCode/>;
@@ -36,7 +36,7 @@ function StudentHome(props) {
         <Container fluid>
       <Row>
         <Col>
-        
+        {/* load the right page */}
           {pageComponent}
 
         </Col>
