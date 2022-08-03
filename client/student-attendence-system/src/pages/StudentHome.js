@@ -4,21 +4,28 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import QRCode from '../components/QRCode'
 import StudentClasses from '../components/StudentClasses'
+import React from "react";
 function StudentHome(props) {
-  const url = window.location.href;
-  const getPage = url.split("#");
+  // load different components depending on the page 
+  const [page, setPage] = React.useState();
   let pageComponent;
-  if(getPage[1] === "home"){
-    pageComponent = <QRCode/>;
-  }else if (getPage[1] === "Classes"){
-    pageComponent = <StudentClasses/>;
-  }else{
-    pageComponent = <QRCode/>;
+  
+  // which page has been selected
+  switch (page){
+    case "Home":
+      pageComponent = <QRCode/>;
+      break;
+    case "Classes":
+      pageComponent = <StudentClasses/>;
+      break;
+    default:
+      pageComponent = <QRCode/>;
   }
+  
   return (
     <div style={{paddingTop: "2rem" }}>
       {/* nav */}
-      <StudentNavigation userName={"Kursie"}></StudentNavigation>
+      <StudentNavigation userName={"Kursie"} setPage={setPage}></StudentNavigation>
       {/* body */}
       <Container>
       <Row>

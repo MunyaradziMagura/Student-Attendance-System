@@ -11,7 +11,7 @@ const StudentClassList = ({classes, varientList}) => {
 
 
   return (
-    <ListGroup>
+    <ListGroup style={{paddingTop: "3rem", paddingBottom: "3rem"}}>
         <ListGroup.Item className="d-flex justify-content-between align-items-start" id="classHeading">CLASSES <Badge id="classHeadingBall" bg="primary" pill>{classes.length}</Badge> </ListGroup.Item>
         {/* visualise students classes */}
         {
