@@ -26,9 +26,14 @@ function CollapsibleExample({ userName, setPage }) {
             >
               <IoHome id="navPageLinkIcon" /> Home
             </Nav.Link>
-            <Nav.Link href="#Profile" id="navPageLink">
+            <Nav.Link
+              href="#Profile"
+              id="navPageLink"
+              onClick={() => setPage("Profile")}
+            >
               <IoPersonCircleOutline id="navPageLinkIcon" /> Profile
             </Nav.Link>
+
             <Nav.Link
               href="#Classes"
               id="navPageLink"

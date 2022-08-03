@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import QRCode from "../components/QRCode";
 import StudentClasses from "../components/StudentClasses";
+import UserProfile from "../components/UserProfile";
 import React from "react";
 function StudentHome(props) {
   // load different components depending on the page
@@ -18,6 +19,10 @@ function StudentHome(props) {
     case "Classes":
       pageComponent = <StudentClasses width={window.screen.width} />;
       break;
+    case "Profile":
+      pageComponent = <UserProfile />;
+      break;
+
     default:
       pageComponent = <QRCode />;
   }
