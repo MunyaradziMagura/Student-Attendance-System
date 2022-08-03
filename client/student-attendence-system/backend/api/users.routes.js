@@ -3,6 +3,7 @@ const usersRouter = express.Router();
 import bcrypt from 'bcrypt'
 import User from '../models/users.model.js';
 
+
 usersRouter.route("/").get((req, res)=>{
     User.find()
     .then(User => res.json(User))
@@ -31,37 +32,36 @@ usersRouter.route('/add').post((req, res) => {
     });
 });
 
-usersRouter.route('/Login').post(async(req, res) => {
 
-    //Finding user from the database with matching credentials
-    const findUser = await User.collection.findOne(
-        {email: req.body.email},
-        {password: req.body.password})
+usersRouter.route('/Login').post(async(request, result) => {
+
+        const findUser = {then(resolve, reject) {
+            resolve(User.collection.findOne(
+            {email: request.body.email},
+            {password: request.body.password})
+        )}
+        }
+
+        var user = await findUser;
+        console.log(user);
+
+        const validPassword = await bcrypt.compare(
+            request.body.password,
+            user.password
+        ); 
+
+        if(!validPassword)
+            return result.status(401).send({message: "Invalid Email or Password"});
+        else 
+            return result.status(200).send({message: "Login Successful!"})
+        
+});
     
 
-        const isPasswordValid = bcrypt.compare(req.body.password, findUser.password, function(err, res) {
-                if(!isPasswordValid) {
-                    res.status(400).send("Invalid password!"),
-                    err
-                }
-
-                if(isPasswordValid) {
-                    res.status(200).send("Password valid!")
-                }
-            })
         
-    console.log("Request email:", req.body.email)
-    console.log("Request password:", req.body.password)
-    console.log("DB Email:", findUser.email)
-    console.log("DB Password:", findUser.password)
+    
+    //Finding user from the database with matching credentials
 
-
-    if(isPasswordValid) {
-        res.status({status: "ok", user: true})
-    } else {
-        res.json({status: "error", user: false})
-    }
-})
 
     // if(findUser){
     //     res.json({status: "ok"})
