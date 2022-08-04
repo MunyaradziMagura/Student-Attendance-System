@@ -8,23 +8,20 @@ import {
   parsePath,
 } from "react-router-dom";
 import "./styles/index.css";
-
 import Login from "./pages/Login";
 import StudentHome from "./pages/StudentHome";
 import Dashboard from "./pages/Dashboard";
-
+import Navigation from "./components/Navigation";
 function App() {
   return (
     <div className="App">
       <Router>
-        <nav style={{ margin: 10 }}>
-          <Link to="studentdashboard" style={{ padding: 5 }}>
-            Student Dashboard
-          </Link>
-          <Routes>
-            <Route path="studentdashboard" element={<Dashboard />} />
-          </Routes>
-        </nav>
+        <Navigation />
+        <Routes>
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/StudentHome" element={<StudentHome />} />
+        </Routes>
       </Router>
     </div>
   );
