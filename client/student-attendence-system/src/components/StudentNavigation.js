@@ -10,8 +10,9 @@ function CollapsibleExample({ userName, setPage }) {
     <Navbar collapseOnSelect expand="lg" variant="dark">
       <Container>
         <Navbar.Brand
-          href="#home"
+          href="#Home"
           style={{ fontWeight: "bold", fontSize: "2rem" }}
+          onClick={() => setPage("Home")}
         >
           Welcome back {userName}!
         </Navbar.Brand>
