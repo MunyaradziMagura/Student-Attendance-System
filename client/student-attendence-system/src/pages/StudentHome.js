@@ -28,7 +28,7 @@ function StudentHome(props) {
   }
 
   return (
-    <div style={{ paddingTop: "2rem" }}>
+    <div style={{ paddingTop: "2rem", backgroundColor: "#0052a0" }}>
       {/* nav */}
       <StudentNavigation
         userName={"Kursie"}

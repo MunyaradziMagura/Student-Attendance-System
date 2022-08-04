@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #0052a0;
 }
 
 code {
@@ -20,6 +21,7 @@ h2 {
 nav {
   display: flex;
   color: white;
+  background-color: #0052a0;
 }
 
 a {
@@ -27,5 +29,4 @@ a {
 }
 Link{
   background-color: red;
-  backgroundColor: 'red';
 }
