@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
@@ -14,8 +14,10 @@ const userSchema = new Schema ({
         required: [true, "Please provide a password!"],
         unique: false,
         trim: true
-    }
+    },
+}, {
+    timestamps: true,   
 });
 
 const User = mongoose.model('Users', userSchema)
-module.exports = User
+export default User
