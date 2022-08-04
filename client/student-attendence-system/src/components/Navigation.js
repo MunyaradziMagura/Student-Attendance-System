@@ -11,21 +11,21 @@ const Navigation = () => {
     <Navbar variant="dark" style={{ padding: 20 }}>
       {/* add logo */}
       <Navbar.Brand>UNISA</Navbar.Brand>
-      <nav>
+      <Nav className="navBlock" style={{ paddingLeft: "1rem" }}>
         <Link to="/Login" className="navButtons">
           Login
         </Link>
-      </nav>
-      <nav className="navBlock">
+      </Nav>
+      <Nav className="navBlock" style={{ paddingLeft: "1rem" }}>
         <Link to="/Dashboard" className="navButtons">
           Student Dashboard
         </Link>
-      </nav>
-      <nav className="navBlock">
+      </Nav>
+      <Nav className="navBlock" style={{ paddingLeft: "1rem" }}>
         <Link to="/StudentHome" className="navButtons">
           Student Profile
         </Link>
-      </nav>
+      </Nav>
     </Navbar>
   );
 };
