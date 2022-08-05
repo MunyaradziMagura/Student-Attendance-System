@@ -5,7 +5,8 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import studentNavStyle from "../styles/student.css";
 import { IoHome, IoPersonCircleOutline, IoBook } from "react-icons/io5";
 import StudentHome from "../pages/StudentHome";
-function CollapsibleExample({ userName, setPage }) {
+
+function StudentNavigation({ userName, setPage }) {
   return (
     <Navbar collapseOnSelect expand="lg" variant="dark">
       <Container>
@@ -49,4 +50,4 @@ function CollapsibleExample({ userName, setPage }) {
   );
 }
 
-export default CollapsibleExample;
+export default StudentNavigation;
