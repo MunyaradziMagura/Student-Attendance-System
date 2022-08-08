@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import sty from '../styles/Dashboard.module.css'
 
 export default function Dashboard() {
-
+    //Using Hook for the direct to page 
     useEffect(() => {
         var dateList = document.getElementById("dateList")
         var prev = document.getElementById("prev")
@@ -71,7 +71,7 @@ export default function Dashboard() {
 
                 </div>
                 <div className={sty.navBox}>
-                    <div className={sty.navItem} href={"localhost:3000/Dashboard/YourCourse"}>
+                    <div className={sty.navItem} >
                         Your Courses
                     </div>
                     <div className={sty.navItem}>
@@ -128,6 +128,7 @@ export default function Dashboard() {
                     Lorem ipsum dolor sit amet,consectetur adipiscing elit.
                     Lorem ipsum dolor sit amet,consectetur adipiscing elit.
                     Lorem ipsum dolor sit amet,consectetur adipiscing elit.
+                    Graph Graph Graph Graph Graph Graph Graph Graph Graph  
                 </div>
 
 
