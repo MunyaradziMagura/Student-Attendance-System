@@ -8,24 +8,24 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 const Navigation = () => {
   return (
-    <Navbar variant="dark" style={{ padding: 20 }}>
-      {/* add logo */}
-      <Navbar.Brand>UNISA</Navbar.Brand>
-      <Nav className="navBlock" style={{ paddingLeft: "1rem" }}>
-        <Link to="/Login" className="navButtons">
-          Login
-        </Link>
-      </Nav>
-      <Nav className="navBlock" style={{ paddingLeft: "1rem" }}>
-        <Link to="/Dashboard" className="navButtons">
-          Student Dashboard
-        </Link>
-      </Nav>
-      <Nav className="navBlock" style={{ paddingLeft: "1rem" }}>
-        <Link to="/StudentHome" className="navButtons">
-          Student Profile
-        </Link>
-      </Nav>
+    <Navbar bg="light" variant="light" expand="lg">
+      <Container>
+        <Navbar.Brand>UNISA</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link to="/Login" href="/Login">
+              Login
+            </Nav.Link>
+            <Nav.Link to="/Dashboard" href="/Dashboard">
+              Lecturer Dashboard
+            </Nav.Link>
+            <Nav.Link to="/StudentHome" href="/StudentHome">
+              Student Home
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };

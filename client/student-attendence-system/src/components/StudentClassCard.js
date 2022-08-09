@@ -15,10 +15,10 @@ const StudentClassCard = ({ classesObject, varientList }) => {
         className="d-flex justify-content-between align-items-start"
         id="classHeading"
       >
-        CLASSES{" "}
+        CLASSES
         <Badge id="classHeadingBall" bg="primary" pill>
           {Object.keys(classesObject).length}
-        </Badge>{" "}
+        </Badge>
       </ListGroup.Item>
       {/* visualise students classes */}
       {
