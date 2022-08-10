@@ -4,6 +4,9 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import axios from "axios"
 
+
+const StudentAttendanceTable = ({classDate, className, attended}) => {
+
     return (
             <Table responsive striped bordered >
                 <thead style={{textAlign: "center"}}>
