@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table'
-import { IoCheckmarkCircleSharp, IoHandRight } from "react-icons/io5";
+import { IoCheckmarkCircleSharp,  IoCloseCircle} from "react-icons/io5";
 import Form from 'react-bootstrap/Form'
 import Stack from 'react-bootstrap/Stack'
 
 const StudentAttendanceTable = ({classDate, className, attended}) => {
 
+    {/*Mocked student attendance data to be used for populating the table*/}
     const attendanceData = {
         1: {Date: "17/08/2022", className: "Systems Architecture", attended: false, classType: "Lecture"},
         2: {Date: "25/08/2022", className: "Systems Architecture", attended: true, classType: "Tutorial"},
@@ -15,10 +16,11 @@ const StudentAttendanceTable = ({classDate, className, attended}) => {
         6: {Date: "11/10/2022", className: "IT Project 2", attended: true, classType: "Lecture"},
     }
     
-
     return (
         <div>
             <Stack direction="horizontal" gap={3}>
+
+                    {/*Form inputs for the course type dropdown box*/}
                     <Form.Label style={{paddingRight: 5, paddingTop: 5}}>Course:</Form.Label>
                     <Form.Select defaultValue={"Select Course"}>
                         <option>Systems Architecture</option>
@@ -27,6 +29,7 @@ const StudentAttendanceTable = ({classDate, className, attended}) => {
                         <option>Systems Analysis</option>
                     </Form.Select>
 
+                    {/*Form inputs for the class type dropdown box*/}
                     <Form.Label style={{paddingRight: 5, paddingTop: 5}}>Class Type:</Form.Label>
                     <Form.Select defaultValue={"Select Course"}>
                         <option>Tutorial</option>
@@ -49,11 +52,11 @@ const StudentAttendanceTable = ({classDate, className, attended}) => {
                         <tr>
                             <td>{attendanceData[key].Date}</td>
                             <td>{attendanceData[key].className}</td>
-                            <td>{attendanceData[key].attended ? <IoCheckmarkCircleSharp/> : ""}</td>
+                            {/*Ternary statement depending on the value of 'attended' a checkmark or cross icon will appear*/}
+                            <td>{attendanceData[key].attended ? <IoCheckmarkCircleSharp/> : <IoCloseCircle/>}</td>
                         </tr>      
                     ))    
                     }
-
                 </tbody>
             </Table>
         </div>
