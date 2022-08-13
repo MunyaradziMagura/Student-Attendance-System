@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table'
-import { IoCheckmarkCircleSharp,  IoCloseCircle} from "react-icons/io5";
+import { IoCheckmarkCircleSharp,  IoCloseCircle, IoSearch} from "react-icons/io5";
 import Form from 'react-bootstrap/Form'
 import Stack from 'react-bootstrap/Stack'
-import axios from 'axios'
+//import axios from 'axios'
 import Button from 'react-bootstrap/esm/Button';
 
 const StudentAttendanceTable = ({studentID}) => {
 
-    const getAttendance = () => {
-        axios({
-            method: "GET",
-            data: {
-                student: {
-                    requestID: studentID 
-                },
-                url: "http://localhost:5000/api/students/getAttendance"
-            }
-        }) .then((res) => (console.log(res)))
-    }
+    const [selection, setSelection] = useState()
+
+    //Commented out due to causing promise error in Developer console
+    // const getAttendance = () => {
+    //     axios({
+    //         method: "GET",
+    //         data: {
+    //             student: {
+    //                 requestID: studentID 
+    //             },
+    //             url: "http://localhost:5000/api/students/getAttendance"
+    //         }
+    //     }) .then((res) => (console.log(res)))
+    // }
 
     {/*Mocked student attendance data to be used for populating the table*/}
     const attendanceData = {
@@ -34,23 +37,23 @@ const StudentAttendanceTable = ({studentID}) => {
         <div>
             <Stack direction="horizontal" gap={3}>
                     {/*Form inputs for the course type dropdown box*/}
-                    <Form.Label style={{paddingRight: 5, paddingTop: 5}}>Course:</Form.Label>
-                    <Form.Select defaultValue={"Select Course"}>
-                        <option>Systems Architecture</option>
-                        <option>IT Project 2</option>
-                        <option>Data Structures</option>
-                        <option>Systems Analysis</option>
+                    <Form.Label style={{paddingRight: 5, paddingTop: 5, fontWeight: "bold"}}>Course:</Form.Label>
+                    <Form.Select defaultValue={"Select a Course"} onChange={(e) => setSelection(e.target.value)}> {
+                        Object.keys(attendanceData).map((key) => (
+                            <option>{attendanceData[key].className}</option>       
+                        ))
+                    }
                     </Form.Select>
 
                     {/*Form inputs for the class type dropdown box*/}
-                    <Form.Label style={{paddingRight: 5, paddingTop: 5}}>Class Type:</Form.Label>
+                    <Form.Label style={{paddingRight: 5, paddingTop: 5, fontWeight: "bold"}}>Class Type:</Form.Label>
                     <Form.Select defaultValue={"Select Course"}>
                         <option>Tutorial</option>
                         <option>Workshop</option>
                         <option>Practical</option>
                         <option>Lecture</option>
                     </Form.Select>
-                    <Button type="submit" onClick={getAttendance()}>Search</Button>
+                    <Button><IoSearch/></Button>
             </Stack>
             <Table responsive striped bordered >
                 <thead style={{textAlign: "center"}}>
