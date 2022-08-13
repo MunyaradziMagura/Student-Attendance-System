@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import StudentHome from "./pages/StudentHome";
 import Dashboard from "./pages/Dashboard";
 import Navigation from "./components/Navigation";
+
 function App() {
   return (
     <div className="App">
@@ -19,7 +20,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/Login" element={<Login />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/LecturerDashboard" element={<Dashboard />} />
           <Route path="/StudentHome" element={<StudentHome />} />
         </Routes>
       </Router>
