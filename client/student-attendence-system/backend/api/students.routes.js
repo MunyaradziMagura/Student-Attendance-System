@@ -32,5 +32,13 @@ studentRouter.route('/add').post((req, res) => {
     .catch((err => res.status(400).json('Error: ' + err)))
 });
 
+studentRouter.route('/getAttendance').get((request, result) => {
+
+    Student.find(request.body.studentID)
+
+    .then(student => result.json(student))
+    .catch(err=> result.status(400).json('Error: ' + err))
+})
+
 export default studentRouter
 

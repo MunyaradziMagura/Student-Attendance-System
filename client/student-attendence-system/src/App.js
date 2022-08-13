@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import StudentHome from "./pages/StudentHome";
 import Dashboard from "./pages/Dashboard";
 import Navigation from "./components/Navigation";
+
 import YourCourse from "./pages/Dashboard-YourCourse";
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/Login" element={<Login />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/LecturerDashboard" element={<Dashboard />} />
           <Route path="/Dashboard/YourCourse" element={<YourCourse />} />
           <Route path="/StudentHome" element={<StudentHome />} />
         </Routes>
