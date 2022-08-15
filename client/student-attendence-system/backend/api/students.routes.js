@@ -10,15 +10,19 @@ studentRouter.route('/').get((req, res) => {
 })
     
 studentRouter.route('/add').post((req, res) => {
+    const studentID = req.body.studentID;
     const userName = req.body.userName;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
+    const attendance = req.body.attendance;
     const program = req.body.program;
 
     const new_student = new Student({
+        studentID,
         userName,
         firstName,
         lastName,
+        attendance,
         program
     });
 
@@ -28,4 +32,13 @@ studentRouter.route('/add').post((req, res) => {
     .catch((err => res.status(400).json('Error: ' + err)))
 });
 
+studentRouter.route('/getAttendance').get((request, result) => {
+
+    Student.find(request.body.studentID)
+
+    .then(student => result.json(student))
+    .catch(err=> result.status(400).json('Error: ' + err))
+})
+
 export default studentRouter
+

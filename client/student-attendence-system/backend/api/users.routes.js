@@ -39,25 +39,28 @@ usersRouter.route('/Login').post(async(request, result) => {
             then(resolve, reject) {
             resolve(User.collection.findOne(
             {email: request.body.email},
-            {password: request.body.password})
-        )}
+            {password: request.body.password}),
+            )}
         }
 
         var user = await findUser;
+
+        {/*Have realise that if the request passed into the login contains invalid info, document will return null
+        Will need to figure out way to include error handling for when this occurs*/}
         const validPassword = await bcrypt.compare(
             request.body.password,
-            user.password
+            user.password 
         );
+
         
-        if(!validPassword) {
+
+        if(!validPassword || !validEmail) {
             return result.status(401).send({message: "Invalid Email or Password"});
         } else {
             return result.status(200).send({message: "Login Successful!"})
         }
-
 });
     
-
         
     
     //Finding user from the database with matching credentials

@@ -1,77 +1,79 @@
 import React, { useState, useEffect } from 'react';
-import sty from './dashboard.module.css'
-
+import sty from '../styles/Dashboard.module.css'
+import 'react-calendar/dist/Calendar.css'
+import Calendar from 'react-calendar';
 export default function Dashboard() {
+    //Using Hook for the direct to page 
+    // useEffect(() => {
+    //     var dateList = document.getElementById("dateList")
+    //     var prev = document.getElementById("prev")
+    //     var next = document.getElementById("next")
+    //     var h4 = document.getElementsByTagName("h4")[0]
+    //     var iNow = 0
+    //     prev.onclick = function () {
+    //         iNow--
+    //         calender(iNow)
+    //     }
+    //     next.onclick = function () {
+    //         iNow++
+    //         calender(iNow)
+    //     }
+    //     calender(iNow)
+    //     function calender(n) {
+    //         var date = new Date
+    //         var nowDate = date.getDate()
+    //         date.setMonth(date.getMonth() + n, 1)
+    //         var year = date.getFullYear()
+    //         var month = date.getMonth() + 1
 
-    useEffect(() => {
-        var dateList = document.getElementById("dateList")
-        var prev = document.getElementById("prev")
-        var next = document.getElementById("next")
-        var h4 = document.getElementsByTagName("h4")[0]
-        var iNow = 0
-        prev.onclick = function () {
-            iNow--
-            calender(iNow)
-        }
-        next.onclick = function () {
-            iNow++
-            calender(iNow)
-        }
-        calender(iNow)
-        function calender(n) {
-            var date = new Date
-            var nowDate = date.getDate()
-            date.setMonth(date.getMonth() + n, 1)
-            var year = date.getFullYear()
-            var month = date.getMonth() + 1
-
-            h4.innerHTML = year + "/" + month
-            var week = date.getDay()
-            var nowMonth = date.getMonth()
-            date.setMonth(nowMonth + 1, 0)
-            var allDays = date.getDate()
-            var str = ""
-            for (var i = 0; i < week; i++) {
-                str += "<li></li>"
-            }
-            for (var j = 1; j <= allDays; j++) {
-                if (n > 0) {
-                    if ((week + j) % 7 === 0 || (week + j) % 7 === 1) {
-                        str += `<li class='${sty.sun}'>${j}</li>`
-                    } else {
-                        str += "<li>" + j + "</li>"
-                    }
-                } else if (n < 0) {
-                    str += `<li class='${sty.ccc}'>` + j + "</li>"
-                } else {
-                    if (j < nowDate) {
-                        str += `<li class='${sty.ccc}'>` + j + "</li>"
-                    } else if (j === nowDate) {
-                        str += `<li class='${sty.red}'>` + j + "</li>"
-                    } else if ((week + j) % 7 === 0 || (week + j) % 7 === 1) {
-                        str += `<li class='${sty.ccc}'>` + j + "</li>"
-                    } else {
-                        str += "<li>" + j + "</li>"
-                    }
-                }
-            }
-            dateList.innerHTML = str
-        }
-    }, [])
-
+    //         h4.innerHTML = year + "/" + month
+    //         var week = date.getDay()
+    //         var nowMonth = date.getMonth()
+    //         date.setMonth(nowMonth + 1, 0)
+    //         var allDays = date.getDate()
+    //         var str = ""
+    //         for (var i = 0; i < week; i++) {
+    //             str += "<li></li>"
+    //         }
+    //         for (var j = 1; j <= allDays; j++) {
+    //             if (n > 0) {
+    //                 if ((week + j) % 7 === 0 || (week + j) % 7 === 1) {
+    //                     str += `<li class='${sty.sun}'>${j}</li>`
+    //                 } else {
+    //                     str += "<li>" + j + "</li>"
+    //                 }
+    //             } else if (n < 0) {
+    //                 str += `<li class='${sty.ccc}'>` + j + "</li>"
+    //             } else {
+    //                 if (j < nowDate) {
+    //                     str += `<li class='${sty.ccc}'>` + j + "</li>"
+    //                 } else if (j === nowDate) {
+    //                     str += `<li class='${sty.red}'>` + j + "</li>"
+    //                 } else if ((week + j) % 7 === 0 || (week + j) % 7 === 1) {
+    //                     str += `<li class='${sty.ccc}'>` + j + "</li>"
+    //                 } else {
+    //                     str += "<li>" + j + "</li>"
+    //                 }
+    //             }
+    //         }
+    //         dateList.innerHTML = str
+    //     }
+    // }, [])
+    var exampleData = {firstName: "Zackary", lastName: "Anderson"}
+    const[value, onChange] = useState(new Date());
 
     return (
         <div className={sty.box}>
 
             <div className={sty.left}>
-                <h2>
-                    Welcome Tom!
+                <h2 style={{textAlign: 'center'}}>
+                    Welcome {exampleData.firstName},
                 </h2>
                 <div className={sty.emailBox}>
 
                 </div>
                 <div className={sty.navBox}>
-                    <div className={sty.navItem}>
+                    <div className={sty.navItem} >
                         Your Courses
                     </div>
                     <div className={sty.navItem}>
@@ -81,7 +83,7 @@ export default function Dashboard() {
                         Student Search
                     </div>
                 </div>
-                <div className={sty.calendar} id='calendar'>
+                {/* <div className={sty.calendar} id='calendar'>
                     <div className={sty.calendarTop}>
                         <div id='prev' className={sty.prev}>
                             &lt;
@@ -101,6 +103,10 @@ export default function Dashboard() {
                         <li>Sa</li>
                     </ul>
                     <ul className={sty.dateList} id="dateList"></ul>
+                </div> */}
+
+                <div>
+                    <Calendar onChange={onChange} value={value}/>
                 </div>
                 <div className={sty.btn}>
                     Log Out
@@ -128,6 +134,7 @@ export default function Dashboard() {
                     Lorem ipsum dolor sit amet,consectetur adipiscing elit.
                     Lorem ipsum dolor sit amet,consectetur adipiscing elit.
                     Lorem ipsum dolor sit amet,consectetur adipiscing elit.
+                    Graph Graph Graph Graph Graph Graph Graph Graph Graph  
                 </div>
 
 
