@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD:src/components/Dashboard.jsx
 import sty from '../styles/Dashboard.module.css'
 
 export default function Dashboard() {
     //Using Hook for the direct to page 
+=======
+import sty from './dashboard.module.css'
+
+export default function Dashboard() {
+
+>>>>>>> parent of f3e10d1 (Merge branch 'main' into StudentHome):client/student-attendence-system/src/components/Dashboard.jsx
     useEffect(() => {
         var dateList = document.getElementById("dateList")
         var prev = document.getElementById("prev")
@@ -71,7 +78,7 @@ export default function Dashboard() {
 
                 </div>
                 <div className={sty.navBox}>
-                    <div className={sty.navItem} >
+                    <div className={sty.navItem}>
                         Your Courses
                     </div>
                     <div className={sty.navItem}>
@@ -128,7 +135,6 @@ export default function Dashboard() {
                     Lorem ipsum dolor sit amet,consectetur adipiscing elit.
                     Lorem ipsum dolor sit amet,consectetur adipiscing elit.
                     Lorem ipsum dolor sit amet,consectetur adipiscing elit.
-                    Graph Graph Graph Graph Graph Graph Graph Graph Graph  
                 </div>
 
 

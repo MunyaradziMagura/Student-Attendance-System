@@ -4,11 +4,6 @@ const Schema = mongoose.Schema;
 
 //Student schema file for validation of new student type documents
 const studentSchema = new Schema ({
-    studentID: {
-        type: String,
-        required: true,
-        unique: true
-    },
     userName: {
         type: String,
         required: true,
@@ -25,11 +20,6 @@ const studentSchema = new Schema ({
         type: String,
         required: true,
         unique: false,
-        trim: true
-    },
-    attendance: {
-        type: Object,
-        required: true,
         trim: true
     },
     program: {

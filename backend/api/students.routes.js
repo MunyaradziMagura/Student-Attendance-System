@@ -21,19 +21,15 @@ studentRouter.route('/detail/:id').get((req, res) => {
 });
 
 studentRouter.route('/add').post((req, res) => {
-    const studentID = req.body.studentID;
     const userName = req.body.userName;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
-    const attendance = req.body.attendance;
     const program = req.body.program;
 
     const new_student = new Student({
-        studentID,
         userName,
         firstName,
         lastName,
-        attendance,
         program
     });
 
