@@ -32,15 +32,23 @@ const StudentAttendanceTable = ({studentID}) => {
         5: {Date: "31/09/2022", className: "Systems Analysis", attended: true, classType: "Practical"},
         6: {Date: "11/10/2022", className: "IT Project 2", attended: true, classType: "Lecture"},
     }
+
     
+    let courses = new Set()
+    Object.keys(attendanceData).map((key) => (
+        courses.add(attendanceData[key].className)
+    ))
+
+    console.log(courses)
+
     return (
         <div>
             <Stack direction="horizontal" gap={3}>
                     {/*Form inputs for the course type dropdown box*/}
                     <Form.Label style={{paddingRight: 5, paddingTop: 5, fontWeight: "bold"}}>Course:</Form.Label>
-                    <Form.Select defaultValue={"Select a Course"} onChange={(e) => setSelection(e.target.value)}> {
-                        Object.keys(attendanceData).map((key) => (
-                            <option>{attendanceData[key].className}</option>       
+                    <Form.Select key={"courses"} defaultValue={"Select a Course"} onChange={(e) => setSelection(e.target.value) }> {
+                        Object.keys(courses).map((key) => (
+                            <option>{courses[key].className}</option>
                         ))
                     }
                     </Form.Select>
