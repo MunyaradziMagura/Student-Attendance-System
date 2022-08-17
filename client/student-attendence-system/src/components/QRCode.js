@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import qrcode from "qrcode";
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 // import image from '../'
 function QRCode(props) {
@@ -15,7 +15,6 @@ function QRCode(props) {
     date: String(new Date()),
   };
 
-
   const [src, setSrc] = useState("");
 
   useEffect(() => {
@@ -25,20 +24,22 @@ function QRCode(props) {
     axios({
       method: "GET",
       url: `http://localhost:5000/api/courses/detail/${courseId}`,
-    }).then((res) => {
-      console.log("res = ", res.data)
-
-      // create QR code
-      qrcode.toDataURL(JSON.stringify(res.data)).then(setSrc);
-    }).catch((err) => {
-      console.log("err = ", err)
-
     })
+      .then((res) => {
+        console.log("res = ", res.data);
+
+        // create QR code
+        qrcode.toDataURL(JSON.stringify(res.data)).then(setSrc);
+      })
+      .catch((err) => {
+        console.log("err = ", err);
+      });
   }, []);
 
+  // download QR code
   const base64ToBlob = (code) => {
-    var parts = code.split(';base64,');
-    var contentType = parts[0].split(':')[1];
+    var parts = code.split(";base64,");
+    var contentType = parts[0].split(":")[1];
     var raw = window.atob(parts[1]);
     var rawLength = raw.length;
     var uInt8Array = new Uint8Array(rawLength);
@@ -46,7 +47,7 @@ function QRCode(props) {
       uInt8Array[i] = raw.charCodeAt(i);
     }
     return new Blob([uInt8Array], {
-      type: contentType
+      type: contentType,
     });
   };
 
@@ -77,16 +78,21 @@ function QRCode(props) {
             methods and apply professional skills to produce an agreed upon
             software artefact for a client, while working in a project team.
           </Card.Text>
-          <Button onClick={() => {
-            let aLink = document.createElement('a');
-            let blob = base64ToBlob(src);
-            let evt = document.createEvent("HTMLEvents");
-            evt.initEvent("click", true, true);
-            aLink.download = "qrcode";
-            aLink.href = URL.createObjectURL(blob);
-            aLink.click();
-            aLink.remove();
-          }} variant="primary">Download Qr</Button>
+          <Button
+            onClick={() => {
+              let aLink = document.createElement("a");
+              let blob = base64ToBlob(src);
+              let evt = document.createEvent("HTMLEvents");
+              evt.initEvent("click", true, true);
+              aLink.download = "qrcode";
+              aLink.href = URL.createObjectURL(blob);
+              aLink.click();
+              aLink.remove();
+            }}
+            variant="primary"
+          >
+            Download Qr
+          </Button>
         </Card.Body>
       </Card>
     </div>
