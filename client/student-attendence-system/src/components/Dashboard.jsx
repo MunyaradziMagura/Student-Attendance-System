@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import sty from '../styles/Dashboard.module.css'
 import 'react-calendar/dist/Calendar.css'
 import Calendar from 'react-calendar';
+import StudentAttendanceTable from './StudentAttendanceTable';
 export default function Dashboard() {
     //Using Hook for the direct to page 
     // useEffect(() => {
@@ -203,6 +204,8 @@ export default function Dashboard() {
                             </tr>
                         </tbody>
                     </table>
+
+                    <StudentAttendanceTable/>
 
                 </div>
 
