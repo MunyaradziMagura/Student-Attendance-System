@@ -7,9 +7,11 @@ import { useEffect, useState } from "react";
 function QRCode(props) {
   // props should take in a person object
   const person = {
+    deviceFingerPrint: "712g321gv3",
     person: "munya",
     lastName: "magura",
     classID: 1234456789,
+    date: String(new Date()),
   };
 
   const [src, setSrc] = useState("");

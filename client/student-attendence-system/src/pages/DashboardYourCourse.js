@@ -1,4 +1,4 @@
-import DashYourCourse from '../components/Dashboard-YourCourse';
+import DashYourCourse from '../components/DashboardYourCourse';
 function DashboardYourCourse() {
     return (<>
       <DashYourCourse/>
