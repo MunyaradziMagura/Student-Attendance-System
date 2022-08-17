@@ -3,7 +3,7 @@ import React from 'react'
 import {useState} from 'react'
 import BarcodeReader from 'react-barcode-reader'
 
-function BarcodeReader() {
+function Test2() {
 
     const [result, setResult] = useState("")
     var array = []
@@ -34,4 +34,4 @@ function BarcodeReader() {
     )
 }
 
-export default BarcodeReader
+export default Test2
