@@ -10,6 +10,10 @@ usersRouter.route("/").get((req, res)=>{
     .catch(err => res.status(400).json('Error: ' + err))
 })
 
+function checkEmail(requestEmail, userEmail) {
+    return requestEmail === userEmail
+}
+
 usersRouter.route('/add').post((req, res) => {
     bcrypt
     .hash(req.body.password, 10)
@@ -35,7 +39,7 @@ usersRouter.route('/add').post((req, res) => {
 
 usersRouter.route('/Login').post(async(request, result) => {
 
-        const findUser = {
+        var findUser = {
             then(resolve, reject) {
             resolve(User.collection.findOne(
             {email: request.body.email},
@@ -45,16 +49,24 @@ usersRouter.route('/Login').post(async(request, result) => {
 
         var user = await findUser;
 
+        try {
+            if(user.email === null) {
+                user.email = ""
+            }
+        } catch(error) {
+            console.log("Invalid Email")
+            return result.status(401).send({message: "Invalid Email or Password"})
+        }
+
         {/*Have realise that if the request passed into the login contains invalid info, document will return null
         Will need to figure out way to include error handling for when this occurs*/}
-        const validPassword = await bcrypt.compare(
-            request.body.password,
-            user.password 
-        );
-
+        const validPassword = await bcrypt.compare(request.body.password, user.password)
         
+        
+        console.log(checkEmail(request.body.email, user.email))
+        console.log(request.body.password, user.password)
 
-        if(!validPassword || !validEmail) {
+        if(!validPassword || !checkEmail) {
             return result.status(401).send({message: "Invalid Email or Password"});
         } else {
             return result.status(200).send({message: "Login Successful!"})

@@ -16,10 +16,11 @@ function Login() {
         password: userPassword
       },
       //withCredentials: true, Need to fix this part so that auth is properly configured
-      url: "http://localhost:5000/api/users/Login",
+      url: "http://localhost:5001/api/users/Login",
     }) .then((res) => (console.log(res)))
 
   }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
