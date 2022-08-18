@@ -3,8 +3,17 @@ import Card from "react-bootstrap/Card";
 import qrcode from "qrcode";
 import { useEffect, useState } from "react";
 import DeviceFingerPrint from "./DeviceFingerPrint";
+
 // import image from '../'
 function QRCode(props) {
+  //  get device fingerprint
+  const [browserFingerPrint, setBrowserFingerPrint] = useState("");
+
+  // pass device finger print to hook
+  const passFingerPrint = (fingerprint) => {
+    setBrowserFingerPrint(browserFingerPrint);
+  };
+
   // props should take in a person object
   const person = {
     deviceFingerPrint: "712g321gv3",
@@ -26,6 +35,7 @@ function QRCode(props) {
       className="d-flex justify-content-around"
       style={{ paddingTop: "3rem", paddingBottom: "3rem" }}
     >
+      <DeviceFingerPrint passFingerPrint={passFingerPrint} />
       <Card
         border="info"
         style={{ width: "100%", backgroundColor: "transparent" }}
