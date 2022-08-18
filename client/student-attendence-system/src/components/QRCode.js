@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import qrcode from "qrcode";
 import { useEffect, useState } from "react";
-
+import DeviceFingerPrint from "./DeviceFingerPrint";
 // import image from '../'
 function QRCode(props) {
   // props should take in a person object
