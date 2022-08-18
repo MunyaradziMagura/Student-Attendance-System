@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import sty from '../styles/Dashboard.module.css'
 import YourCourse from './YourCourse';
+import YourCourseScreen from './YourCourseScreen';
 import StudentSearchProfile from './StudentSearchProfile';
 export default function Dashboard() {
 
@@ -117,8 +118,8 @@ export default function Dashboard() {
                 </div>
 
                 <div className={sty.rightDesc}>
-                    {/* <YourCourse/> */}
-                    <StudentSearchProfile/>
+                    <YourCourse/>
+                    {/* <StudentSearchProfile/> */}
                 </div>
 
             </div>
