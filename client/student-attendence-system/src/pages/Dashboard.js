@@ -5,10 +5,14 @@ import StudentAttendanceTable from "../components/StudentAttendanceTable";
 import BarcodeScanner from "../components/BarcodeScanner";
 //import YourCourse from '../components/YourCourse';
 import MainDash from "../components/Dashboard";
+import StudentSearchTable from "../components/StudentSearchTable";
+
 function Dashboard() {
   return (
     <>
-      <BarcodeScanner />
+    <StudentSearchTable/>
+      {/* <BarcodeScanner /> */}
+
       {/* <MainDash /> */}
       {/* <StudentAttendanceTable /> */}
     </>
