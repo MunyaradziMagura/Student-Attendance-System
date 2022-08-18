@@ -2,24 +2,14 @@ import React, { useEffect, useState }  from "react";
 import YourCourseTable from "./YourCourseTable";
 import Form from "react-bootstrap/Form"
 
-
-// function addList(props, result1){
-//     var result = {};
-//     let i = 0;
-//     while(i < props.coursesObject.length){
-//         if(this.props.coursesObject[i].StudyPeriod === result1){
-//             result.push(this.props.coursesObject[i])
-//         }
-//     }
-//     return result;
-// }
-
 function YourCourse(props){
     var coursesObject = {
         1: {Name: "System Architecture", CategoryCode: "COMP 3024", Units: "4.5", StudyPeriod: "SP1"},
         2: {Name: "Network Fundamentals", CategoryCode: "INFT 1012", Units: "4.5", StudyPeriod: "SP1"},
         3: {Name: "Problem Solving and Programming", CategoryCode: "COMP 1039", Units: "4.5", StudyPeriod: "SP2"}
     }
+
+
     const[filteredList, setFilteredList] = useState(coursesObject);
     const[selectedSP, setSP] = useState("");
     var filterBySP = (filteredData) => {
@@ -42,6 +32,8 @@ function YourCourse(props){
         var filtteredListData = filterBySP(coursesObject);
         setFilteredList(filtteredListData);
     }, [selectedSP]);
+
+
      return( <>
         <Form.Select value={selectedSP} onChange={handleSPChange}>
                 <option value = ""> All Study Period</option>
