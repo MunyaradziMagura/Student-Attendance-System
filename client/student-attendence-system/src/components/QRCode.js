@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import qrcode from "qrcode";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import DeviceFingerPrint from "./DeviceFingerPrint";
 // import image from '../'
 function QRCode(props) {
   // props should take in a person object
@@ -16,6 +16,14 @@ function QRCode(props) {
   };
 
   const [src, setSrc] = useState("");
+
+  // get Device fineger print
+  const [fingerPrint, setFingerprint] = useState();
+
+  const passFingerPrint = (data) => {
+    // set finger print
+    setFingerprint(data);
+  };
 
   useEffect(() => {
     // get courseDetail
@@ -56,6 +64,7 @@ function QRCode(props) {
       className="d-flex justify-content-around"
       style={{ paddingTop: "3rem", paddingBottom: "3rem" }}
     >
+      <DeviceFingerPrint passFingerPrint={passFingerPrint} />
       <Card
         border="info"
         style={{ width: "100%", backgroundColor: "transparent" }}
