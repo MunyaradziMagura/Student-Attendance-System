@@ -21,24 +21,6 @@ function StudentClasses({ width }) {
       Date: "2/2/2020",
       Location: "mawson",
     },
-    3: {
-      Name: "Data Structures Advance",
-      LectureName: "Zack",
-      Date: "2/2/2020",
-      Location: "mawson",
-    },
-    4: {
-      Name: "Security Architecture",
-      LectureName: "Munya",
-      Date: "2/2/2020",
-      Location: "mawson",
-    },
-    5: {
-      Name: "Hello Zack",
-      LectureName: "Munya",
-      Date: "Now",
-      Location: "city west",
-    },
   };
   let classes = [
     "Web Technology",

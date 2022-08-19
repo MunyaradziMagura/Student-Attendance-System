@@ -1,8 +1,30 @@
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Image from "react-bootstrap/Image";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 const UserProfile = () => {
+
+  const [userinfo, setUserinfo] = useState({});
+
+  useEffect(() => {
+    // get studentDetail
+    let studentId = "62f08e36ebeeca7a0fa46cc5";
+    // get studentDetail
+    axios({
+      method: "GET",
+      url: `http://localhost:5000/api/students/detail/${studentId}`,
+    }).then((res) => {
+      console.log("res = ", res.data)
+
+      setUserinfo(res.data);
+    }).catch((err) => {
+      console.log("err = ", err)
+
+    })
+  }, []);
+
   return (
     <div
       className="d-flex justify-content-around"
@@ -36,19 +58,19 @@ const UserProfile = () => {
           <ListGroup horizontal style={{ paddingTop: "1rem", width: "100%" }}>
             <ListGroup.Item>Name</ListGroup.Item>
             <ListGroup.Item style={{ width: "100%" }}>
-              Kursie Neutron
+              {userinfo.firstName} {userinfo.lastName}
             </ListGroup.Item>
           </ListGroup>
           <ListGroup horizontal style={{ paddingTop: "1rem" }}>
             <ListGroup.Item>ID</ListGroup.Item>
             <ListGroup.Item style={{ width: "100%" }}>
-              1234567890
+              {userinfo.studentID}
             </ListGroup.Item>
           </ListGroup>
           <ListGroup horizontal style={{ paddingTop: "1rem" }}>
             <ListGroup.Item>Program</ListGroup.Item>
             <ListGroup.Item style={{ width: "100%" }}>
-              Software Engineering
+            {userinfo.program}
             </ListGroup.Item>
           </ListGroup>
         </Card.Body>

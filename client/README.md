@@ -34,7 +34,6 @@ Package Dependencies
     npm install -g nodemon
     npm install qrcode
     npm install recharts
-    npm install react-calendar
 ```
 
 App.js imports
