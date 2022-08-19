@@ -19,9 +19,11 @@ function StudentHome(props) {
       // pageComponent = <QRCode />;
       pageComponent = <LogStudents />;
       break;
+
     case "Classes":
       pageComponent = <StudentClasses width={window.screen.width} />;
       break;
+
     case "Profile":
       pageComponent = <UserProfile />;
       break;

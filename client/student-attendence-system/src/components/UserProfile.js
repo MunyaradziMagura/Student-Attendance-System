@@ -2,28 +2,28 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Image from "react-bootstrap/Image";
 import { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 
-const UserProfile = () => {
-
+const UserProfile = ({ fullName, studentID, program }) => {
   const [userinfo, setUserinfo] = useState({});
+  // THIS NEEDS TO BE A PROP NOT CODED INTO HERE (not yelling XD just making sure its visible)
+  // useEffect(() => {
+  //   // get studentDetail
+  //   let studentId = "62f08e36ebeeca7a0fa46cc5";
+  //   // get studentDetail
+  //   axios({
+  //     method: "GET",
+  //     url: `http://localhost:5000/api/students/detail/${studentId}`,
+  //   })
+  //     .then((res) => {
+  //       console.log("res = ", res.data);
 
-  useEffect(() => {
-    // get studentDetail
-    let studentId = "62f08e36ebeeca7a0fa46cc5";
-    // get studentDetail
-    axios({
-      method: "GET",
-      url: `http://localhost:5000/api/students/detail/${studentId}`,
-    }).then((res) => {
-      console.log("res = ", res.data)
-
-      setUserinfo(res.data);
-    }).catch((err) => {
-      console.log("err = ", err)
-
-    })
-  }, []);
+  //       setUserinfo(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log("err = ", err);
+  //     });
+  // }, []);
 
   return (
     <div
@@ -58,20 +58,18 @@ const UserProfile = () => {
           <ListGroup horizontal style={{ paddingTop: "1rem", width: "100%" }}>
             <ListGroup.Item>Name</ListGroup.Item>
             <ListGroup.Item style={{ width: "100%" }}>
-              {userinfo.firstName} {userinfo.lastName}
+              {fullName}
             </ListGroup.Item>
           </ListGroup>
           <ListGroup horizontal style={{ paddingTop: "1rem" }}>
             <ListGroup.Item>ID</ListGroup.Item>
             <ListGroup.Item style={{ width: "100%" }}>
-              {userinfo.studentID}
+              {studentID}
             </ListGroup.Item>
           </ListGroup>
           <ListGroup horizontal style={{ paddingTop: "1rem" }}>
             <ListGroup.Item>Program</ListGroup.Item>
-            <ListGroup.Item style={{ width: "100%" }}>
-            {userinfo.program}
-            </ListGroup.Item>
+            <ListGroup.Item style={{ width: "100%" }}>{program}</ListGroup.Item>
           </ListGroup>
         </Card.Body>
         <Card.Footer
