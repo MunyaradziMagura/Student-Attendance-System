@@ -24,25 +24,25 @@ function QRCode(props) {
     // set finger print
     setFingerprint(data);
   };
+  // THIS DATA NEEDS TO BE TAKEN IN FROM AN OBJECT USING PROPS
+  // useEffect(() => {
+  //   // get courseDetail
+  //   let courseId = "62e619985c33f183596c0ac3";
+  //   // get courseDetail
+  //   axios({
+  //     method: "GET",
+  //     url: `http://localhost:5000/api/courses/detail/${courseId}`,
+  //   })
+  //     .then((res) => {
+  //       console.log("res = ", res.data);
 
-  useEffect(() => {
-    // get courseDetail
-    let courseId = "62e619985c33f183596c0ac3";
-    // get courseDetail
-    axios({
-      method: "GET",
-      url: `http://localhost:5000/api/courses/detail/${courseId}`,
-    })
-      .then((res) => {
-        console.log("res = ", res.data);
-
-        // create QR code
-        qrcode.toDataURL(JSON.stringify(res.data)).then(setSrc);
-      })
-      .catch((err) => {
-        console.log("err = ", err);
-      });
-  }, []);
+  //       // create QR code
+  //       qrcode.toDataURL(JSON.stringify(res.data)).then(setSrc);
+  //     })
+  //     .catch((err) => {
+  //       console.log("err = ", err);
+  //     });
+  // }, []);
 
   // download QR code
   const base64ToBlob = (code) => {
