@@ -5,7 +5,7 @@ import Student from "../models/students.model.js"
 
 studentRouter.route('/').get((req, res) => {
     Student.find()
-    .then(student => res.json(student))
+    .then((Student) => res.json(Student))
     .catch(err => res.status(400).json('Error: ' + err))
 })
     
