@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {IoLink} from "react-icons/io5"
 import Form from "react-bootstrap/Form"
 import Table from "react-bootstrap/esm/Table";
@@ -8,12 +8,35 @@ var courseDetail = {
     2: {Date: "26/04/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Practical"},
     3: {Date: "03/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Tutorial"},
     4: {Date: "10/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Seminar"},
-    5: {Date: "17/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Workshop"}
+    5: {Date: "17/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Workshop"},
+    6: {Date: "17/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Lecture"},
 }
 var studentList = {
     1: {studentName:"Michael Pham", studentID:"1234556789"}
 }
 const YourCourseScreen = () =>{
+    const[filteredList, setFilteredList] = useState(courseDetail);
+    const[selectedClass, setSelectedClass] = useState("");
+    var filterByClass = (filteredData) => {
+        if(!selectedClass){
+            return filteredData;
+        }
+        var filteredCourseDetail =  Object.keys(courseDetail).filter((id) => courseDetail[id].classType === selectedClass)
+        .reduce((obj, id) => {
+            return{
+                ...obj,
+                [id]: courseDetail[id]
+            };
+        }, {});
+        return filteredCourseDetail;
+    }
+    const handleClassTypeChange = (event) =>{
+        setSelectedClass(event.target.value);
+    };
+    useEffect(() =>{
+        var filtteredListData = filterByClass(courseDetail);
+        setFilteredList(filtteredListData);
+    }, [selectedClass]);
     return(
         <>
         <style type ="text/css">
@@ -34,7 +57,8 @@ const YourCourseScreen = () =>{
             <div>
                 <Stack direction="horizontal" gap={2}>
                     <h1>Class Type:</h1>
-                    <Form.Select style = {{width: '20rem'}}>
+                    <Form.Select style = {{width: '20rem'}} value={selectedClass} onChange={handleClassTypeChange}>
+                        <option value="">All</option>
                         <option value = "Lecture">Lecture</option>
                         <option value = "Practical">Practical</option>
                         <option value = "Tutorial">Tutorial</option>
@@ -55,7 +79,7 @@ const YourCourseScreen = () =>{
                 </thead>
                 <tbody>
                 {
-                Object.keys(courseDetail).map((key) => (
+                Object.keys(filteredList).map((key) => (
                     <tr>
                         <td style= {{textAlign:'center'}}>{courseDetail[key].Date}</td>
                         <td style= {{textAlign:'center'}}>{courseDetail[key].Time}</td>
