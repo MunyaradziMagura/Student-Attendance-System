@@ -4,6 +4,12 @@ const Schema = mongoose.Schema;
 
 //Student schema file for validation of new student type documents
 const studentSchema = new Schema ({
+
+    //type: determines the data type (e.g. string)
+    //required: if field is required or not
+    //unique: if field must be unique (similar to primary key)
+    //trim: removes leading and trailing whitespace
+    //timestamps: timestamps for document creation and updating
     studentID: {
         type: String,
         required: true,
@@ -42,6 +48,8 @@ const studentSchema = new Schema ({
     timestamps: true,   
 });
 
+//Creates a new model and 'students' collection in the MongoDB that conforms to this schema
 const Student = mongoose.model('Student', studentSchema)
 
+//Exports the schema for usage in the 'students.routes.js' file
 export default Student;

@@ -4,20 +4,24 @@ import bcrypt from 'bcrypt' //Bcrypt library for password hashing
 import User from '../models/users.model.js'; //Imports the 'User' type model for document validation
 
 
+//Default endpoint GET request that returns all user information contained in the 'users' collection
 usersRouter.route("/").get((req, res)=>{
     User.find()
     .then(User => res.json(User))
     .catch(err => res.status(400).json('Error: ' + err))
 })
 
+//Checks the request body email to the queried email and returns a boolean result when logging in
 function checkEmail(requestEmail, userEmail) {
     return requestEmail === userEmail
 }
 
 //Adds a new user into the 'user' collection of the MongoDB database
 usersRouter.route('/add').post((req, res) => {
+
+    //Bcrypt performs hashing of the provided password during user document creation
     bcrypt
-    .hash(req.body.password, 10)
+    .hash(req.body.password, 10) //hash the provided password and apply 10 rounds of salting
     .then((hashedPassword) => {
             const new_user = new User({
                 email: req.body.email,
@@ -74,4 +78,5 @@ usersRouter.route('/Login').post(async(request, result) => {
         }
 });
 
+//Exports the usersRouter to be used in the 'server.js' file
 export default usersRouter
