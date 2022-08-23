@@ -1,7 +1,7 @@
 import express from "express"
 const usersRouter = express.Router();
-import bcrypt from 'bcrypt'
-import User from '../models/users.model.js';
+import bcrypt from 'bcrypt' //Bcrypt library for password hashing
+import User from '../models/users.model.js'; //Imports the 'User' type model for document validation
 
 
 usersRouter.route("/").get((req, res)=>{
@@ -14,6 +14,7 @@ function checkEmail(requestEmail, userEmail) {
     return requestEmail === userEmail
 }
 
+//Adds a new user into the 'user' collection of the MongoDB database
 usersRouter.route('/add').post((req, res) => {
     bcrypt
     .hash(req.body.password, 10)
@@ -36,9 +37,10 @@ usersRouter.route('/add').post((req, res) => {
     });
 });
 
-
+//Performs login function when hitting the '/login' endpoint
 usersRouter.route('/Login').post(async(request, result) => {
 
+        //Performs lookup in the MongoDB database for the provided email and password
         var findUser = {
             then(resolve, reject) {
             resolve(User.collection.findOne(
@@ -47,10 +49,12 @@ usersRouter.route('/Login').post(async(request, result) => {
             )}
         }
 
+        //Stores the result of the MongoDB lookup
         var user = await findUser;
 
+        //Try catch to test for the case where an invalid/non-existent is queried
         try {
-            if(user.email === null) {
+            if(user.email === null) { //Sets the email to empty string if the email queried comes back as null
                 user.email = ""
             }
         } catch(error) {
@@ -58,52 +62,16 @@ usersRouter.route('/Login').post(async(request, result) => {
             return result.status(401).send({message: "Invalid Email or Password"})
         }
 
-        {/*Have realise that if the request passed into the login contains invalid info, document will return null
-        Will need to figure out way to include error handling for when this occurs*/}
+        //Performs validation on the user password and stored hashed password using the Bcrypt library
         const validPassword = await bcrypt.compare(request.body.password, user.password)
         
-        
-        console.log(checkEmail(request.body.email, user.email))
-        console.log(request.body.password, user.password)
-
+        //Checks the results for 'emailCheck' or 'validPassword'
+        //If either returns as 'false' return 401 response, else 200 OK
         if(!validPassword || !checkEmail) {
             return result.status(401).send({message: "Invalid Email or Password"});
         } else {
             return result.status(200).send({message: "Login Successful!"})
         }
 });
-    
-        
-    
-    //Finding user from the database with matching credentials
-
-
-    // if(findUser){
-    //     res.json({status: "ok"})
-    // } else if(!findUser){
-    //     res.json({status: "Error", error: "Invalid Login!"})
-    // }
-    
-    // .then((emailCheck)=>{
-    //     if(!emailCheck) {
-    //         return res.status(400).send({
-    //             message: "Emails do not match"
-    //         });
-    //     }
-
-    //     res.status(200).send({
-    //         message: "Login Successful"
-    //     })
-    
-    // })
-
-    // .then((passwordCheck)=>{
-    //     if(!passwordCheck){
-    //         return res.status(400).send({
-    //             message: "Passwords do not match"
-    //         });
-    //     }
-    // })
-
 
 export default usersRouter
