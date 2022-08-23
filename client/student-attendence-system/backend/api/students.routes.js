@@ -32,12 +32,13 @@ studentRouter.route('/add').post((req, res) => {
     .catch((err => res.status(400).json('Error: ' + err)))
 });
 
-studentRouter.route('/getAttendance').get((request, result) => {
+studentRouter.route('/getAttendance').get(async(request, result) => {
 
-    Student.find(request.body.studentID)
-
+    const attendance = await Student.findOne({studentID: request.body.studentID})
     .then(student => result.json(student))
     .catch(err=> result.status(400).json('Error: ' + err))
+
+    console.log(attendance)
 })
 
 export default studentRouter
