@@ -5,6 +5,7 @@ import Calendar from "react-calendar";
 import Button from "react-bootstrap/Button";
 import AttendanceTakingPopUp from "./AttendanceTakingPopUp";
 import YourCourse from "./YourCourse";
+import StudentAttendanceTable from "./StudentAttendanceTable";
 import StudentSearchProfile from "./StudentSearchProfile";
 import YourCourseScreen from "./YourCourseScreen";
 import Home from "./Home";
@@ -23,7 +24,7 @@ export default function Dashboard() {
       pageComponent = <YourCourse />;
       break;
     case "StudentAttendance":
-      pageComponent = <></>
+      pageComponent = <StudentAttendanceTable/>
       break;
     case "StudentSearch":
       pageComponent = <></>;
