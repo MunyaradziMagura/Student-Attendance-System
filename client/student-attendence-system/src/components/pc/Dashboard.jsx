@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import sty from "../styles/Dashboard.module.css";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
-import Button from "react-bootstrap/Button";
-import AttendanceTakingPopUp from "./AttendanceTakingPopUp";
 import YourCourse from "./YourCourse";
-import StudentSearchProfile from "./StudentSearchProfile";
-import YourCourseScreen from "./YourCourseScreen";
 import Home from "./Home";
 export default function Dashboard() {
  

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import AttendanceTakingPopUp from "./AttendanceTakingPopUp";
 import Button from "react-bootstrap/Button";
 import sty from "../styles/Dashboard.module.css";

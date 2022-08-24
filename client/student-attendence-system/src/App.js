@@ -3,9 +3,7 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  Link,
-  parsePath,
+  Route  
 } from "react-router-dom";
 import "./styles/index.css";
 import Login from "./pages/Login";

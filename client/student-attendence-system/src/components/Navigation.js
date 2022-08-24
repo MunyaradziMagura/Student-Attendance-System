@@ -1,10 +1,7 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-
 // routing
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 const Navigation = () => {
   return (
