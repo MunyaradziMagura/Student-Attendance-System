@@ -11,7 +11,7 @@ import {
 import "./styles/index.css";
 import Login from "./pages/Login";
 
-
+import Logout from "./pages/Logout";
 import StudentHome from "./pages/StudentHome";
 import Dashboard from "./pages/Dashboard";
 import Navigation from "./components/Navigation";
@@ -42,6 +42,10 @@ function App() {
             <RequireAuth> 
             <StudentHome />
           </RequireAuth>} />
+          <Route path="/Logout" element={
+            
+            <Logout />
+          } />
         </Routes>
       </Router>
     </div>
