@@ -3,18 +3,18 @@ import {IoLink} from "react-icons/io5"
 import Form from "react-bootstrap/Form"
 import Table from "react-bootstrap/esm/Table";
 import Stack from "react-bootstrap/Stack";
-var courseDetail = {
-    1: {Date: "19/04/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Lecture"},
-    2: {Date: "26/04/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Practical"},
-    3: {Date: "03/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Tutorial"},
-    4: {Date: "10/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Seminar"},
-    5: {Date: "17/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Workshop"},
-    6: {Date: "17/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Lecture"},
-}
-var studentList = {
-    1: {studentName:"Michael Pham", studentID:"1234556789"}
-}
-const YourCourseScreen = () =>{
+// var courseDetail = {
+//     1: {Date: "19/04/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Lecture"},
+//     2: {Date: "26/04/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Practical"},
+//     3: {Date: "03/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Tutorial"},
+//     4: {Date: "10/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Seminar"},
+//     5: {Date: "17/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Workshop"},
+//     6: {Date: "17/05/22", Time: "2:00pm - 4:00pm", Location: "MM2-03", classType: "Lecture"},
+// }
+// var studentList = {
+//     1: {studentName:"Michael Pham", studentID:"1234556789"}
+// }
+const YourCourseScreen = (courseDetail, studentList) =>{
     const[filteredList, setFilteredList] = useState(courseDetail);
     const[selectedClass, setSelectedClass] = useState("");
     var filterByClass = (filteredData) => {
