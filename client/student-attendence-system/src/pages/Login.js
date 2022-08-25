@@ -6,8 +6,7 @@ import {useState} from 'react'
 function Login() {
 
   const [userEmail, setEmail] = useState('')
-  const [userPassword, setPassword] = useState('')
-
+  const [userPassword, setPassword] = useState('')  
   const loginUser = () => {
     axios({
       method: "POST",
@@ -17,7 +16,10 @@ function Login() {
       },
       //withCredentials: true, Need to fix this part so that auth is properly configured
       url: "http://localhost:5001/api/users/Login",
-    }) .then((res) => (console.log(res)))
+    }) .then((res) => 
+    localStorage.setItem("login","yes")
+    
+    )
 
   }
 
