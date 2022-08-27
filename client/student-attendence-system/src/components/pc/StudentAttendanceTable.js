@@ -8,13 +8,11 @@ import Button from 'react-bootstrap/Button'
 const StudentAttendanceTable = ({ attendanceList }) => {
 
     attendanceList = {
-       0: {date: "22/08/22", className: "C++", attended: true, classType: "Lecture"},
-       1: {date: "23/08/22", className: "Web Technologies", attended: false, classType: "Practical"},
-       2: {date: "16/08/22", className: "IT Project 1", attended: true, classType: "Tutorial"},
-        3: {date: "16/08/22", className: "Computer Science", attended: true, classType: "Tutorial"},
+        // 0: {date: "22/08/22", className: "C++", attended: true, classType: "Lecture"},
+        // 1: {date: "23/08/22", className: "Web Technologies", attended: false, classType: "Practical"},
+        // 2: {date: "16/08/22", className: "IT Project 1", attended: true, classType: "Tutorial"},
+        // 3: {date: "16/08/22", className: "Computer Science", attended: true, classType: "Tutorial"},
     }
-
-    console.log(attendanceList)
 
     let uniqueCourses = new Set() //A set that only includes unique values for courses in the attendanceList object
     let uniqueClasses = new Set() //A set that only includes unique values for class types in the attendanceList object
@@ -88,9 +86,7 @@ const StudentAttendanceTable = ({ attendanceList }) => {
                                 {/* Populates the attendance table with data provided through props. If no data displays heading*/}
                                 {Object.keys(attendanceList).length === 0 ? 
                                     <tr>
-                                        <td></td>
-                                        <td>No data to display</td>
-                                        <td></td>
+                                        <td colSpan={3}>No Data to Display</td>
                                     </tr>
                                     :
                                     
