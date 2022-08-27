@@ -1,11 +1,16 @@
 import React from 'react'
-import {IoSearch} from "react-icons/io5";
+import { IoCheckmarkCircleSharp,  IoCloseCircle, IoSearch} from "react-icons/io5";
 import Table from 'react-bootstrap/esm/Table';
 import Stack from 'react-bootstrap/Stack'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 const StudentAttendanceTable = ({ attendanceList }) => {
+
+
+    attendanceList = {
+        1: {date: "22/08/22", className: "Systems Design", attended: true}
+    }
 
     return (
         <div>
@@ -35,18 +40,24 @@ const StudentAttendanceTable = ({ attendanceList }) => {
                     </thead>
                     <tbody style={{textAlign: "center"}}>
                         {/*  Table data will go here. Display message if no data exists, otherwise populate with data */}
-                        {/* {
-                        Object.keys(attendanceList).map((key) => (
-                            <tr>
-                                <td>{attendanceList[key].date}</td>
-                                <td>{attendanceList[key].className}</td>
-                                <td>{attendanceList[key].attended}</td>
-                            </tr>
-                        ))
-                    } */}
-                    <tr>
-                        <td>test</td>
-                    </tr>
+
+                                {attendanceList === undefined ? 
+                                    <h3 style={{padding: "10px"}}>No data to Display</h3>
+                                    :
+                                    
+                                    Object.keys(attendanceList).map((key) => ( 
+                                    <tr>
+                                        <td>{attendanceList[key].date}</td>
+                                        <td>{attendanceList[key].className}</td>
+                                        <td>{attendanceList[key].attended ? <IoCheckmarkCircleSharp/> : <IoCloseCircle/>}</td>
+                                    </tr>
+                                    ))
+                                }
+                            
+                        
+                    
+                
+                    
                     </tbody>
                 </Table>
         </div>
