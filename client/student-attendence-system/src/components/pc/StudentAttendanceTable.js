@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { IoCheckmarkCircleSharp,  IoCloseCircle, IoSearch} from "react-icons/io5";
 import Table from 'react-bootstrap/esm/Table';
 import Stack from 'react-bootstrap/Stack'
@@ -7,11 +7,15 @@ import Button from 'react-bootstrap/Button'
 
 const StudentAttendanceTable = ({ attendanceList }) => {
 
+    const [filterList, setFilteredList] = useState(attendanceList)
+    const [selectedCourse, setCourse] = useState("")
+
+
     attendanceList = {
-        // 0: {date: "22/08/22", className: "C++", attended: true, classType: "Lecture"},
-        // 1: {date: "23/08/22", className: "Web Technologies", attended: false, classType: "Practical"},
-        // 2: {date: "16/08/22", className: "IT Project 1", attended: true, classType: "Tutorial"},
-        // 3: {date: "16/08/22", className: "Computer Science", attended: true, classType: "Tutorial"},
+        0: {date: "22/08/22", className: "C++", attended: true, classType: "Lecture"},
+        1: {date: "23/08/22", className: "Web Technologies", attended: false, classType: "Practical"},
+        2: {date: "16/08/22", className: "IT Project 1", attended: true, classType: "Tutorial"},
+        3: {date: "16/08/22", className: "Computer Science", attended: true, classType: "Tutorial"},
     }
 
     let uniqueCourses = new Set() //A set that only includes unique values for courses in the attendanceList object
@@ -40,6 +44,28 @@ const StudentAttendanceTable = ({ attendanceList }) => {
         classList.push(classType)
     ))
 
+    const filterByCourse = (filteredAttendance) => {
+        if(!selectedCourse){
+            return filteredAttendance
+        }
+        var filteredData = Object.keys(attendanceList).filter((id) => attendanceList[id].className === selectedCourse)
+        .reduce((obj, id) => {
+            return {
+                ...obj,
+                [id]: attendanceList[id]
+            };
+        }, {})
+        return filteredData
+    }
+
+    const handleCourseChange = (event) => {
+        setCourse(event.target.value)
+    }
+
+    useEffect(() => {
+        var filteredData = filterByCourse(attendanceList)
+        setFilteredList(filteredData)
+    }, [selectedCourse])
 
     return (
         <div>
@@ -47,7 +73,7 @@ const StudentAttendanceTable = ({ attendanceList }) => {
                     {/*Form inputs for the course type dropdown box*/}
                     <Form.Label style={{paddingRight: 5, paddingTop: 5, fontWeight: "bold"}}>Course:</Form.Label>
 
-                    <Form.Select defaultValue={"default"}>
+                    <Form.Select defaultValue={"default"} onChange={handleCourseChange}>
                        
                         <option value="default" disabled>---Choose Course---</option>
                             {
