@@ -16,10 +16,11 @@ const StudentAttendanceTable = ({ attendanceList }) => {
 
 
     let uniqueCourses = new Set() //A set that only includes unique values for courses in the attendanceList object
-    let uniqueClasses = new Set()
+    let uniqueClasses = new Set() //A set that only includes unique values for class types in the attendanceList object
 
     let courseList = [] //Course array used to map the courses to 'Courses' dropdown UI element
-    let classList = []
+    let classList = [] //Class array used to map the courses to 'Class Type' dropdown UI element
+
     //Map each of the attendanceList courses to a unique set
     Object.keys(attendanceList).map((key) => (
         uniqueCourses.add(attendanceList[key].className)
@@ -50,7 +51,6 @@ const StudentAttendanceTable = ({ attendanceList }) => {
                     <Form.Select defaultValue={"default"}>
                        
                         <option value="default" disabled>---Choose Course---</option>
-
                             {
                                 Object.keys(courseList).map((key) => (
                                     <option>{courseList[key]}</option>
