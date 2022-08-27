@@ -7,24 +7,67 @@ import Button from 'react-bootstrap/Button'
 
 const StudentAttendanceTable = ({ attendanceList }) => {
 
-
     attendanceList = {
-        1: {date: "22/08/22", className: "Systems Design", attended: true}
+        0: {date: "22/08/22", className: "C++", attended: true, classType: "Lecture"},
+        1: {date: "23/08/22", className: "Web Technologies", attended: false, classType: "Practical"},
+        2: {date: "16/08/22", className: "IT Project 1", attended: true, classType: "Tutorial"},
+        3: {date: "16/08/22", className: "Computer Science", attended: true, classType: "Tutorial"},
     }
+
+
+    let uniqueCourses = new Set() //A set that only includes unique values for courses in the attendanceList object
+    let uniqueClasses = new Set()
+
+    let courseList = [] //Course array used to map the courses to 'Courses' dropdown UI element
+    let classList = []
+    //Map each of the attendanceList courses to a unique set
+    Object.keys(attendanceList).map((key) => (
+        uniqueCourses.add(attendanceList[key].className)
+    ))
+
+    //Map each of the attendanceList class types to a unique set
+    Object.keys(attendanceList).map((key) => (
+        uniqueClasses.add(attendanceList[key].classType)
+    ))
+    
+    //For each unique course value in the set, push all of into an array for mapping to 'Courses' UI element
+    uniqueCourses.forEach((course) => (
+        courseList.push(course)
+    ))
+
+    //For each unique class type value in the set, push all of into an array for mapping to 'Class Type' UI element
+    uniqueClasses.forEach((classType) => (
+        classList.push(classType)
+    ))
+
 
     return (
         <div>
             <Stack direction="horizontal" gap={3}>
                     {/*Form inputs for the course type dropdown box*/}
                     <Form.Label style={{paddingRight: 5, paddingTop: 5, fontWeight: "bold"}}>Course:</Form.Label>
-                    <Form.Select key={"courses"} defaultValue={"default"}>
+
+                    <Form.Select defaultValue={"default"}>
+                       
                         <option value="default" disabled>---Choose Course---</option>
+
+                            {
+                                Object.keys(courseList).map((key) => (
+                                    <option>{courseList[key]}</option>
+                                ))
+                            }
+                        
                     </Form.Select>
 
                     {/*Form inputs for the class type dropdown box*/}
                     <Form.Label style={{paddingRight: 5, paddingTop: 5, fontWeight: "bold"}}>Class Type:</Form.Label>
                     <Form.Select defaultValue={"default"}>
                         <option value="default" disabled>---Choose Class Type---</option>
+                        {
+                            Object.keys(classList).map((key) => (
+                                <option>{classList[key]}</option>
+                            ))
+                        }
                         
                     </Form.Select>
                     <Button><IoSearch/></Button>    
@@ -40,7 +83,8 @@ const StudentAttendanceTable = ({ attendanceList }) => {
                     </thead>
                     <tbody style={{textAlign: "center"}}>
                         {/*  Table data will go here. Display message if no data exists, otherwise populate with data */}
-
+                                
+                                {/* Populates the attendance table with data provided through props. If no data displays heading*/}
                                 {attendanceList === undefined ? 
                                     <h3 style={{padding: "10px"}}>No data to Display</h3>
                                     :
@@ -52,12 +96,7 @@ const StudentAttendanceTable = ({ attendanceList }) => {
                                         <td>{attendanceList[key].attended ? <IoCheckmarkCircleSharp/> : <IoCloseCircle/>}</td>
                                     </tr>
                                     ))
-                                }
-                            
-                        
-                    
-                
-                    
+                                }    
                     </tbody>
                 </Table>
         </div>
