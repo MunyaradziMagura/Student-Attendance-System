@@ -17,23 +17,24 @@ import Stack from "react-bootstrap/Stack";
 const YourCourseScreen = (courseDetail, studentList) =>{
     const[filteredList, setFilteredList] = useState(courseDetail);
     const[selectedClass, setSelectedClass] = useState("");
-    var filterByClass = (filteredData) => {
-        if(!selectedClass){
-            return filteredData;
-        }
-        var filteredCourseDetail =  Object.keys(courseDetail).filter((id) => courseDetail[id].classType === selectedClass)
-        .reduce((obj, id) => {
-            return{
-                ...obj,
-                [id]: courseDetail[id]
-            };
-        }, {});
-        return filteredCourseDetail;
-    }
+   
     const handleClassTypeChange = (event) =>{
         setSelectedClass(event.target.value);
     };
     useEffect(() =>{
+        var filterByClass = (filteredData) => {
+            if(!selectedClass){
+                return filteredData;
+            }
+            var filteredCourseDetail =  Object.keys(courseDetail).filter((id) => courseDetail[id].classType === selectedClass)
+            .reduce((obj, id) => {
+                return{
+                    ...obj,
+                    [id]: courseDetail[id]
+                };
+            }, {});
+            return filteredCourseDetail;
+        }
         var filtteredListData = filterByClass(courseDetail);
         setFilteredList(filtteredListData);
     }, [selectedClass]);
