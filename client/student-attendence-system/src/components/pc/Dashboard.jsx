@@ -4,8 +4,8 @@ import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import YourCourse from "./YourCourse";
 import Home from "./Home";
+import StudentAttendanceTable from "./StudentAttendanceTable";
 export default function Dashboard() {
- 
   var exampleData = { firstName: "Zackary", lastName: "Anderson" };
   const [value, onChange] = useState(new Date());
   // take attendance
@@ -19,7 +19,7 @@ export default function Dashboard() {
       pageComponent = <YourCourse />;
       break;
     case "StudentAttendance":
-      pageComponent = <></>
+      pageComponent = <StudentAttendanceTable />;
       break;
     case "StudentSearch":
       pageComponent = <></>;
@@ -37,9 +37,27 @@ export default function Dashboard() {
         </h2>
         <div className={sty.emailBox}></div>
         <div className={sty.navBox}>
-          <div className={sty.navItem} href="#YourCourse" onClick={() => setPage("YourCourse")}>Your Courses</div>
-          <div className={sty.navItem} href="#StudentAttendance" onClick={() => setPage("StudentAttendance")}>Student Attendance</div>
-          <div className={sty.navItem} href="#StudentSearch" onClick={() => setPage("StudentSearch")}>Student Search</div>
+          <div
+            className={sty.navItem}
+            href="#YourCourse"
+            onClick={() => setPage("YourCourse")}
+          >
+            Your Courses
+          </div>
+          <div
+            className={sty.navItem}
+            href="#StudentAttendance"
+            onClick={() => setPage("StudentAttendance")}
+          >
+            Student Attendance
+          </div>
+          <div
+            className={sty.navItem}
+            href="#StudentSearch"
+            onClick={() => setPage("StudentSearch")}
+          >
+            Student Search
+          </div>
           <Calendar onChange={onChange} value={value} />
         </div>
         <div className={sty.btn}>Log Out</div>
@@ -51,9 +69,7 @@ export default function Dashboard() {
           <div>Dashboard</div>
         </div>
 
-        <div className={sty.rightDesc}> 
-          {pageComponent}
-        </div>
+        <div className={sty.rightDesc}>{pageComponent}</div>
       </div>
     </div>
   );
