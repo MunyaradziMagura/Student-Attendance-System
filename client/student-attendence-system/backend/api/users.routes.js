@@ -74,7 +74,7 @@ usersRouter.route('/Login').post(async(request, result) => {
         if(!validPassword || !checkEmail) {
             return result.status(401).send({message: "Invalid Email or Password"});
         } else {
-            return result.status(200).send({message: "Login Successful!"})
+            return result.status(200).send({message: "Login Successful!",data:user})
         }
 });
 

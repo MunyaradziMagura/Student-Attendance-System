@@ -1,9 +1,19 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import { useNavigate } from 'react-router-dom'
 // routing
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 const Navigation = () => {
+  const navigate = useNavigate();
+  let email = localStorage.getItem("email")
+  const doLogout=(()=>{
+    localStorage.setItem("email","")
+    localStorage.setItem("login","")
+    navigate("/Logout")
+  })
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -21,7 +31,15 @@ const Navigation = () => {
               Student Home
             </Nav.Link>
           </Nav>
+          <NavDropdown title={email}  className="right-user-center">
+              <NavDropdown.Item href="#" onClick={
+                doLogout
+              }>LogOut</NavDropdown.Item>
+            
+            </NavDropdown>
         </Navbar.Collapse>
+
+       
       </Container>
     </Navbar>
   );
