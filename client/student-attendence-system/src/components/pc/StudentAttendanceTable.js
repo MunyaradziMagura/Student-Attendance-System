@@ -1,91 +1,132 @@
-import React, { useEffect, useState } from 'react'
-import Table from 'react-bootstrap/Table'
+import React, {useEffect, useState} from 'react'
 import { IoCheckmarkCircleSharp,  IoCloseCircle, IoSearch} from "react-icons/io5";
-import Form from 'react-bootstrap/Form'
+import Table from 'react-bootstrap/esm/Table';
 import Stack from 'react-bootstrap/Stack'
-//import axios from 'axios'
-import Button from 'react-bootstrap/esm/Button';
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
-const StudentAttendanceTable = ({studentID}) => {
+const StudentAttendanceTable = ({ attendanceList }) => {
 
-    const [selection, setSelection] = useState()
+    const [filterList, setFilteredList] = useState(attendanceList)
+    const [selectedCourse, setCourse] = useState("")
 
-    //Commented out due to causing promise error in Developer console
-    // const getAttendance = () => {
-    //     axios({
-    //         method: "GET",
-    //         data: {
-    //             student: {
-    //                 requestID: studentID 
-    //             },
-    //             url: "http://localhost:5000/api/students/getAttendance"
-    //         }
-    //     }) .then((res) => (console.log(res)))
-    // }
 
-    {/*Mocked student attendance data to be used for populating the table*/}
-    const attendanceData = {
-        1: {Date: "17/08/2022", className: "Systems Architecture", attended: false, classType: "Lecture"},
-        2: {Date: "25/08/2022", className: "Systems Architecture", attended: true, classType: "Tutorial"},
-        3: {Date: "13/09/2022", className: "Systems Architecture", attended: false, classType: "Workshop"},
-        4: {Date: "26/09/2022", className: "Data Structures", attended: true, classType: "Practical"},
-        5: {Date: "31/09/2022", className: "Systems Analysis", attended: true, classType: "Practical"},
-        6: {Date: "11/10/2022", className: "IT Project 2", attended: true, classType: "Lecture"},
+    attendanceList = {
+        0: {date: "22/08/22", className: "C++", attended: true, classType: "Lecture"},
+        1: {date: "23/08/22", className: "Web Technologies", attended: false, classType: "Practical"},
+        2: {date: "16/08/22", className: "IT Project 1", attended: true, classType: "Tutorial"},
+        3: {date: "16/08/22", className: "Computer Science", attended: true, classType: "Tutorial"},
     }
 
-    
-    let courses = new Set()
-    Object.keys(attendanceData).map((key) => (
-        courses.add(attendanceData[key].className)
+    let uniqueCourses = new Set() //A set that only includes unique values for courses in the attendanceList object
+    let uniqueClasses = new Set() //A set that only includes unique values for class types in the attendanceList object
+
+    let courseList = [] //Course array used to map the courses to 'Courses' dropdown UI element
+    let classList = [] //Class array used to map the courses to 'Class Type' dropdown UI element
+
+    //Map each of the attendanceList courses to a unique set
+    Object.keys(attendanceList).map((key) => (
+        uniqueCourses.add(attendanceList[key].className)
     ))
 
-    console.log(courses)
+    //Map each of the attendanceList class types to a unique set
+    Object.keys(attendanceList).map((key) => (
+        uniqueClasses.add(attendanceList[key].classType)
+    ))
+    
+    //For each unique course value in the set, push all of into an array for mapping to 'Courses' UI element
+    uniqueCourses.forEach((course) => (
+        courseList.push(course)
+    ))
+
+    //For each unique class type value in the set, push all of into an array for mapping to 'Class Type' UI element
+    uniqueClasses.forEach((classType) => (
+        classList.push(classType)
+    ))
+
+    const filterByCourse = (filteredAttendance) => {
+        if(!selectedCourse){
+            return filteredAttendance
+        }
+        var filteredData = Object.keys(attendanceList).filter((id) => attendanceList[id].className === selectedCourse)
+        .reduce((obj, id) => {
+            return {
+                ...obj,
+                [id]: attendanceList[id]
+            };
+        }, {})
+        return filteredData
+    }
+
+    const handleCourseChange = (event) => {
+        setCourse(event.target.value)
+    }
+
+    useEffect(() => {
+        var filteredData = filterByCourse(attendanceList)
+        setFilteredList(filteredData)
+    }, [selectedCourse])
 
     return (
         <div>
             <Stack direction="horizontal" gap={3}>
                     {/*Form inputs for the course type dropdown box*/}
                     <Form.Label style={{paddingRight: 5, paddingTop: 5, fontWeight: "bold"}}>Course:</Form.Label>
-                    <Form.Select key={"courses"} defaultValue={"Select a Course"} onChange={(e) => setSelection(e.target.value) }> {
-                        Object.keys(courses).map((key) => (
-                            <option>{courses[key].className}</option>
-                        ))
-                    }
+
+                    <Form.Select defaultValue={"default"} onChange={handleCourseChange}>
+                       
+                        <option value="default" disabled>---Choose Course---</option>
+                            {
+                                Object.keys(courseList).map((key) => (
+                                    <option>{courseList[key]}</option>
+                                ))
+                            }
+                        
                     </Form.Select>
 
                     {/*Form inputs for the class type dropdown box*/}
                     <Form.Label style={{paddingRight: 5, paddingTop: 5, fontWeight: "bold"}}>Class Type:</Form.Label>
-                    <Form.Select defaultValue={"Select Course"}>
-                        <option>Tutorial</option>
-                        <option>Workshop</option>
-                        <option>Practical</option>
-                        <option>Lecture</option>
+                    <Form.Select defaultValue={"default"}>
+                        <option value="default" disabled>---Choose Class Type---</option>
+                        {
+                            Object.keys(classList).map((key) => (
+                                <option>{classList[key]}</option>
+                            ))
+                        }
+                        
                     </Form.Select>
-                    <Button><IoSearch/></Button>
+                    <Button><IoSearch/></Button>    
             </Stack>
-            <Table responsive striped bordered >
-                <thead style={{textAlign: "center"}}>
-                    <tr>
-                        <th>Date</th>
-                        <th>Class Name</th>
-                        <th>Attended</th>
-                    </tr>
-                </thead>
-                <tbody style={{textAlign: "center"}}>
-                    {
-                    Object.keys(attendanceData).map((key) => (
-                        <tr>
-                            <td>{attendanceData[key].Date}</td>
-                            <td>{attendanceData[key].className}</td>
-                            {/*Ternary statement depending on the value of 'attended' a checkmark or cross icon will appear*/}
-                            <td>{attendanceData[key].attended ? <IoCheckmarkCircleSharp/> : <IoCloseCircle/>}</td>
-                        </tr>      
-                    ))    
-                    }
-                </tbody>
-            </Table>
-        </div>
-    )}
 
+                <Table responsive striped bordered>
+                    <thead style={{textAlign: "center"}}>
+                        <tr>
+                            <th>Date</th>
+                            <th>Class Name</th>
+                            <th>Attended</th>
+                        </tr>
+                    </thead>
+                    <tbody style={{textAlign: "center"}}>
+                        {/*  Table data will go here. Display message if no data exists, otherwise populate with data */}
+                                
+                                {/* Populates the attendance table with data provided through props. If no data displays heading*/}
+                                {Object.keys(attendanceList).length === 0 ? 
+                                    <tr>
+                                        <td colSpan={3}>No Data to Display</td>
+                                    </tr>
+                                    :
+                                    
+                                    Object.keys(attendanceList).map((key) => ( 
+                                    <tr>
+                                        <td>{attendanceList[key].date}</td>
+                                        <td>{attendanceList[key].className}</td>
+                                        <td>{attendanceList[key].attended ? <IoCheckmarkCircleSharp/> : <IoCloseCircle/>}</td>
+                                    </tr>
+                                    ))
+                                }    
+                    </tbody>
+                </Table>
+        </div>
+)}
 
 export default StudentAttendanceTable
