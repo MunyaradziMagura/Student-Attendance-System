@@ -1,12 +1,12 @@
 import service from "../../src/utils/request";
- 
+
 /**
- * for  login request 
+ * for  login request
  */
- 
+
 export function userLogin(data) {
   return service.request({
-    url: "users/login",
+    url: "students/Login",
     method: "POST",
     data,
   });
