@@ -33,7 +33,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/Login" element={<Login />} />
-          <Route path="/LecturerDashboard" element={
+          <Route path="/Dashboard" element={
            <RequireAuth> 
            <Dashboard />
          </RequireAuth>

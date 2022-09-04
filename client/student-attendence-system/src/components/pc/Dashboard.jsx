@@ -22,7 +22,7 @@ export default function Dashboard() {
       pageComponent = <StudentAttendanceTable />;
       break;
     case "StudentSearch":
-      pageComponent = <></>;
+      pageComponent = <></>; //Should load StudentSearchTable component
       break;
 
     default:
