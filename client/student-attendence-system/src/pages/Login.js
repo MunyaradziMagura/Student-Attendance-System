@@ -1,36 +1,28 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
+import { useState } from "react";
+import { userLogin } from "../utils/doRequest";
 import { useNavigate } from "react-router-dom";
-import { useRef, useState, useEffect } from "react";
-
 function Login() {
-  const navigate = useNavigate();
   const [userEmail, setEmail] = useState("");
   const [userPassword, setPassword] = useState("");
 
-  const loginUser = () => {
-    axios({
-      method: "POST",
-      data: {
-        email: userEmail,
-        password: userPassword,
-      },
-      //withCredentials: true, Need to fix this part so that auth is properly configured
-      url: "http://localhost:5000/api/users/Login",
-    })
-      .then((res) => console.log(res))
-      .catch((err) => {
-        console.log("err = ", err);
-        alert(err.response.data.message);
-      });
+  const navigate = useNavigate();
 
-    navigate("/Dashboard");
+  const loginUser = () => {
+    userLogin({
+      email: userEmail,
+      password: userPassword,
+    }).then((res) => {
+      localStorage.setItem("login", "yes");
+      localStorage.setItem("email", res.data.email);
+      navigate("/StudentHome");
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userEmail, userPassword);
   };
 
   return (

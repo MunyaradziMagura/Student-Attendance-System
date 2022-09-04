@@ -2,28 +2,13 @@ import React from "react";
 import {IoBan, IoCheckmarkCircle} from "react-icons/io5"
 import Table from "react-bootstrap/esm/Table";
 
-var studentList = {
-    1: {studentName:"Michael Pham", studentID:"1234556789", attend: false},
-    2: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    3: {studentName:"........", studentID:"........", attend:false},
-    4: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    5: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    6: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    7: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    8: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    9: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    10: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    11: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    12: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    13: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    14: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    15: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    16: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    17: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-    18: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
-}
+// var studentList = {
+//     1: {studentName:"Michael Pham", studentID:"1234556789", attend: false},
+//     2: {studentName:"Zachary Anderson", studentID:"125376499", attend: true},
+//     3: {studentName:"........", studentID:"........", attend:false},
+// }
 
-const YourCourseClass = () =>{
+const YourCourseClass = (studentList) =>{
     return(
         <>
             <div style = {{overflow: "scroll", height: "600px"}}>

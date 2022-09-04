@@ -1,7 +1,5 @@
 import ListGroup from "react-bootstrap/ListGroup";
-import studentStyle from "../styles/student.css";
 import Badge from "react-bootstrap/Badge";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import React from "react";
 import StudentAttendenceGraph from "./StudentAttendenceGraph";

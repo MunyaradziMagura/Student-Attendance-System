@@ -23,7 +23,14 @@ nav {
   color: white;
   background-color: #0052a0;
 }
-
+.right-user-center{
+  color: rgba(0,0,0,.55);
+}
+#logout{
+  width: 60%;
+  margin-top: 10%;
+  margin-left: 20%;
+}
 a {
   color: white;
 }
