@@ -1,13 +1,11 @@
 
 import React from 'react';
-import { render } from "react-dom";
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import './styles/login.css'
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter } from 'react-router-dom';
 
 // create root varible for root div
 const root = ReactDOM.createRoot(document.getElementById('root'));

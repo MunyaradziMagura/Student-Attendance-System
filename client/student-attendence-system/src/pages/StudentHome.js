@@ -1,10 +1,10 @@
-import StudentNavigation from "../components/StudentNavigation";
+import StudentNavigation from "../components/mobile/StudentNavigation";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import QRCode from "../components/QRCode";
-import StudentClasses from "../components/StudentClasses";
-import UserProfile from "../components/UserProfile";
+import QRCode from "../components/mobile/QRCode";
+import StudentClasses from "../components/mobile/StudentClasses";
+import UserProfile from "../components/mobile/UserProfile";
 import React from "react";
 function StudentHome(props) {
   // load different components depending on the page
