@@ -16,7 +16,7 @@ function Login() {
       password: userPassword,
     }).then((res) => {
       localStorage.setItem("login", "yes");
-      // localStorage.setItem("email", res.data.email);
+      localStorage.setItem("email", res.data.email);
       navigate("/StudentHome");
     });
   };

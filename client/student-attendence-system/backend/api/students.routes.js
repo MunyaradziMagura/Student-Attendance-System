@@ -10,6 +10,11 @@ studentRouter.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+function checkEmail(requestEmail, userEmail) {
+  return requestEmail === userEmail;
+}
+
+
 //Adds a new student to the 'students' collection in MongoDB using the below fields
 studentRouter.route("/add").post((req, res) => {
   bcrypt
@@ -84,13 +89,12 @@ studentRouter.route("/Login").post(async (request, result) => {
     user.password
   );
 
-  function checkEmail(requestEmail, userEmail) {
-    return requestEmail === userEmail;
-  }
+
+
   if (!validPassword || !checkEmail) {
     return result.status(401).send({ message: "Invalid Email or Password" });
   } else {
-    return result.status(200).send({ message: "Login Successful!" });
+    return result.status(200).send({ message: "Login Successful!", data: user});
   }
 });
 

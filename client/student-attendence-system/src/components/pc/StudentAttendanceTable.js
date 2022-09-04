@@ -40,17 +40,33 @@ const StudentAttendanceTable = ({ attendanceList }) => {
     },
   };
 
-  var uniqueCourses = new Set(
-    attendanceList.map((attendance) => attendance.className)
-  ); //A set that only includes unique values for courses in the attendanceList object
 
-  var uniqueClasses = new Set(
-    attendanceList.map((attendance) => attendance.classType)
-  ); //A set that only includes unique values for class types in the attendanceList object
+  let uniqueCourses = new Set() //A set that only includes unique values for courses in the attendanceList object
+  let uniqueClasses = new Set() //A set that only includes unique values for class types in the attendanceList object
 
-  var courseList = new Array(uniqueCourses); //Course array used to map the courses to 'Courses' dropdown UI element
-  var classList = new Array(uniqueClasses); //Class array used to map the courses to 'Class Type' dropdown UI element
+  let courseList = [] //Course array used to map the courses to 'Courses' dropdown UI element
+  let classList = [] //Class array used to map the courses to 'Class Type' dropdown UI element
 
+    //Map each of the attendanceList courses to a unique set
+  Object.keys(attendanceList).map((key) => (
+    uniqueCourses.add(attendanceList[key].className)
+  ))
+
+    //Map each of the attendanceList class types to a unique set
+  Object.keys(attendanceList).map((key) => (
+    uniqueClasses.add(attendanceList[key].classType)
+  ))
+    
+    //For each unique course value in the set, push all of into an array for mapping to 'Courses' UI element
+  uniqueCourses.forEach((course) => (
+    courseList.push(course)
+  ))
+
+    //For each unique class type value in the set, push all of into an array for mapping to 'Class Type' UI element
+  uniqueClasses.forEach((classType) => (
+    classList.push(classType)
+  ))
+  
   const filterByCourse = (filteredAttendance) => {
     if (!selectedCourse) {
       return filteredAttendance;
