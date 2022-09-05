@@ -6,8 +6,23 @@ const DeviceFingerPrint = ({ passFingerPrint }) => {
   const client = new ClientJS();
   // Get the client's fingerprint id
   const fingerprint = client.getFingerprint();
-  // Print the 32bit hash id to the console
-  //   console.log(fingerprint);
+  // FINGERPRINT DATA POINTS: Generated as a 32bit hash
+  // user agent
+  // screen print
+  // color depth
+  // current resolution
+  // available resolution
+  // device XDPI
+  // device YDPI
+  // plugin list
+  // font list
+  // local storage
+  // session storage
+  // timezone
+  // language
+  // system language
+  // cookies
+  // canvas print
 
   return passFingerPrint(fingerprint);
 };
