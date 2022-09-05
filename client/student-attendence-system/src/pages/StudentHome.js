@@ -6,7 +6,6 @@ import QRCode from "../components/mobile/QRCode";
 import StudentClasses from "../components/mobile/StudentClasses";
 import UserProfile from "../components/mobile/UserProfile";
 import React from "react";
-import LogStudents from "../components/LogStudents"; //REMOVE ME
 
 function StudentHome(props) {
   // load different components depending on the page
@@ -16,8 +15,7 @@ function StudentHome(props) {
   // which page has been selected
   switch (page) {
     case "Home":
-      // pageComponent = <QRCode />;
-      pageComponent = <LogStudents />;
+      pageComponent = <QRCode />;
       break;
 
     case "Classes":
