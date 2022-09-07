@@ -55,7 +55,7 @@ lecturersRouter.route("/Login").post(async (request, result) => {
         user.email = "";
       }
     } catch (error) {
-      console.log("Invalid Email");
+      console.log("Invalid Lecturer Email");
       return result.status(401).send({ message: "Invalid Email or Password" });
     }
   

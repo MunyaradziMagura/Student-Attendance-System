@@ -28,6 +28,7 @@ function Login() {
     }).then((res) => {
       localStorage.setItem("login", "yes");
       localStorage.setItem("email", res.data.email)
+      localStorage.setItem("name", res.data.fullName)
       navigate("/Dashboard")
     })
   }
@@ -70,9 +71,7 @@ function Login() {
         <button type="submit" onClick={loginUser}>
           Student Login
         </button>
-        <button type="submit" onClick={lecturerLogin}>
-          Lecturer Login
-        </button>
+        
       </form>
     </div>
   );

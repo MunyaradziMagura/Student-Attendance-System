@@ -6,7 +6,7 @@ import YourCourse from "./YourCourse";
 import Home from "./Home";
 import StudentAttendanceTable from "./StudentAttendanceTable";
 export default function Dashboard() {
-  var exampleData = { firstName: "Zackary", lastName: "Anderson" };
+  var userData = { userName: localStorage.getItem("name")};
   const [value, onChange] = useState(new Date());
   // take attendance
 
@@ -33,7 +33,7 @@ export default function Dashboard() {
     <div className={sty.box}>
       <div className={sty.left}>
         <h2 style={{ textAlign: "center" }}>
-          Welcome {exampleData.firstName},
+          Welcome {userData.userName}
         </h2>
         <div className={sty.emailBox}></div>
         <div className={sty.navBox}>
