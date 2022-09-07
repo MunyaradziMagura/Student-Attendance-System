@@ -1,13 +1,42 @@
 import express from "express";
 import bcrypt from "bcrypt";
-const lecturersRoutes = express.Router();
+const lecturersRouter = express.Router();
 import Lecturer from "../models/lecturers.model.js"
 
 function checkEmail(requestEmail, userEmail) {
     return requestEmail === userEmail;
 }
 
-lecturersRoutes.route("/Login").post(async (request, result) => {
+lecturersRouter.route("/add").post((req, res) => {
+    bcrypt
+      .hash(req.body.password, 10) // hash the provided password and apply 10 rounds of salting
+      .then((hashedPassword) => {
+        const new_lecturer = new Lecturer({
+          fullName: req.body.fullName,
+          staffID: req.body.staffID,
+          userName: req.body.userName,
+          email: req.body.email,
+          password: hashedPassword,
+          role: req.body.role,
+          courses: req.body.courses
+        });
+        new_lecturer
+          .save()
+          .then((result) => {
+            res.status(200).send({
+              message: "Lecturer Created Successfully",
+              result,
+            });
+          })
+          .catch((error) => {
+            res.status(500).send("Error creating Lecturer"), error;
+          });
+      });
+  
+    //Creates a new student document that uses the imported 'Student' model
+  });
+
+lecturersRouter.route("/Login").post(async (request, result) => {
     var findUser = {
       then(resolve, reject) {
         resolve(
@@ -47,3 +76,5 @@ lecturersRoutes.route("/Login").post(async (request, result) => {
       return result.status(200).send({ message: "Login Successful!", data: user});
     }
   });
+
+  export default lecturersRouter;

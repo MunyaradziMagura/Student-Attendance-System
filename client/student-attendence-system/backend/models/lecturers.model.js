@@ -45,6 +45,6 @@ const lecturerSchema = new Schema(
         }
 );
 
-const Lecturer = mongoose.model("Student", lecturerSchema);
+const Lecturer = mongoose.model("Lecturer", lecturerSchema);
 
 export default Lecturer;

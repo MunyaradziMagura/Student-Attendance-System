@@ -11,3 +11,11 @@ export function userLogin(data) {
     data,
   });
 }
+
+export function loginLecturer(data) {
+  return service.request({
+    url: "lecturers/Login",
+    method: "POST",
+    data,
+  })
+}

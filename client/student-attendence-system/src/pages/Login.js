@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
 import { useState } from "react";
-import { userLogin } from "../utils/doRequest";
+import { loginLecturer, userLogin } from "../utils/doRequest";
 import { useNavigate } from "react-router-dom";
 function Login() {
   const [userEmail, setEmail] = useState("");
@@ -20,6 +20,17 @@ function Login() {
       navigate("/StudentHome");
     });
   };
+
+  const lecturerLogin = () => {
+    loginLecturer({
+      email: userEmail,
+      password: userPassword,
+    }).then((res) => {
+      localStorage.setItem("login", "yes");
+      localStorage.setItem("email", res.data.email)
+      navigate("/Dashboard")
+    })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,7 +68,10 @@ function Login() {
           </InputGroup>
         </div>
         <button type="submit" onClick={loginUser}>
-          Login
+          Student Login
+        </button>
+        <button type="submit" onClick={lecturerLogin}>
+          Lecturer Login
         </button>
       </form>
     </div>
