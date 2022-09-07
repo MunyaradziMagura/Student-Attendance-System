@@ -7,31 +7,37 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [userEmail, setEmail] = useState("");
   const [userPassword, setPassword] = useState("");
-
+  const [role, setRole] = useState("");
   const navigate = useNavigate();
 
-  const loginUser = () => {
+  const loginUser = (role) => {
     userLogin({
       email: userEmail,
       password: userPassword,
+      role: role,
     }).then((res) => {
       localStorage.setItem("login", "yes");
-      localStorage.setItem("email", res.data.email);
-      navigate("/StudentHome");
+      // localStorage.setItem("email", res.data.email);
+
+      if (role == "students") {
+        navigate("/StudentHome");
+        localStorage.setItem("email", res.data.email);
+        localStorage.setItem("role", res.data.role);
+      } else if (role == "lecturers") {
+        navigate("/Dashboard");
+        localStorage.setItem("email", res.data.email);
+        localStorage.setItem("name", res.data.fullName);
+      } else {
+        navigate("/Login");
+      }
     });
   };
 
-  const lecturerLogin = () => {
-    loginLecturer({
-      email: userEmail,
-      password: userPassword,
-    }).then((res) => {
-      localStorage.setItem("login", "yes");
-      localStorage.setItem("email", res.data.email)
-      localStorage.setItem("name", res.data.fullName)
-      navigate("/Dashboard")
-    })
-  }
+  const Login = (role) => {
+    // set role
+    setRole(role);
+    loginUser(role);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,10 +74,13 @@ function Login() {
             />
           </InputGroup>
         </div>
-        <button type="submit" onClick={loginUser}>
+        <button type="submit" onClick={(e) => Login("students")}>
           Student Login
         </button>
-        
+
+        <button type="submit" onClick={(e) => Login("lecturers")}>
+          Lecturers Login
+        </button>
       </form>
     </div>
   );

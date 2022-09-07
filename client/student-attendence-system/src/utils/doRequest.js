@@ -5,17 +5,10 @@ import service from "../../src/utils/request";
  */
 
 export function userLogin(data) {
+  console.log(data.role);
   return service.request({
-    url: "students/Login",
+    url: `/${data.role}/Login`,
     method: "POST",
     data,
   });
-}
-
-export function loginLecturer(data) {
-  return service.request({
-    url: "lecturers/Login",
-    method: "POST",
-    data,
-  })
 }
