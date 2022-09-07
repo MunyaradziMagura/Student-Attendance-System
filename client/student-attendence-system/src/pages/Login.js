@@ -23,10 +23,12 @@ function Login() {
         navigate("/StudentHome");
         localStorage.setItem("email", res.data.email);
         localStorage.setItem("role", res.data.role);
+        localStorage.setItem("student", res.data.role);
       } else if (role == "lecturers") {
         navigate("/Dashboard");
         localStorage.setItem("email", res.data.email);
         localStorage.setItem("name", res.data.fullName);
+        localStorage.setItem("lecturer", res.data.role);
       } else {
         navigate("/Login");
       }
