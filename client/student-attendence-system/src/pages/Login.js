@@ -2,23 +2,43 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
 import { useState } from "react";
-import { userLogin } from "../utils/doRequest";
+import { loginLecturer, userLogin } from "../utils/doRequest";
 import { useNavigate } from "react-router-dom";
 function Login() {
   const [userEmail, setEmail] = useState("");
   const [userPassword, setPassword] = useState("");
-
+  const [role, setRole] = useState("");
   const navigate = useNavigate();
 
-  const loginUser = () => {
+  const loginUser = (role) => {
     userLogin({
       email: userEmail,
       password: userPassword,
+      role: role,
     }).then((res) => {
       localStorage.setItem("login", "yes");
-      localStorage.setItem("email", res.data.email);
-      navigate("/StudentHome");
+      // localStorage.setItem("email", res.data.email);
+
+      if (role == "students") {
+        navigate("/StudentHome");
+        localStorage.setItem("email", res.data.email);
+        localStorage.setItem("role", res.data.role);
+        localStorage.setItem("student", res.data.role);
+      } else if (role == "lecturers") {
+        navigate("/Dashboard");
+        localStorage.setItem("email", res.data.email);
+        localStorage.setItem("name", res.data.fullName);
+        localStorage.setItem("lecturer", res.data.role);
+      } else {
+        navigate("/Login");
+      }
     });
+  };
+
+  const Login = (role) => {
+    // set role
+    setRole(role);
+    loginUser(role);
   };
 
   const handleSubmit = async (e) => {
@@ -56,8 +76,12 @@ function Login() {
             />
           </InputGroup>
         </div>
-        <button type="submit" onClick={loginUser}>
-          Login
+        <button type="submit" onClick={(e) => Login("students")}>
+          Student Login
+        </button>
+
+        <button type="submit" onClick={(e) => Login("lecturers")}>
+          Lecturers Login
         </button>
       </form>
     </div>
