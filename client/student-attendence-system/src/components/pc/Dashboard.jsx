@@ -5,6 +5,7 @@ import Calendar from "react-calendar";
 import YourCourse from "./YourCourse";
 import Home from "./Home";
 import StudentAttendanceTable from "./StudentAttendanceTable";
+import Nav from "react-bootstrap/Nav";
 export default function Dashboard() {
   var exampleData = { firstName: "Zackary", lastName: "Anderson" };
   const [value, onChange] = useState(new Date());
@@ -37,27 +38,29 @@ export default function Dashboard() {
         </h2>
         <div className={sty.emailBox}></div>
         <div className={sty.navBox}>
-          <div
-            className={sty.navItem}
-            href="#YourCourse"
-            onClick={() => setPage("YourCourse")}
-          >
-            Your Courses
-          </div>
-          <div
-            className={sty.navItem}
-            href="#StudentAttendance"
-            onClick={() => setPage("StudentAttendance")}
-          >
-            Student Attendance
-          </div>
-          <div
-            className={sty.navItem}
-            href="#StudentSearch"
-            onClick={() => setPage("StudentSearch")}
-          >
-            Student Search
-          </div>
+          <Nav className="col-md-12 d-none d-md-block sidebar">
+            <Nav.Link 
+              style={{color: "#3b4149"}}
+              className={sty.navItem}
+              href="#YourCourse"
+              onClick={() => setPage("YourCourse")}
+            > Your Courses
+            </Nav.Link>
+            <Nav.Link 
+              style={{color: "#3b4149"}}
+              className={sty.navItem}
+              href="#StudentAttendance"
+              onClick={() => setPage("StudentAttendance")}
+            > Student Attendance
+            </Nav.Link>
+            <Nav.Link
+              style={{color: "#3b4149"}} 
+              className={sty.navItem}
+              href="#StudentSearch"
+              onClick={() => setPage("StudentSearch")}
+            >Student Search
+            </Nav.Link>
+          </Nav>
           <Calendar onChange={onChange} value={value} />
         </div>
         <div className={sty.btn}>Log Out</div>
