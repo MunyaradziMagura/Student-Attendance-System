@@ -8,11 +8,13 @@ import Table from "react-bootstrap/esm/Table";
 import Stack from "react-bootstrap/Stack";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { retrieveAttendance } from "../../utils/doRequest";
+ 
 
 const StudentAttendanceTable = ({ attendanceList }) => {
   const [filterList, setFilteredList] = useState(attendanceList);
   const [selectedCourse, setCourse] = useState("");
-
+  
   attendanceList = {
     0: {
       date: "22/08/22",
@@ -39,6 +41,13 @@ const StudentAttendanceTable = ({ attendanceList }) => {
       classType: "Tutorial",
     },
   };
+
+  const getStudentAttendance = () => {
+    retrieveAttendance({
+      studentID: "213148324"
+    })
+
+  }
 
   let uniqueCourses = new Set(); //A set that only includes unique values for courses in the attendanceList object
   let uniqueClasses = new Set(); //A set that only includes unique values for class types in the attendanceList object
