@@ -6,9 +6,15 @@ import YourCourse from "./YourCourse";
 import Button from "react-bootstrap/Button";
 import Home from "./Home";
 import StudentAttendanceTable from "./StudentAttendanceTable";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Dashboard() {
+  // get the state from the navigation hook
+
+  const location = useLocation();
+  // object containing lecturer information
+  const lecturer = location.state.lecturer;
+
   var userData = { userName: localStorage.getItem("name") };
   const [value, onChange] = useState(new Date());
   // take attendance

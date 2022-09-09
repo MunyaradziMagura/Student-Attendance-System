@@ -24,10 +24,9 @@ function Login() {
         localStorage.setItem("role", res.data.role);
         localStorage.setItem("student", res.data);
       } else if (role == "lecturers") {
-        navigate("/Dashboard");
+        navigate("/Dashboard", { state: { lecturer: res.data } });
         localStorage.setItem("email", res.data.email);
         localStorage.setItem("name", res.data.fullName);
-        localStorage.setItem("lecturer", res.data);
       } else {
         navigate("/Login");
       }
