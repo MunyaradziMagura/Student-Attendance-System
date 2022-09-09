@@ -15,14 +15,14 @@ function BarcodeScanner() {
     //the JSON object into 'newArray'
     function convertToJSON(element) {
         let jsonFormat = JSON.parse(element)
-        // console.log(jsonFormat)
+        console.log(jsonFormat)
 
         newArray.push(jsonFormat)
     }
     
     //Rendering of the BarcodeScanner component onto the screen
     return (
-        
+
         //Style of display none is to prevent the scnnaed input from being output onto the browser
         <div style={{display: "none"}}>
             
@@ -40,7 +40,7 @@ function BarcodeScanner() {
 
         {/* For each element in the array, convert each into JSON format */}
         {array.forEach(convertToJSON)}
-        {/* {console.log(newArray)} */}
+        {console.log(newArray)}
         </div>
     )
 }

@@ -40,28 +40,33 @@ const StudentAttendanceTable = ({ attendanceList }) => {
     },
   };
 
-  let uniqueCourses = new Set(); //A set that only includes unique values for courses in the attendanceList object
-  let uniqueClasses = new Set(); //A set that only includes unique values for class types in the attendanceList object
 
-  let courseList = []; //Course array used to map the courses to 'Courses' dropdown UI element
-  let classList = []; //Class array used to map the courses to 'Class Type' dropdown UI element
+  let uniqueCourses = new Set() //A set that only includes unique values for courses in the attendanceList object
+  let uniqueClasses = new Set() //A set that only includes unique values for class types in the attendanceList object
 
-  //Map each of the attendanceList courses to a unique set
-  Object.keys(attendanceList).map((key) =>
+  let courseList = [] //Course array used to map the courses to 'Courses' dropdown UI element
+  let classList = [] //Class array used to map the courses to 'Class Type' dropdown UI element
+
+    //Map each of the attendanceList courses to a unique set
+  Object.keys(attendanceList).map((key) => (
     uniqueCourses.add(attendanceList[key].className)
-  );
+  ))
 
-  //Map each of the attendanceList class types to a unique set
-  Object.keys(attendanceList).map((key) =>
+    //Map each of the attendanceList class types to a unique set
+  Object.keys(attendanceList).map((key) => (
     uniqueClasses.add(attendanceList[key].classType)
-  );
+  ))
+    
+    //For each unique course value in the set, push all of into an array for mapping to 'Courses' UI element
+  uniqueCourses.forEach((course) => (
+    courseList.push(course)
+  ))
 
-  //For each unique course value in the set, push all of into an array for mapping to 'Courses' UI element
-  uniqueCourses.forEach((course) => courseList.push(course));
-
-  //For each unique class type value in the set, push all of into an array for mapping to 'Class Type' UI element
-  uniqueClasses.forEach((classType) => classList.push(classType));
-
+    //For each unique class type value in the set, push all of into an array for mapping to 'Class Type' UI element
+  uniqueClasses.forEach((classType) => (
+    classList.push(classType)
+  ))
+  
   const filterByCourse = (filteredAttendance) => {
     if (!selectedCourse) {
       return filteredAttendance;
@@ -124,7 +129,7 @@ const StudentAttendanceTable = ({ attendanceList }) => {
         </Button>
       </Stack>
 
-      <Table responsive striped bordered hover>
+      <Table responsive striped bordered>
         <thead style={{ textAlign: "center" }}>
           <tr>
             <th>Date</th>

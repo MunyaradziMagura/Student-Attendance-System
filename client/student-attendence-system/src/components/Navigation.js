@@ -24,7 +24,7 @@ const Navigation = () => {
             <Nav.Link to="/Login" href="/Login">
               Login
             </Nav.Link>
-            <Nav.Link to="/Dashboard" href="/Dashboard">
+            <Nav.Link to="/Dashboard" href="/LecturerDashboard">
               Lecturer Dashboard
             </Nav.Link>
             <Nav.Link to="/StudentHome" href="/StudentHome">

@@ -1,4 +1,4 @@
-# Student Attendance System
+# Student Attence System
 
 Client is looking for a solution to student attendance taking.
 Group will spend the first semester researching and designing
@@ -34,6 +34,7 @@ Package Dependencies
     npm install -g nodemon
     npm install qrcode
     npm install recharts
+    npm install react-calendar
 ```
 
 App.js imports
@@ -52,5 +53,5 @@ import * as ReactDOM from 'react-dom';
 
 | Color       | Hex                                                              |
 | ----------- | ---------------------------------------------------------------- |
-| UniSA Blue  | ![#0052a0](https://via.placeholder.com/10/0052a0?text=+) #0052a0 |
-| UniSA White | ![#FFF](https://via.placeholder.com/10/FFF?text=+) #FFF          |
+| Unisa Blue  | ![#0052a0](https://via.placeholder.com/10/0052a0?text=+) #0052a0 |
+| Unisa White | ![#FFF](https://via.placeholder.com/10/FFF?text=+) #FFF          |
