@@ -6,7 +6,7 @@ import service from "../../src/utils/request";
 
 export function userLogin(data) {
   return service.request({
-    url: "students/Login",
+    url: `/${data.role}/Login`,
     method: "POST",
     data,
   });

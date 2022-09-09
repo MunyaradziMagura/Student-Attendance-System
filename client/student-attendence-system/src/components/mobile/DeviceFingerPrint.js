@@ -28,3 +28,6 @@ const DeviceFingerPrint = ({ passFingerPrint }) => {
 };
 
 export default DeviceFingerPrint;
+
+
+// deterct browser 
