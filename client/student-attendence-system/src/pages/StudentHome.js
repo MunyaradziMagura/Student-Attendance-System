@@ -6,6 +6,7 @@ import QRCode from "../components/mobile/QRCode";
 import StudentClasses from "../components/mobile/StudentClasses";
 import UserProfile from "../components/mobile/UserProfile";
 import React from "react";
+
 function StudentHome(props) {
   // load different components depending on the page
   const [page, setPage] = React.useState();
@@ -16,9 +17,11 @@ function StudentHome(props) {
     case "Home":
       pageComponent = <QRCode />;
       break;
+
     case "Classes":
       pageComponent = <StudentClasses width={window.screen.width} />;
       break;
+
     case "Profile":
       pageComponent = <UserProfile />;
       break;
