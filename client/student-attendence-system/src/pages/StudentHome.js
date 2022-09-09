@@ -29,7 +29,13 @@ function StudentHome() {
       break;
 
     case "Profile":
-      pageComponent = <UserProfile />;
+      pageComponent = (
+        <UserProfile
+          fullName={student.fullName}
+          studentID={student.studentID}
+          program={student.program}
+        />
+      );
       break;
 
     default:
@@ -37,27 +43,35 @@ function StudentHome() {
   }
 
   return (
-    <Container style={{ backgroundColor: "#0052a0" }}>
-      {/* nav */}
-      <Row>
-        <Col sm={12}>
+    <>
+      <Container>
+        <Row>
+          {/* nav */}
           <StudentNavigation
+            style={{ backgroundColor: "#0052a0" }}
             userName={student.userName}
             setPage={setPage}
           ></StudentNavigation>
-        </Col>
-      </Row>
-      {/*  body */}
-      <Row>
-        <Col sm></Col>
-        <Col sm={8}>
-          {/* load the right page */}
-          {pageComponent}
-        </Col>
-        <Col sm></Col>
-      </Row>
-      {/* </div> */}
-    </Container>
+        </Row>
+        <Row>
+          <Container
+            style={{
+              backgroundColor: "#0052a0",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            {/*  body */}
+            <Row>
+              <Col style={{ width: "100%", height: "100%" }}>
+                {/* load the right page */}
+                {pageComponent}
+              </Col>
+            </Row>
+          </Container>
+        </Row>
+      </Container>
+    </>
   );
 }
 

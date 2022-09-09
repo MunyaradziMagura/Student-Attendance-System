@@ -66,13 +66,13 @@ function QRCode({ studentInfo }, props) {
           <Card.Title
             style={{ color: "white", fontWeight: "bold", fontSize: "2rem" }}
           >
-            It Project QR
+            Your QR code
           </Card.Title>
-          <Card.Text style={{ color: "white" }}>
+          {/* <Card.Text style={{ color: "white" }}>
             To draw on software engineering principles, practices and research
             methods and apply professional skills to produce an agreed upon
             software artefact for a client, while working in a project team.
-          </Card.Text>
+          </Card.Text> */}
           <Button
             onClick={() => {
               let aLink = document.createElement("a");
