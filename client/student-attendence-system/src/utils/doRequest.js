@@ -11,11 +11,3 @@ export function userLogin(data) {
     data,
   });
 }
-
-export function retrieveAttendance(data) {
-  return service.request({
-    url: `students/getAttendance/${data.studentID}`,
-    method: "GET",
-    data,
-  });
-}
