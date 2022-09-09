@@ -42,7 +42,7 @@ function StudentHome() {
       <Row>
         <Col sm={12}>
           <StudentNavigation
-            userName={student.userName}
+            userName={"Kursie"}
             setPage={setPage}
           ></StudentNavigation>
         </Col>
