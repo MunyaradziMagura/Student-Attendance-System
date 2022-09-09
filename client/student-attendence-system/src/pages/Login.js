@@ -20,15 +20,14 @@ function Login() {
       // localStorage.setItem("email", res.data.email);
 
       if (role == "students") {
-        navigate("/StudentHome");
-        localStorage.setItem("email", res.data.email);
+        navigate("/StudentHome", { state: { student: res.data } });
         localStorage.setItem("role", res.data.role);
-        localStorage.setItem("student", res.data.role);
+        localStorage.setItem("student", res.data);
       } else if (role == "lecturers") {
         navigate("/Dashboard");
         localStorage.setItem("email", res.data.email);
         localStorage.setItem("name", res.data.fullName);
-        localStorage.setItem("lecturer", res.data.role);
+        localStorage.setItem("lecturer", res.data);
       } else {
         navigate("/Login");
       }

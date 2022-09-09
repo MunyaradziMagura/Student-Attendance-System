@@ -6,8 +6,13 @@ import QRCode from "../components/mobile/QRCode";
 import StudentClasses from "../components/mobile/StudentClasses";
 import UserProfile from "../components/mobile/UserProfile";
 import React from "react";
+import { useLocation } from "react-router-dom";
 
-function StudentHome(props) {
+function StudentHome() {
+  // get the state from the navigation hook
+  const location = useLocation();
+  const student = location.state.student;
+  console.log(student);
   // load different components depending on the page
   const [page, setPage] = React.useState();
   let pageComponent;
@@ -31,30 +36,27 @@ function StudentHome(props) {
   }
 
   return (
-    <div style={{ paddingTop: "2rem", backgroundColor: "#0052a0" }}>
+    <Container style={{ backgroundColor: "#0052a0" }}>
       {/* nav */}
-      <StudentNavigation
-        userName={"Kursie"}
-        setPage={setPage}
-      ></StudentNavigation>
-      <Container>
-        <Row>
-          <Col></Col>
-          {/* body */}
-          <Col xs={12}>
-            <Container fluid>
-              <Row>
-                <Col>
-                  {/* load the right page */}
-                  {pageComponent}
-                </Col>
-              </Row>
-            </Container>
-          </Col>
-          <Col></Col>
-        </Row>
-      </Container>
-    </div>
+      <Row>
+        <Col sm={12}>
+          <StudentNavigation
+            userName={"Kursie"}
+            setPage={setPage}
+          ></StudentNavigation>
+        </Col>
+      </Row>
+      {/*  body */}
+      <Row>
+        <Col sm></Col>
+        <Col sm={8}>
+          {/* load the right page */}
+          {pageComponent}
+        </Col>
+        <Col sm></Col>
+      </Row>
+      {/* </div> */}
+    </Container>
   );
 }
 
