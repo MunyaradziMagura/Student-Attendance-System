@@ -12,8 +12,7 @@ import "./styles/index.css";
 import Login from "./pages/Login";
 
 import StudentHome from "./pages/StudentHome";
-//import Dashboard from "./pages/Dashboard";
-import Dashboard from "./components/pc/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import Navigation from "./components/Navigation";
 function RequireAuth({ children }) {
   const authed = localStorage.getItem("login");

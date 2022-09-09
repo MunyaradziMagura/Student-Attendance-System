@@ -8,7 +8,7 @@ import Table from "react-bootstrap/esm/Table";
 //     3: {studentName:"........", studentID:"........", attend:false},
 // }
 
-const YourCourseClass = ({studentList}, props) =>{
+const YourCourseClass = (studentList) =>{
     return(
         <>
             <div style = {{overflow: "scroll", height: "600px"}}>
