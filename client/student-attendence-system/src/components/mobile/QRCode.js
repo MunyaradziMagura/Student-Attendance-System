@@ -5,16 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import DeviceFingerPrint from "./DeviceFingerPrint";
 // import image from '../'
-function QRCode(props) {
-  // props should take in a person object
-  const person = {
-    deviceFingerPrint: "712g321gv3",
-    person: "munya",
-    lastName: "magura",
-    classID: 1234456789,
-    date: String(new Date()),
-  };
-
+function QRCode({ studentInfo }, props) {
   const [src, setSrc] = useState("");
 
   // get Device fineger print
@@ -24,25 +15,6 @@ function QRCode(props) {
     // set finger print
     setFingerprint(data);
   };
-  // THIS DATA NEEDS TO BE TAKEN IN FROM AN OBJECT USING PROPS
-  // useEffect(() => {
-  //   // get courseDetail
-  //   let courseId = "62e619985c33f183596c0ac3";
-  //   // get courseDetail
-  //   axios({
-  //     method: "GET",
-  //     url: `http://localhost:5000/api/courses/detail/${courseId}`,
-  //   })
-  //     .then((res) => {
-  //       console.log("res = ", res.data);
-
-  //       // create QR code
-  //       qrcode.toDataURL(JSON.stringify(res.data)).then(setSrc);
-  //     })
-  //     .catch((err) => {
-  //       console.log("err = ", err);
-  //     });
-  // }, []);
 
   // download QR code
   const base64ToBlob = (code) => {
@@ -58,6 +30,16 @@ function QRCode(props) {
       type: contentType,
     });
   };
+
+  // object of values used to generate qrcode
+  const person = {
+    deviceFingerPrint: fingerPrint,
+    firstName: studentInfo.firstName,
+    lastName: studentInfo.lastName,
+    classID: 1234456789,
+    date: String(new Date()),
+  };
+  console.log(person);
 
   return (
     <div

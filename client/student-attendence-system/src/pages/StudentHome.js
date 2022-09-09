@@ -33,7 +33,7 @@ function StudentHome() {
       break;
 
     default:
-      pageComponent = <QRCode />;
+      pageComponent = <QRCode studentInfo={student} />;
   }
 
   return (
