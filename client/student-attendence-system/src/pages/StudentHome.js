@@ -11,7 +11,7 @@ import { useLocation } from "react-router-dom";
 function StudentHome() {
   // get the state from the navigation hook
   const location = useLocation();
-  // object containing student information
+  // object containing student information (i.e. id, username, email, attendance etc etc )
   const student = location.state.student;
 
   // load different components depending on the page
