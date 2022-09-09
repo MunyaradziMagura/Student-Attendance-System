@@ -42,7 +42,12 @@ const StudentAttendanceTable = ({ attendanceList }) => {
     },
   };
 
-  
+  const getStudentAttendance = () => {
+    retrieveAttendance({
+      studentID: "213148324"
+    })
+
+  }
 
   let uniqueCourses = new Set(); //A set that only includes unique values for courses in the attendanceList object
   let uniqueClasses = new Set(); //A set that only includes unique values for class types in the attendanceList object

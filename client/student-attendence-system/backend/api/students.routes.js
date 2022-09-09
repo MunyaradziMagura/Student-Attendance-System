@@ -47,12 +47,12 @@ studentRouter.route("/add").post((req, res) => {
 });
 
 //Endpoint that performs a GET request to return attendance data for a student
-studentRouter.route("/getAttendance").get(async (request, result) => {
+studentRouter.route(`/getAttendance/:id`).get(async (request, result) => {
   //Performs a lookup in the MongoDB that will return one document or nothing if not found
   const attendance = await Student.findOne({
     studentID: request.body.studentID,
   })
-    .then((student) => result.json(student))
+    .then((Student) => result.json(Student))
     .catch((err) => result.status(400).json("Error: " + err));
 });
 

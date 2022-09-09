@@ -6,14 +6,8 @@ import QRCode from "../components/mobile/QRCode";
 import StudentClasses from "../components/mobile/StudentClasses";
 import UserProfile from "../components/mobile/UserProfile";
 import React from "react";
-import { useLocation } from "react-router-dom";
 
-function StudentHome() {
-  // get the state from the navigation hook
-  const location = useLocation();
-  // object containing student information (i.e. id, username, email, attendance etc etc )
-  const student = location.state.student;
-
+function StudentHome(props) {
   // load different components depending on the page
   const [page, setPage] = React.useState();
   let pageComponent;
@@ -29,49 +23,38 @@ function StudentHome() {
       break;
 
     case "Profile":
-      pageComponent = (
-        <UserProfile
-          fullName={student.fullName}
-          studentID={student.studentID}
-          program={student.program}
-        />
-      );
+      pageComponent = <UserProfile />;
       break;
 
     default:
-      pageComponent = <QRCode studentInfo={student} />;
+      pageComponent = <QRCode />;
   }
 
   return (
-    <>
+    <div style={{ paddingTop: "2rem", backgroundColor: "#0052a0" }}>
+      {/* nav */}
+      <StudentNavigation
+        userName={"Kursie"}
+        setPage={setPage}
+      ></StudentNavigation>
       <Container>
         <Row>
-          {/* nav */}
-          <StudentNavigation
-            style={{ backgroundColor: "#0052a0" }}
-            userName={student.userName}
-            setPage={setPage}
-          ></StudentNavigation>
-        </Row>
-        <Row>
-          <Container
-            style={{
-              backgroundColor: "#0052a0",
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            {/*  body */}
-            <Row>
-              <Col style={{ width: "100%", height: "100%" }}>
-                {/* load the right page */}
-                {pageComponent}
-              </Col>
-            </Row>
-          </Container>
+          <Col></Col>
+          {/* body */}
+          <Col xs={12}>
+            <Container fluid>
+              <Row>
+                <Col>
+                  {/* load the right page */}
+                  {pageComponent}
+                </Col>
+              </Row>
+            </Container>
+          </Col>
+          <Col></Col>
         </Row>
       </Container>
-    </>
+    </div>
   );
 }
 
