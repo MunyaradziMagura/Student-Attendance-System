@@ -34,12 +34,12 @@ function QRCode({ studentInfo }, props) {
   // object of values used to generate qrcode
   const person = {
     deviceFingerPrint: fingerPrint,
+    userName: studentInfo.userName,
     firstName: studentInfo.firstName,
     lastName: studentInfo.lastName,
-    classID: 1234456789,
     date: String(new Date()),
+    courseID: null,
   };
-  console.log(person);
 
   return (
     <div
