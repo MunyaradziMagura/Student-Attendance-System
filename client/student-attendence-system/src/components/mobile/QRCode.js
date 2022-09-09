@@ -2,11 +2,10 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import qrcode from "qrcode";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import DeviceFingerPrint from "./DeviceFingerPrint";
 // import image from '../'
 function QRCode({ studentInfo }, props) {
-  const [src, setSrc] = useState("");
+  const [personQRSrc, setpersonQRSrc] = useState("");
 
   // get Device fineger print
   const [fingerPrint, setFingerprint] = useState();
@@ -40,6 +39,11 @@ function QRCode({ studentInfo }, props) {
     date: String(new Date()),
     courseID: null,
   };
+  // generate QR code URL from person object
+  useEffect(() => {
+    // create QR code
+    qrcode.toDataURL(JSON.stringify(person)).then(setpersonQRSrc);
+  }, []);
 
   return (
     <div
@@ -55,7 +59,7 @@ function QRCode({ studentInfo }, props) {
         <Card.Img
           animation="wave"
           variant="top"
-          src={src}
+          src={personQRSrc}
           class="img-thumbnail"
         />
         <Card.Body>
@@ -72,7 +76,7 @@ function QRCode({ studentInfo }, props) {
           <Button
             onClick={() => {
               let aLink = document.createElement("a");
-              let blob = base64ToBlob(src);
+              let blob = base64ToBlob(personQRSrc);
               let evt = document.createEvent("HTMLEvents");
               evt.initEvent("click", true, true);
               aLink.download = "qrcode";
