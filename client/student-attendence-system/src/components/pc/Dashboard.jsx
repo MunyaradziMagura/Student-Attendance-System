@@ -10,8 +10,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Dashboard() {
   // get the state from the navigation hook
+
   const location = useLocation();
-  // object containing lecturer information (i.e. id, username, email, attendance etc etc )
+  // object containing lecturer information
   const lecturer = location.state.lecturer;
 
   var userData = { userName: localStorage.getItem("name") };
