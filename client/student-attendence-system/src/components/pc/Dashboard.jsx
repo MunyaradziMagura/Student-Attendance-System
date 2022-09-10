@@ -7,6 +7,9 @@ import Button from "react-bootstrap/Button";
 import Home from "./Home";
 import StudentAttendanceTable from "./StudentAttendanceTable";
 import { useNavigate } from "react-router-dom";
+import Header from "./Header";
+import Nav from "react-bootstrap/Nav"
+
 
 export default function Dashboard() {
   var userData = { userName: localStorage.getItem("name") };
@@ -20,53 +23,72 @@ export default function Dashboard() {
   };
   const [page, setPage] = React.useState();
   let pageComponent;
+  let headerComponent;
 
   // which page has been selected
   switch (page) {
     case "YourCourse":
       pageComponent = <YourCourse />;
+      headerComponent = <Header pageName={"Your Course"}/>
       break;
     case "StudentAttendance":
       pageComponent = <StudentAttendanceTable />;
+      headerComponent = <Header pageName={"Student Attendance"}/>
       break;
     case "StudentSearch":
       pageComponent = <></>; //Should load StudentSearchTable component
+      headerComponent = <Header pageName={"Student Search Table"}/>
       break;
-
+      case "Dashboard":
+        pageComponent = <Home />;
+        headerComponent = <Header pageName={"Dashboard"}/>
+        break;
     default:
       pageComponent = <Home />;
+      headerComponent = <Header pageName={"Dashboard"}/>
   }
 
   return (
     <div className={sty.box}>
       <div className={sty.left}>
-        <h2 style={{ textAlign: "center" }}>Welcome {userData.userName}</h2>
+        <h2 style={{ textAlign: "center" }}>Welcome {userData.userName},</h2>
         <div className={sty.emailBox}></div>
         <div className={sty.navBox}>
-          <div
-            className={sty.navItem}
-            href="#YourCourse"
-            onClick={() => setPage("YourCourse")}
-          >
-            Your Courses
+          <Nav className="col-md-12 d-none d-md-block sidebar">
+          <Nav.Link 
+              style={{color: "#3b4149"}}
+              className={sty.navItem}
+              href=" "
+              onClick={() => setPage("Dashboard")}
+            > Dashboard
+            </Nav.Link>
+            <Nav.Link 
+              style={{color: "#3b4149"}}
+              className={sty.navItem}
+              href="#YourCourse"
+              onClick={() => setPage("YourCourse")}
+            > Your Courses
+            </Nav.Link>
+            <Nav.Link 
+              style={{color: "#3b4149"}}
+              className={sty.navItem}
+              href="#StudentAttendance"
+              onClick={() => setPage("StudentAttendance")}
+            > Student Attendance
+            </Nav.Link>
+            <Nav.Link
+              style={{color: "#3b4149"}} 
+              className={sty.navItem}
+              href="#StudentSearch"
+              onClick={() => setPage("StudentSearch")}
+            >Student Search
+            </Nav.Link>
+          </Nav>
+          <div className = {sty.calendar}>
+            <Calendar onChange={onChange} value={value} />
           </div>
-          <div
-            className={sty.navItem}
-            href="#StudentAttendance"
-            onClick={() => setPage("StudentAttendance")}
-          >
-            Student Attendance
-          </div>
-          <div
-            className={sty.navItem}
-            href="#StudentSearch"
-            onClick={() => setPage("StudentSearch")}
-          >
-            Student Search
-          </div>
-          <Calendar onChange={onChange} value={value} />
         </div>
-        <div>
+        <div className = {sty.btn}>
           <Button variant="primary" onClick={doLogout}>
             Logout
           </Button>
@@ -74,11 +96,7 @@ export default function Dashboard() {
       </div>
 
       <div className={sty.right}>
-        <div className={sty.rightTop}>
-          <h1>Staff Dashboard</h1>
-          <div>Dashboard</div>
-        </div>
-
+        {headerComponent}
         <div className={sty.rightDesc}>{pageComponent}</div>
       </div>
     </div>
