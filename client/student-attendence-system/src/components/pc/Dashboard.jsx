@@ -37,7 +37,7 @@ export default function Dashboard() {
       break;
     case "StudentSearch":
       pageComponent = <></>; //Should load StudentSearchTable component
-      headerComponent = <Header pageName={"Student Search Table"}/>
+      headerComponent = <Header pageName={"Student Search"}/>
       break;
       case "Dashboard":
         pageComponent = <Home />;
