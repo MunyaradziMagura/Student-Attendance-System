@@ -40,6 +40,14 @@ export default function Dashboard() {
         <div className={sty.navBox}>
           <Nav className="col-md-12 d-none d-md-block sidebar">
             <Nav.Link 
+            style={{color: "#3b4149"}}
+            className={sty.navItem}
+            href="/Dashboard"
+            onClick={() => setPage("Dashboard")}
+            >
+            Home
+            </Nav.Link>
+            <Nav.Link 
               style={{color: "#3b4149"}}
               className={sty.navItem}
               href="#YourCourse"
