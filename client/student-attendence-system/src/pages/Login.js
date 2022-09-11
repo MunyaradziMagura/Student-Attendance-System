@@ -22,7 +22,7 @@ function Login() {
       if (role == "students") {
         navigate("/StudentHome", { state: { student: res.data } });
         localStorage.setItem("role", res.data.role);
-        localStorage.setItem("student", res.data);
+        localStorage.setItem("student", JSON.stringify(res.data));
       } else if (role == "lecturers") {
         navigate("/Dashboard", { state: { lecturer: res.data } });
         localStorage.setItem("email", res.data.email);

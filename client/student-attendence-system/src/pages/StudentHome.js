@@ -12,7 +12,10 @@ function StudentHome() {
   // get the state from the navigation hook
   const location = useLocation();
   // object containing student information (i.e. id, username, email, attendance etc etc )
-  const student = location.state.student;
+  let student = JSON.parse(localStorage.getItem("student"));
+
+  // add name
+  student.fullName = `${student.firstName} ${student.lastName}`;
 
   // load different components depending on the page
   const [page, setPage] = React.useState();
@@ -25,7 +28,12 @@ function StudentHome() {
       break;
 
     case "Classes":
-      pageComponent = <StudentClasses width={window.screen.width} />;
+      pageComponent = (
+        <StudentClasses
+          width={window.screen.width}
+          attendance={student.attendance}
+        />
+      );
       break;
 
     case "Profile":
@@ -49,7 +57,7 @@ function StudentHome() {
           {/* nav */}
           <StudentNavigation
             style={{ backgroundColor: "#0052a0" }}
-            userName={student.userName}
+            fullName={student.fullName}
             setPage={setPage}
           ></StudentNavigation>
         </Row>
