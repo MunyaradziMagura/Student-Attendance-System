@@ -23,11 +23,10 @@ const DeviceFingerPrint = ({ passFingerPrint }) => {
   // system language
   // cookies
   // canvas print
-
+  console.log(passFingerPrint(fingerprint));
   return passFingerPrint(fingerprint);
 };
 
 export default DeviceFingerPrint;
 
-
-// deterct browser 
+// deterct browser
