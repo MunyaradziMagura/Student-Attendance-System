@@ -33,7 +33,7 @@ function QRCode({ studentInfo }, props) {
   // object of values used to generate qrcode
   const person = {
     deviceFingerPrint: fingerPrint,
-    userName: studentInfo.userName,
+    userName: studentInfo.studentID,
     firstName: studentInfo.firstName,
     lastName: studentInfo.lastName,
     date: String(new Date()),
@@ -86,7 +86,7 @@ function QRCode({ studentInfo }, props) {
             }}
             variant="primary"
           >
-            Download Qr
+            Download QR
           </Button>
         </Card.Body>
       </Card>

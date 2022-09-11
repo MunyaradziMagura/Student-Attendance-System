@@ -21,13 +21,7 @@ function StudentNavigation({ fullName, setPage }) {
   return (
     <Navbar collapseOnSelect expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand
-          href="#Home"
-          style={{ fontWeight: "bold", fontSize: "2rem" }}
-          onClick={() => setPage("Home")}
-        >
-          Welcome back {fullName}!
-        </Navbar.Brand>
+        Welcome back {fullName}!
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto"></Nav>

@@ -23,7 +23,7 @@ function StudentHome() {
   // which page has been selected
   switch (page) {
     case "Home":
-      pageComponent = <QRCode />;
+      pageComponent = <QRCode studentInfo={student} />;
       break;
 
     case "Classes":
