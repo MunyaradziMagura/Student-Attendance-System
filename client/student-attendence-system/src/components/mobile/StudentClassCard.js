@@ -36,11 +36,11 @@ const StudentClassCard = ({ classesObject, varientList }) => {
               }
               bg="primary"
               border={varientList[index - 1]}
-              style={{ width: "100%", top: "-2rem" }}
+              style={{ width: "100%" }}
             >
               {/* get class name  */}
               <Card.Header id="classDetails">
-                {classesObject[key].Name}
+                {classesObject[key].courseName}
               </Card.Header>
 
               {/* class details */}
@@ -49,7 +49,7 @@ const StudentClassCard = ({ classesObject, varientList }) => {
                   Lecturer
                 </ListGroup.Item>
                 <ListGroup.Item id="classDetails" variant={varientList[index]}>
-                  {classesObject[key].LectureName}
+                  {classesObject[key].lecturerName}
                 </ListGroup.Item>
               </ListGroup>
 
@@ -59,7 +59,7 @@ const StudentClassCard = ({ classesObject, varientList }) => {
                   Class Date
                 </ListGroup.Item>
                 <ListGroup.Item id="classDetails" variant={varientList[index]}>
-                  {classesObject[key].Date}
+                  {classesObject[key].date}
                 </ListGroup.Item>
               </ListGroup>
 
@@ -69,7 +69,7 @@ const StudentClassCard = ({ classesObject, varientList }) => {
                   Location{" "}
                 </ListGroup.Item>
                 <ListGroup.Item id="classDetails" variant={varientList[index]}>
-                  {classesObject[key].Location}
+                  {classesObject[key].location}
                 </ListGroup.Item>
               </ListGroup>
             </Card>
