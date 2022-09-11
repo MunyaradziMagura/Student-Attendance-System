@@ -16,7 +16,6 @@ function StudentHome() {
 
   // add name
   student.fullName = `${student.firstName} ${student.lastName}`;
-
   // load different components depending on the page
   const [page, setPage] = React.useState();
   let pageComponent;

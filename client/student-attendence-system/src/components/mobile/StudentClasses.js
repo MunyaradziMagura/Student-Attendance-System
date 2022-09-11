@@ -2,7 +2,7 @@ import React from "react";
 import StudentClassCard from "./StudentClassCard";
 import StudentClassList from "./StudentClassList";
 // import image from '../'
-function StudentClasses({ width }) {
+function StudentClasses({ width, attendance }) {
   let classesObject = {
     1: {
       Name: "Web Technology",
@@ -17,6 +17,16 @@ function StudentClasses({ width }) {
       Location: "mawson",
     },
   };
+
+  // for (let Item in attendance) {
+  //   console.log(Item);
+  // }
+
+  let course = Object.keys(attendance);
+  course.forEach((item) => {
+    console.log(attendance[`${item}`].courseName);
+  });
+
   let classes = [
     "Web Technology",
     "C++",
