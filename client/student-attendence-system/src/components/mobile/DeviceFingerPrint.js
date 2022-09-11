@@ -23,7 +23,7 @@ const DeviceFingerPrint = ({ passFingerPrint }) => {
   // system language
   // cookies
   // canvas print
-  console.log(passFingerPrint(fingerprint));
+  console.log(fingerprint);
   return passFingerPrint(fingerprint);
 };
 
