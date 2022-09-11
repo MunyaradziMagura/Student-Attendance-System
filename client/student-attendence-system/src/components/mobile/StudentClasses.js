@@ -2,27 +2,7 @@ import React from "react";
 import StudentClassCard from "./StudentClassCard";
 import StudentClassList from "./StudentClassList";
 // import image from '../'
-function StudentClasses({ width }) {
-  let classesObject = {
-    1: {
-      Name: "Web Technology",
-      LectureName: "Erica",
-      Date: "2/2/2020",
-      Location: "mawson",
-    },
-    2: {
-      Name: "C++",
-      LectureName: "michael",
-      Date: "2/2/2020",
-      Location: "mawson",
-    },
-  };
-  let classes = [
-    "Web Technology",
-    "C++",
-    "Data Structures Advance",
-    "Security Architecture",
-  ];
+function StudentClasses({ width, attendance }) {
   const varientList = [
     "primary",
     "secondary",
@@ -38,7 +18,11 @@ function StudentClasses({ width }) {
     // if the screen is small
     return (
       <>
-        <StudentClassList classes={classes} varientList={varientList} />
+        {/* <StudentClassList classes={attendance} varientList={varientList} /> */}
+        <StudentClassCard
+          classesObject={attendance}
+          varientList={varientList}
+        />
       </>
     );
   } else {
@@ -46,7 +30,7 @@ function StudentClasses({ width }) {
     return (
       <>
         <StudentClassCard
-          classesObject={classesObject}
+          classesObject={attendance}
           varientList={varientList}
         />
       </>

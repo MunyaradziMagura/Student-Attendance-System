@@ -6,24 +6,6 @@ import axios from "axios";
 
 const UserProfile = ({ fullName, studentID, program }) => {
   const [userinfo, setUserinfo] = useState({});
-  // THIS NEEDS TO BE A PROP NOT CODED INTO HERE (not yelling XD just making sure its visible)
-  // useEffect(() => {
-  //   // get studentDetail
-  //   let studentId = "62f08e36ebeeca7a0fa46cc5";
-  //   // get studentDetail
-  //   axios({
-  //     method: "GET",
-  //     url: `http://localhost:5000/api/students/detail/${studentId}`,
-  //   })
-  //     .then((res) => {
-  //       console.log("res = ", res.data);
-
-  //       setUserinfo(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log("err = ", err);
-  //     });
-  // }, []);
 
   return (
     <div
@@ -41,7 +23,6 @@ const UserProfile = ({ fullName, studentID, program }) => {
           roundedCircle
           className='rounded-circle"'
           variant="top"
-          src="./images/img_avatar1.png"
           style={{
             color: "white",
             padding: "1rem",

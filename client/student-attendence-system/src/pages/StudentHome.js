@@ -6,8 +6,16 @@ import QRCode from "../components/mobile/QRCode";
 import StudentClasses from "../components/mobile/StudentClasses";
 import UserProfile from "../components/mobile/UserProfile";
 import React from "react";
+import { useLocation } from "react-router-dom";
 
-function StudentHome(props) {
+function StudentHome() {
+  // get the state from the navigation hook
+  const location = useLocation();
+  // object containing student information (i.e. id, username, email, attendance etc etc )
+  let student = JSON.parse(localStorage.getItem("student"));
+
+  // add name
+  student.fullName = `${student.firstName} ${student.lastName}`;
   // load different components depending on the page
   const [page, setPage] = React.useState();
   let pageComponent;
@@ -15,46 +23,62 @@ function StudentHome(props) {
   // which page has been selected
   switch (page) {
     case "Home":
-      pageComponent = <QRCode />;
+      pageComponent = <QRCode studentInfo={student} />;
       break;
 
     case "Classes":
-      pageComponent = <StudentClasses width={window.screen.width} />;
+      pageComponent = (
+        <StudentClasses
+          width={window.screen.width}
+          attendance={student.attendance}
+        />
+      );
       break;
 
     case "Profile":
-      pageComponent = <UserProfile />;
+      pageComponent = (
+        <UserProfile
+          fullName={student.fullName}
+          studentID={student.studentID}
+          program={student.program}
+        />
+      );
       break;
 
     default:
-      pageComponent = <QRCode />;
+      pageComponent = <QRCode studentInfo={student} />;
   }
 
   return (
-    <div style={{ paddingTop: "2rem", backgroundColor: "#0052a0" }}>
-      {/* nav */}
-      <StudentNavigation
-        userName={"Kursie"}
-        setPage={setPage}
-      ></StudentNavigation>
+    <>
       <Container>
         <Row>
-          <Col></Col>
-          {/* body */}
-          <Col xs={12}>
-            <Container fluid>
-              <Row>
-                <Col>
-                  {/* load the right page */}
-                  {pageComponent}
-                </Col>
-              </Row>
-            </Container>
-          </Col>
-          <Col></Col>
+          {/* nav */}
+          <StudentNavigation
+            style={{ backgroundColor: "#0052a0" }}
+            fullName={student.fullName}
+            setPage={setPage}
+          ></StudentNavigation>
+        </Row>
+        <Row>
+          <Container
+            style={{
+              backgroundColor: "#0052a0",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            {/*  body */}
+            <Row>
+              <Col style={{ width: "100%", height: "100%" }}>
+                {/* load the right page */}
+                {pageComponent}
+              </Col>
+            </Row>
+          </Container>
         </Row>
       </Container>
-    </div>
+    </>
   );
 }
 

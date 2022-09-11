@@ -1,12 +1,17 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { IoHome, IoPersonCircleOutline, IoBook, IoLogOutSharp } from "react-icons/io5";
-import Button from 'react-bootstrap/Button'
+import {
+  IoHome,
+  IoPersonCircleOutline,
+  IoBook,
+  IoLogOutSharp,
+} from "react-icons/io5";
+import Button from "react-bootstrap/Button";
 import LogoutFunction from "../LogoutFunction.js";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
-function StudentNavigation({ userName, setPage }) {
+function StudentNavigation({ fullName, setPage }) {
   // logout function
   const navigate = useNavigate();
   const doLogout = () => {
@@ -14,16 +19,9 @@ function StudentNavigation({ userName, setPage }) {
     navigate("/Login");
   };
   return (
-    
     <Navbar collapseOnSelect expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand
-          href="#Home"
-          style={{ fontWeight: "bold", fontSize: "2rem" }}
-          onClick={() => setPage("Home")}
-        >
-          Welcome back {userName}!
-        </Navbar.Brand>
+        Welcome back {fullName}!
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto"></Nav>
