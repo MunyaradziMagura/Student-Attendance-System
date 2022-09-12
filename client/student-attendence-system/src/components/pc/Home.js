@@ -34,7 +34,7 @@ export default function Home(props){
         </thead>
         <tbody>
             <tr>
-                <td>Systems Desgin Lecture</td>
+                <td>Systems Design Lecture</td>
                 <td>12:00pm - 2:00pm</td>
                 <td>17/05/22</td>
                 <td>
@@ -55,7 +55,7 @@ export default function Home(props){
                 </td>
             </tr>
             <tr>
-                <td>Systems Desgin Lecture</td>
+                <td>Systems Design Lecture</td>
                 <td>12:00pm - 2:00pm</td>
                 <td>17/05/22</td>
                 <td>
@@ -69,7 +69,7 @@ export default function Home(props){
                 </td>
             </tr>
             <tr>
-                <td>Systems Desgin Lecture</td>
+                <td>Systems Design Lecture</td>
                 <td>12:00pm - 2:00pm</td>
                 <td>17/05/22</td>
                 <td>
@@ -83,7 +83,7 @@ export default function Home(props){
                 </td>
             </tr>
             <tr>
-                <td>Systems Desgin Lecture</td>
+                <td>Systems Design Lecture</td>
                 <td>12:00pm - 2:00pm</td>
                 <td>17/05/22</td>
                 <td>
@@ -97,9 +97,9 @@ export default function Home(props){
                 </td>
             </tr>
             <tr>
-            <td>Systems Desgin Lecture</td>
-            <td>12:00pm - 2:00pm</td>
-            <td>17/05/22</td>
+                <td>Systems Design Lecture</td>
+                <td>12:00pm - 2:00pm</td>
+                <td>17/05/22</td>
             <td>
                 <Button
                 variant="primary"

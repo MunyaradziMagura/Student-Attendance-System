@@ -16,11 +16,12 @@ export default function Dashboard() {
   const [value, onChange] = useState(new Date());
   // take attendance
   const navigate = useNavigate();
-  let email = localStorage.getItem("email");
+
   const doLogout = () => {
     localStorage.clear();
     navigate("/Login");
   };
+
   const [page, setPage] = React.useState();
   let pageComponent;
   let headerComponent;
@@ -51,7 +52,7 @@ export default function Dashboard() {
   return (
     <div className={sty.box}>
       <div className={sty.left}>
-        <h2 style={{ textAlign: "center" }}>Welcome {userData.userName},</h2>
+        <h2 style={{ textAlign: "center" }}>Welcome {userData.userName}</h2>
         <div className={sty.emailBox}></div>
         <div className={sty.navBox}>
           <Nav className="col-md-12 d-none d-md-block sidebar">
