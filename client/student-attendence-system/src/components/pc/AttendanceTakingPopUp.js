@@ -73,11 +73,6 @@ function AttendanceTakingPopUp(props, date) {
             </tr>
           </thead>
           <tbody>
-          {/* <tr>
-              
-
-          </tr> */}
-          {console.log(jsonObjectsArray)}
             {jsonObjectsArray.map(student => (
             <tr>
               <td>{student.date}</td>
