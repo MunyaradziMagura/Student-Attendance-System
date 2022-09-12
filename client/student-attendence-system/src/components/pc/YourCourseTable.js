@@ -1,11 +1,16 @@
 import React from "react";
 import {IoLink} from "react-icons/io5"
 import Table from "react-bootstrap/Table";
-
+import {useNavigate} from 'react-router-dom';
 const YourCourseTable = ({classesObject}) => {
     console.log(classesObject);
     // const values = Object.values(classesObject);
     // values.forEach(val=>console.log(val));
+
+    const navigate = useNavigate();
+    const navigateDashboard = () =>{
+        navigate('/Dashboard', {request:'YourCourseScreen'});
+    }
     return(
         <Table striped bordered hover variant="light">
             <thead>
@@ -23,11 +28,12 @@ const YourCourseTable = ({classesObject}) => {
                         <td>{classesObject[key].Name}</td>
                         <td>{classesObject[key].CategoryCode}</td>
                         <td>{classesObject[key].Units}</td>
-                        <td class="w-10"><IoLink></IoLink></td>
+                        <td class="w-10"><button style={{border: "none", background: "none"}} onClick={navigateDashboard}><IoLink></IoLink></button></td>
                     </tr>)
                 )
             }
             </tbody>
+
         </Table>
         
     )

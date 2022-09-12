@@ -9,9 +9,10 @@ import StudentAttendanceTable from "./StudentAttendanceTable";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Nav from "react-bootstrap/Nav"
+import YourCourseScreen from "./YourCourseScreen";
 
 
-export default function Dashboard() {
+export default function Dashboard({request}) {
   var userData = { userName: localStorage.getItem("name") };
   const [value, onChange] = useState(new Date());
   // take attendance
@@ -29,7 +30,7 @@ export default function Dashboard() {
   // which page has been selected
   switch (page) {
     case "YourCourse":
-      pageComponent = <YourCourse />;
+      pageComponent = <YourCourse setPage={setPage}/>;
       headerComponent = <Header pageName={"Your Course"}/>
       break;
     case "StudentAttendance":
@@ -40,13 +41,20 @@ export default function Dashboard() {
       pageComponent = <></>; //Should load StudentSearchTable component
       headerComponent = <Header pageName={"Student Search"}/>
       break;
-      case "Dashboard":
-        pageComponent = <Home />;
-        headerComponent = <Header pageName={"Dashboard"}/>
-        break;
+    case "Dashboard":
+      pageComponent = <Home />;
+      headerComponent = <Header pageName={"Dashboard"}/>
+      break;
+    case "YourCourseScreen":
+      pageComponent = <YourCourseScreen/>
+      break;
     default:
       pageComponent = <Home />;
       headerComponent = <Header pageName={"Dashboard"}/>
+  }
+  console.log(request);
+  if(request!=null){
+    setPage(request);
   }
 
   return (

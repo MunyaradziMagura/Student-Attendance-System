@@ -2,14 +2,14 @@ import React, { useEffect, useState }  from "react";
 import YourCourseTable from "./YourCourseTable";
 import Form from "react-bootstrap/Form"
 
-const YourCourse = (courseList) =>{
-    // var coursesObject = {
-    //     1: {Name: "System Architecture", CategoryCode: "COMP 3024", Units: "4.5", StudyPeriod: "SP1"},
-    //     2: {Name: "Network Fundamentals", CategoryCode: "INFT 1012", Units: "4.5", StudyPeriod: "SP1"},
-    //     3: {Name: "Problem Solving and Programming", CategoryCode: "COMP 1039", Units: "4.5", StudyPeriod: "SP2"}
-    // }
+const YourCourse = (courseList, setPage) =>{
+    var coursesObject = {
+        1: {Name: "System Architecture", CategoryCode: "COMP 3024", Units: "4.5", StudyPeriod: "SP1"},
+        2: {Name: "Network Fundamentals", CategoryCode: "INFT 1012", Units: "4.5", StudyPeriod: "SP1"},
+        3: {Name: "Problem Solving and Programming", CategoryCode: "COMP 1039", Units: "4.5", StudyPeriod: "SP2"}
+    }
 
-    var coursesObject = courseList;
+    //var coursesObject = courseList;
 
 
     const[filteredList, setFilteredList] = useState(coursesObject);
@@ -48,7 +48,7 @@ const YourCourse = (courseList) =>{
                 <option value ="SP7">Study Period 7</option>
         </Form.Select>
      <div/>
-     <YourCourseTable classesObject={filteredList}></YourCourseTable>
+     <YourCourseTable classesObject={filteredList} setPage={setPage}></YourCourseTable>
      </>) 
      
 }
