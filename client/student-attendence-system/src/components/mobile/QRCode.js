@@ -17,12 +17,12 @@ function QRCode({ studentInfo }, props) {
 
   // download QR code
   const base64ToBlob = (code) => {
-    var parts = code.split(";base64,");
-    var contentType = parts[0].split(":")[1];
-    var raw = window.atob(parts[1]);
-    var rawLength = raw.length;
-    var uInt8Array = new Uint8Array(rawLength);
-    for (var i = 0; i < rawLength; ++i) {
+    let parts = code.split(";base64,");
+    let contentType = parts[0].split(":")[1];
+    let raw = window.atob(parts[1]);
+    let rawLength = raw.length;
+    let uInt8Array = new Uint8Array(rawLength);
+    for (let i = 0; i < rawLength; ++i) {
       uInt8Array[i] = raw.charCodeAt(i);
     }
     return new Blob([uInt8Array], {
@@ -30,9 +30,14 @@ function QRCode({ studentInfo }, props) {
     });
   };
 
+  // create fingerprint
+  const createFingerprint = new DeviceFingerPrint();
+  //get fingerprint
+  const fingerprint = createFingerprint.fingerprint();
+
   // object of values used to generate qrcode
   const person = {
-    deviceFingerPrint: fingerPrint,
+    deviceFingerPrint: fingerprint,
     userName: studentInfo.studentID,
     firstName: studentInfo.firstName,
     lastName: studentInfo.lastName,
@@ -50,7 +55,6 @@ function QRCode({ studentInfo }, props) {
       className="d-flex justify-content-around"
       style={{ paddingTop: "3rem", paddingBottom: "3rem" }}
     >
-      <DeviceFingerPrint passFingerPrint={passFingerPrint} />
       <Card
         border="info"
         style={{ width: "100%", backgroundColor: "transparent" }}

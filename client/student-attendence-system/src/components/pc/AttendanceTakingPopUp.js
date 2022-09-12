@@ -62,6 +62,7 @@ function AttendanceTakingPopUp(props, date) {
         {/* For each element in the array, convert each into JSON format */}
         {array.forEach(convertToJSON)}
         
+        {console.log(jsonObjectsArray)}
       </div>
         
         <Table responsive striped bordered hover>
@@ -77,7 +78,7 @@ function AttendanceTakingPopUp(props, date) {
             <tr>
               <td>{student.date}</td>
               <td>{student.firstName} {student.lastName}</td>
-              <td>{student.deviceFingerPrint}</td>
+              <td key={student.deviceFingerPrint}>{student.deviceFingerPrint}</td>
               </tr>))}
           </tbody>
         </Table>
