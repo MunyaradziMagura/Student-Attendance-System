@@ -64,8 +64,6 @@ function AttendanceTakingPopUp(props, date) {
         
       </div>
         
-        
-        
         <Table responsive striped bordered hover>
           <thead style={{textAlign: "center"}}>
             <tr>
@@ -75,32 +73,17 @@ function AttendanceTakingPopUp(props, date) {
             </tr>
           </thead>
           <tbody>
-          <tr>
+          {/* <tr>
               
 
-            </tr>
-            {jsonObjectsArray.map(student => (<tr><th key={student.deviceFingerPrint}></th></tr>))}
-
-            {/* <tr>
-              <td>{props.date}</td>
-              <td>Forest Black</td>
-              <td>2124312h313</td>
-            </tr>
+          </tr> */}
+          {console.log(jsonObjectsArray)}
+            {jsonObjectsArray.map(student => (
             <tr>
-              <td>{props.date}</td>
-              <td>Duff Black</td>
-              <td>21h3213b12j</td>
-            </tr>
-            <tr>
-              <td>{props.date}</td>
-              <td>Peter Black</td>
-              <td>1hj4234j3j</td>
-            </tr>
-            <tr>
-              <td>{props.date}</td>
-              <td>Jane Black</td>
-              <td>2124312h313</td>
-            </tr> */}
+              <td>{student.date}</td>
+              <td>{student.firstName} {student.lastName}</td>
+              <td>{student.deviceFingerPrint}</td>
+              </tr>))}
           </tbody>
         </Table>
         
