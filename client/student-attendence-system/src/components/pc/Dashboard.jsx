@@ -9,7 +9,6 @@ import StudentAttendanceTable from "./StudentAttendanceTable";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Nav from "react-bootstrap/Nav"
-import YourCourseScreen from "./YourCourseScreen";
 
 
 export default function Dashboard({request}) {
@@ -44,9 +43,6 @@ export default function Dashboard({request}) {
     case "Dashboard":
       pageComponent = <Home />;
       headerComponent = <Header pageName={"Dashboard"}/>
-      break;
-    case "YourCourseScreen":
-      pageComponent = <YourCourseScreen/>
       break;
     default:
       pageComponent = <Home />;
