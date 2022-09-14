@@ -4,6 +4,7 @@ import sty from "../styles/Dashboard.module.css";
 import Nav from "react-bootstrap/Nav";
 import Calendar from "react-calendar";
 import Button from "react-bootstrap/Button";
+import {Link} from "react-router-dom";
 const SideNavigation = () => {
     var userData = { userName: localStorage.getItem("name") };
     const navigate = useNavigate();
@@ -23,21 +24,25 @@ const SideNavigation = () => {
           <Nav.Link 
               style={{color: "#3b4149"}}
               className={sty.navItem}
+              href="/Test/"
             > Dashboard
             </Nav.Link>
             <Nav.Link 
               style={{color: "#3b4149"}}
               className={sty.navItem}
+              href="/Test/YourCourse"
             > Your Courses
             </Nav.Link>
             <Nav.Link 
               style={{color: "#3b4149"}}
               className={sty.navItem}
+              href="/Test/StudentAttendance"
             > Student Attendance
             </Nav.Link>
             <Nav.Link
               style={{color: "#3b4149"}} 
               className={sty.navItem}
+              href="/Test/StudentSearch"
             >Student Search
             </Nav.Link>
           </Nav>

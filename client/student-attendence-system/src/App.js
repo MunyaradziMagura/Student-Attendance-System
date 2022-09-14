@@ -50,7 +50,7 @@ function App() {
             }
           />
           <Route
-            path="/Test"
+            path="/Test/*"
             element={
             <RequireAuth>
               <Test />
