@@ -8,7 +8,6 @@ import React from "react";
 
 function AttendanceTakingPopUp(props, date) {
 
-  let deviceFingerprintsSet = new Set()
   const [result, setResult] = useState("")
     var array = []
     var jsonObjectsArray = []
@@ -62,6 +61,8 @@ function AttendanceTakingPopUp(props, date) {
 
         {/* For each element in the array, convert each into JSON format */}
         {array.forEach(convertToJSON)}
+        
+        {console.log(jsonObjectsArray)}
       </div>
         
         <Table responsive striped bordered hover>
@@ -72,10 +73,9 @@ function AttendanceTakingPopUp(props, date) {
               <th>Device Hash</th>
             </tr>
           </thead>
-
           <tbody>
             {jsonObjectsArray.map(student => (
-            <tr className={deviceFingerprintsSet.has(student.deviceFingerPrint) ? "bg-danger" : deviceFingerprintsSet.add(student.deviceFingerPrint)}>
+            <tr>
               <td>{student.date}</td>
               <td>{student.firstName} {student.lastName}</td>
               <td key={student.deviceFingerPrint}>{student.deviceFingerPrint}</td>

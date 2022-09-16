@@ -6,7 +6,6 @@ import YourCourse from "./YourCourse";
 import Button from "react-bootstrap/Button";
 import Home from "./Home";
 import StudentAttendanceTable from "./StudentAttendanceTable";
-import StudentSearchTable from "./StudentSearchTable";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Nav from "react-bootstrap/Nav"
@@ -38,7 +37,7 @@ export default function Dashboard() {
       headerComponent = <Header pageName={"Student Attendance"}/>
       break;
     case "StudentSearch":
-      pageComponent = <><StudentSearchTable/></>; //Should load StudentSearchTable component
+      pageComponent = <></>; //Should load StudentSearchTable component
       headerComponent = <Header pageName={"Student Search"}/>
       break;
       case "Dashboard":
