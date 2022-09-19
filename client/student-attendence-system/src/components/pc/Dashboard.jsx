@@ -45,7 +45,7 @@ export default function Dashboard() {
       break;
     case "CourseDetails":
         pageComponent = <CourseDetails backFunction={() => setPage("YourCourse")} courseName={"Test"} />
-        headerComponent = <Header pageName={"Student Search"}/>
+        headerComponent = <Header pageName={"Course Details"}/>
         break;
 
     default:
