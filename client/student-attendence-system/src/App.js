@@ -12,7 +12,9 @@ import "./styles/index.css";
 import Login from "./pages/Login";
 
 import StudentHome from "./pages/StudentHome";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./components/pc/Dashboard";
+import Navigation from "./components/Navigation";
+import Test from "./pages/Dashboard"
 function RequireAuth({ children }) {
   const authed = localStorage.getItem("login");
 
@@ -45,6 +47,14 @@ function App() {
               <RequireAuth>
                 <StudentHome />
               </RequireAuth>
+            }
+          />
+          <Route
+            path="/Test/*"
+            element={
+            <RequireAuth>
+              <Test />
+            </RequireAuth>
             }
           />
           <Route path="/Login" element={<Login />} />
