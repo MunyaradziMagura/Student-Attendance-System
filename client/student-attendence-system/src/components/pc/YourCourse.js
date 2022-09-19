@@ -1,5 +1,4 @@
 import React, { useEffect, useState }  from "react";
-import YourCourseTable from "./YourCourseTable";
 import Form from "react-bootstrap/Form"
 import Courses from "./Courses";
 import Button from "react-bootstrap/esm/Button";
