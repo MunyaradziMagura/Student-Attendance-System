@@ -3,17 +3,17 @@ import sty from "../styles/Dashboard.module.css";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import YourCourse from "./YourCourse";
+import CourseDetails from "./CourseDetails";
 import Button from "react-bootstrap/Button";
-import Home from "./Home";
-import StudentAttendanceTable from "./StudentAttendanceTable";
-import StudentSearchTable from "./StudentSearchTable";
+// import StudentAttendanceTable from "./StudentAttendanceTable";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Nav from "react-bootstrap/Nav"
+import Courses from "./Courses"
 
-
-export default function Dashboard({request}) {
+export default function Dashboard() {
   var userData = { userName: localStorage.getItem("name") };
+  const lecturer = JSON.parse(localStorage.getItem("lecturer"));
   const [value, onChange] = useState(new Date());
   // take attendance
   const navigate = useNavigate();
@@ -22,37 +22,37 @@ export default function Dashboard({request}) {
     localStorage.clear();
     navigate("/Login");
   };
+  
+  const [page, setPage] = React.useState("YourCourse");
 
-  const [page, setPage] = React.useState();
-  let pageComponent;
+  let pageComponent; // loads content to the left of the page
   let headerComponent;
 
+  // function to change the rendering component 
+ 
   // which page has been selected
   switch (page) {
     case "YourCourse":
-      pageComponent = <YourCourse setPage={setPage}/>;
-      headerComponent = <Header pageName={"Your Course"}/>
-      break;
-    case "StudentAttendance":
-      pageComponent = <StudentAttendanceTable />;
-      headerComponent = <Header pageName={"Student Attendance"}/>
+      pageComponent = <YourCourse courseList={lecturer.courses} forwardFunction={() => setPage("CourseDetails")}/>;
+
+      // pageComponent = <Courses classesObject={JSON.stringify(lecturer.courses)} backFunction={() => setPage("CourseDetails")} />;
+
+      headerComponent = <Header pageName={"Your Courses"}/>
       break;
     case "StudentSearch":
-      pageComponent = <><StudentSearchTable/></>; //Should load StudentSearchTable component
+      pageComponent = <></>; //Should load StudentSearchTable component
       headerComponent = <Header pageName={"Student Search"}/>
       break;
-    case "Dashboard":
-      pageComponent = <Home />;
-      headerComponent = <Header pageName={"Dashboard"}/>
-      break;
+    case "CourseDetails":
+        pageComponent = <CourseDetails backFunction={() => setPage("YourCourse")} courseName={"Test"} />
+        headerComponent = <Header pageName={"Course Details"}/>
+        break;
+
     default:
-      pageComponent = <Home />;
-      headerComponent = <Header pageName={"Dashboard"}/>
-  }
-  console.log(request);
-  if(request!=null){
-    setPage(request);
-  }
+      pageComponent = <YourCourse/>;
+      headerComponent = <Header pageName={"Your Courses"}/>
+    }
+
 
   return (
     <div className={sty.box}>
@@ -61,34 +61,14 @@ export default function Dashboard({request}) {
         <div className={sty.emailBox}></div>
         <div className={sty.navBox}>
           <Nav className="col-md-12 d-none d-md-block sidebar">
-          <Nav.Link 
-              style={{color: "#3b4149"}}
-              className={sty.navItem}
-              href=" "
-              onClick={() => setPage("Dashboard")}
-            > Dashboard
-            </Nav.Link>
             <Nav.Link 
               style={{color: "#3b4149"}}
               className={sty.navItem}
               href="#YourCourse"
               onClick={() => setPage("YourCourse")}
-            > Your Courses
+            > Courses
             </Nav.Link>
-            <Nav.Link 
-              style={{color: "#3b4149"}}
-              className={sty.navItem}
-              href="#StudentAttendance"
-              onClick={() => setPage("StudentAttendance")}
-            > Student Attendance
-            </Nav.Link>
-            <Nav.Link
-              style={{color: "#3b4149"}} 
-              className={sty.navItem}
-              href="#StudentSearch"
-              onClick={() => setPage("StudentSearch")}
-            >Student Search
-            </Nav.Link>
+
           </Nav>
           <div className = {sty.calendar}>
             <Calendar onChange={onChange} value={value} />
