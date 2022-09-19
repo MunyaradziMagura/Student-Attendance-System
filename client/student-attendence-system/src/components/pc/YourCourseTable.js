@@ -11,23 +11,32 @@ const YourCourseTable = ({classesObject}) => {
             <thead>
                 <tr>
                     <th>Course Name</th>
-                    <th>Category Code</th>
-                    <th>Unit</th>
+                    <th>Catalogue ID</th>
+                    <th>No. Students</th>
+
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-            {
+            {Object.keys(classesObject).length === 0 ? (
+                <tr>
+                  <td colSpan={3}>No Data to Display</td>
+                </tr>
+              ):(
                 Object.keys(classesObject).map((key) => (
                     <tr>
-                        <td>{classesObject[key].Name}</td>
-                        <td>{classesObject[key].CategoryCode}</td>
-                        <td>{classesObject[key].Units}</td>
+                        <td>{classesObject[key].courseName}</td>
+                        <td>{classesObject[key].catalogueID}</td>
+                        <td>{classesObject[key].students.length}</td>
                         <td class="w-10"><IoLink></IoLink></td>
                     </tr>)
                 )
-            }
+              )
+              
+            } 
+        
             </tbody>
+
         </Table>
         
     )

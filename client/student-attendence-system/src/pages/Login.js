@@ -27,6 +27,8 @@ function Login() {
         navigate("/Dashboard", { state: { lecturer: res.data } });
         localStorage.setItem("email", res.data.email);
         localStorage.setItem("name", res.data.fullName);
+        localStorage.setItem("lecturer", JSON.stringify(res.data))
+        console.log(localStorage.getItem("lecturer"))
       } else {
         navigate("/Login");
       }

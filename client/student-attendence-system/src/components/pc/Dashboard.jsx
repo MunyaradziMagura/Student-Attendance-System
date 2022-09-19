@@ -4,7 +4,6 @@ import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import YourCourse from "./YourCourse";
 import Button from "react-bootstrap/Button";
-import Home from "./Home";
 import StudentAttendanceTable from "./StudentAttendanceTable";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
@@ -13,6 +12,7 @@ import Nav from "react-bootstrap/Nav"
 
 export default function Dashboard() {
   var userData = { userName: localStorage.getItem("name") };
+  const lecturer = JSON.parse(localStorage.getItem("lecturer"));
   const [value, onChange] = useState(new Date());
   // take attendance
   const navigate = useNavigate();
@@ -29,24 +29,16 @@ export default function Dashboard() {
   // which page has been selected
   switch (page) {
     case "YourCourse":
-      pageComponent = <YourCourse />;
-      headerComponent = <Header pageName={"Your Course"}/>
-      break;
-    case "StudentAttendance":
-      pageComponent = <StudentAttendanceTable />;
-      headerComponent = <Header pageName={"Student Attendance"}/>
+      pageComponent = <YourCourse courseList={lecturer.courses}/>;
+      headerComponent = <Header pageName={"Your Courses"}/>
       break;
     case "StudentSearch":
       pageComponent = <></>; //Should load StudentSearchTable component
       headerComponent = <Header pageName={"Student Search"}/>
       break;
-      case "Dashboard":
-        pageComponent = <Home />;
-        headerComponent = <Header pageName={"Dashboard"}/>
-        break;
     default:
-      pageComponent = <Home />;
-      headerComponent = <Header pageName={"Dashboard"}/>
+      pageComponent = <YourCourse courseList={lecturer.courses}/>;
+      headerComponent = <Header pageName={"Your Courses"}/>
   }
 
   return (
@@ -56,34 +48,14 @@ export default function Dashboard() {
         <div className={sty.emailBox}></div>
         <div className={sty.navBox}>
           <Nav className="col-md-12 d-none d-md-block sidebar">
-          <Nav.Link 
-              style={{color: "#3b4149"}}
-              className={sty.navItem}
-              href=" "
-              onClick={() => setPage("Dashboard")}
-            > Dashboard
-            </Nav.Link>
             <Nav.Link 
               style={{color: "#3b4149"}}
               className={sty.navItem}
               href="#YourCourse"
               onClick={() => setPage("YourCourse")}
-            > Your Courses
+            > Courses
             </Nav.Link>
-            <Nav.Link 
-              style={{color: "#3b4149"}}
-              className={sty.navItem}
-              href="#StudentAttendance"
-              onClick={() => setPage("StudentAttendance")}
-            > Student Attendance
-            </Nav.Link>
-            <Nav.Link
-              style={{color: "#3b4149"}} 
-              className={sty.navItem}
-              href="#StudentSearch"
-              onClick={() => setPage("StudentSearch")}
-            >Student Search
-            </Nav.Link>
+
           </Nav>
           <div className = {sty.calendar}>
             <Calendar onChange={onChange} value={value} />
