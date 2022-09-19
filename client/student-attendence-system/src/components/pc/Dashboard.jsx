@@ -3,12 +3,13 @@ import sty from "../styles/Dashboard.module.css";
 import "react-calendar/dist/Calendar.css";
 import Calendar from "react-calendar";
 import YourCourse from "./YourCourse";
+import CourseDetails from "./CourseDetails";
 import Button from "react-bootstrap/Button";
-import StudentAttendanceTable from "./StudentAttendanceTable";
+// import StudentAttendanceTable from "./StudentAttendanceTable";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Nav from "react-bootstrap/Nav"
-
+import Courses from "./Courses"
 
 export default function Dashboard() {
   var userData = { userName: localStorage.getItem("name") };
@@ -21,25 +22,37 @@ export default function Dashboard() {
     localStorage.clear();
     navigate("/Login");
   };
+  
+  const [page, setPage] = React.useState("YourCourse");
 
-  const [page, setPage] = React.useState();
-  let pageComponent;
+  let pageComponent; // loads content to the left of the page
   let headerComponent;
 
+  // function to change the rendering component 
+ 
   // which page has been selected
   switch (page) {
     case "YourCourse":
-      pageComponent = <YourCourse courseList={lecturer.courses}/>;
+      pageComponent = <YourCourse courseList={lecturer.courses} forwardFunction={() => setPage("CourseDetails")}/>;
+
+      // pageComponent = <Courses classesObject={JSON.stringify(lecturer.courses)} backFunction={() => setPage("CourseDetails")} />;
+
       headerComponent = <Header pageName={"Your Courses"}/>
       break;
     case "StudentSearch":
       pageComponent = <></>; //Should load StudentSearchTable component
       headerComponent = <Header pageName={"Student Search"}/>
       break;
+    case "CourseDetails":
+        pageComponent = <CourseDetails backFunction={() => setPage("YourCourse")} courseName={"Test"} />
+        headerComponent = <Header pageName={"Student Search"}/>
+        break;
+
     default:
-      pageComponent = <YourCourse courseList={lecturer.courses}/>;
+      pageComponent = <YourCourse/>;
       headerComponent = <Header pageName={"Your Courses"}/>
-  }
+    }
+
 
   return (
     <div className={sty.box}>

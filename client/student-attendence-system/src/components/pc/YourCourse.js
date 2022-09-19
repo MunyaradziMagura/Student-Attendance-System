@@ -1,16 +1,14 @@
 import React, { useEffect, useState }  from "react";
 import YourCourseTable from "./YourCourseTable";
 import Form from "react-bootstrap/Form"
-
-const YourCourse = ({courseList}, props) =>{
+import Courses from "./Courses";
+import Button from "react-bootstrap/esm/Button";
+const YourCourse = ({courseList, forwardFunction}, props) =>{
     const [classes, setClasses] = useState({});
-    // var coursesObject = {
-    //     1: {Name: "System Architecture", CategoryCode: "COMP 3024", Units: "4.5", StudyPeriod: "SP1"},
-    //     2: {Name: "Network Fundamentals", CategoryCode: "INFT 1012", Units: "4.5", StudyPeriod: "SP1"},
-    //     3: {Name: "Problem Solving and Programming", CategoryCode: "COMP 1039", Units: "4.5", StudyPeriod: "SP2"}
-    // }
 
-
+        function detailsPage(){
+                forwardFunction()
+        }
      return( <>
         <Form.Select onChange={(e) => setClasses(courseList[e.target.value])}>
                 <option key = "default" value="SP1">Select A Course</option>
@@ -23,7 +21,7 @@ const YourCourse = ({courseList}, props) =>{
                 <option key = "SP7" value = "SP7">Study Period 7</option>
         </Form.Select>
      <div/>
-     <YourCourseTable classesObject={classes}></YourCourseTable>
+      <Courses classesObject={classes} sendDetailsPageButton={detailsPage}></Courses>
      </>) 
      
 }
