@@ -57,11 +57,12 @@ const CourseDetails = ({backFunction, courseName}, props) => {
         
       </Card>
       <Card style={{ width: '18rem' }}>
-      <ListGroup variant="flush">
-        <ListGroup.Item>Name</ListGroup.Item>
-        <ListGroup.Item>ID</ListGroup.Item>
-        <ListGroup.Item>Attendances</ListGroup.Item>
-        <ListGroup.Item>Abcenses</ListGroup.Item>
+      <ListGroup>
+        <ListGroup.Item>Name:</ListGroup.Item>
+        <ListGroup.Item>ID:</ListGroup.Item>
+        <ListGroup.Item>Attendances:</ListGroup.Item>
+        <ListGroup.Item>Absences:</ListGroup.Item>
+        <Button>Clear</Button>
 
       </ListGroup>
     </Card>
