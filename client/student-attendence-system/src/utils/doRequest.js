@@ -19,3 +19,19 @@ export function retrieveAttendance(data) {
     data,
   });
 }
+
+export function getAttendanceDetails(data) {
+  return service.request({
+    url: `lecturers/getAttendance/`,
+    method: "GET",
+    data,
+  })
+}
+
+export function addCourseAttendanceRecord(data) {
+  return service.request({
+    url: `courseAttendanceRecords/`,
+    method: "PUT",
+    data
+  })
+}

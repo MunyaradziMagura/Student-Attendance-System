@@ -9,6 +9,7 @@ import AttendanceTakingPopUp from "./AttendanceTakingPopUp";
 import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import ListGroup from 'react-bootstrap/ListGroup'
+import CourseDetailsTable from './CourseDetailsTable';
 
 const CourseDetails = ({backFunction, courseName}, props) => {
     const [takeAttendance, setTakeAttendance] = React.useState(false);
@@ -72,17 +73,9 @@ const CourseDetails = ({backFunction, courseName}, props) => {
             </div>
             <div>
                 <h2>Students</h2>
-                <Table striped bordered hover variant="light">
-                    <thead>
-                        <tr>
-                            <th style= {{textAlign:'center'}}>StudentID</th>
-                            <th style= {{textAlign:'center'}}>Student Name</th>
-                            <th style= {{textAlign: 'center'}}>Device Hash</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </Table>
+                {/* table which shows all students */}
+                <CourseDetailsTable/>
+                
             </div>
         </>
     )
