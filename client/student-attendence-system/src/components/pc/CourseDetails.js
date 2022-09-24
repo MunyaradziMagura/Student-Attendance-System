@@ -1,7 +1,5 @@
 import React,  { useState } from 'react'
-import {IoLink} from "react-icons/io5"
 import Form from "react-bootstrap/Form"
-import Table from "react-bootstrap/esm/Table";
 import Stack from "react-bootstrap/Stack";
 import Button from 'react-bootstrap/esm/Button';
 import InputGroup from 'react-bootstrap/InputGroup'
@@ -12,7 +10,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import CourseDetailsTable from './CourseDetailsTable';
 
 const CourseDetails = ({backFunction, courseName}, props) => {
-    const [takeAttendance, setTakeAttendance] = React.useState(false);
+    const [takeAttendance, setTakeAttendance] = useState(false);
 
     return(
         <>

@@ -22,10 +22,6 @@ function AttendanceTakingPopUp(props, date) {
       
   }
 
-  const viewStudent = () => {
-    alert("send the lecturer to the specific students screen");
-  };
-
   return (
     <Modal
       {...props}

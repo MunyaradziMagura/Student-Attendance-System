@@ -1,11 +1,10 @@
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Image from "react-bootstrap/Image";
-import { useEffect, useState } from "react";
-import axios from "axios";
+//import { useState } from "react";
 
 const UserProfile = ({ fullName, studentID, program }) => {
-  const [userinfo, setUserinfo] = useState({});
+  //const [userinfo, setUserinfo] = useState({});
 
   return (
     <div

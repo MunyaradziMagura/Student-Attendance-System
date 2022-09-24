@@ -1,8 +1,7 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import axios from "axios";
 import { useState } from "react";
-import { loginLecturer, userLogin } from "../utils/doRequest";
+import { userLogin } from "../utils/doRequest";
 import { useNavigate } from "react-router-dom";
 function Login() {
   const [userEmail, setEmail] = useState("");
@@ -19,16 +18,15 @@ function Login() {
       localStorage.setItem("login", "yes");
       // localStorage.setItem("email", res.data.email);
 
-      if (role == "students") {
+      if (role === "students") {
         navigate("/StudentHome", { state: { student: res.data } });
         localStorage.setItem("role", res.data.role);
         localStorage.setItem("student", JSON.stringify(res.data));
-      } else if (role == "lecturers") {
+      } else if (role === "lecturers") {
         navigate("/Dashboard", { state: { lecturer: res.data } });
         localStorage.setItem("email", res.data.email);
         localStorage.setItem("name", res.data.fullName);
         localStorage.setItem("lecturer", JSON.stringify(res.data))
-        console.log(localStorage.getItem("lecturer"))
       } else {
         navigate("/Login");
       }

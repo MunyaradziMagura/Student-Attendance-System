@@ -36,7 +36,7 @@ function QRCode({ studentInfo }, props) {
   const fingerprint = createFingerprint.fingerprint();
   // get browser
   const browser = createFingerprint.browser();
-  console.log(browser);
+  //console.log(browser);
   // object of values used to generate qrcode
   const person = {
     deviceFingerPrint: fingerprint,

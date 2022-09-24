@@ -6,7 +6,6 @@ import QRCode from "../components/mobile/QRCode";
 import StudentClasses from "../components/mobile/StudentClasses";
 import UserProfile from "../components/mobile/UserProfile";
 import React from "react";
-import { useLocation } from "react-router-dom";
 
 function StudentHome() {
   // object containing student information (i.e. id, username, email, attendance etc etc )

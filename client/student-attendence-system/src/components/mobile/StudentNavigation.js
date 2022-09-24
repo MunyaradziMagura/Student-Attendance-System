@@ -7,8 +7,6 @@ import {
   IoBook,
   IoLogOutSharp,
 } from "react-icons/io5";
-import Button from "react-bootstrap/Button";
-import LogoutFunction from "../LogoutFunction.js";
 import { useNavigate } from "react-router-dom";
 
 function StudentNavigation({ fullName, setPage }) {

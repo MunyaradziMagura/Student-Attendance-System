@@ -8,7 +8,7 @@ const Header = ({pageName}) => {
         <>
             <div className={sty.rightTop}>
                 <h1>{pageName}</h1>
-                {pageName == 'Dashboard'?<div>Dashboard</div>: <div>{subLink}</div>}
+                {pageName === 'Dashboard'?<div>Dashboard</div>: <div>{subLink}</div>}
             </div>
         </>
     )
