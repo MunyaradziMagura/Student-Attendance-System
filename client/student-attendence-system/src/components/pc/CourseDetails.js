@@ -39,13 +39,14 @@ const CourseDetails = ({backFunction, courseName}, props) => {
                     onClick={() => setTakeAttendance(true)}
                     >
                     Launch Attendance Taking
-                    </Button>
+      </Button>
                     {/* show popup */}
                     <AttendanceTakingPopUp
                     show={takeAttendance}
                     style={{ width: "100%", fontSize: "0.8rem" }}
                     onHide={() => setTakeAttendance(false)}
                     />
+                    {console.log(takeAttendance)}
                 </Stack>
             </div>
             <div>

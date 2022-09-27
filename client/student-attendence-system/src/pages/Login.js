@@ -1,5 +1,6 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import Button from 'react-bootstrap/Button'
 import { useState } from "react";
 import { userLogin } from "../utils/doRequest";
 import { useNavigate } from "react-router-dom";
@@ -74,13 +75,13 @@ function Login() {
             />
           </InputGroup>
         </div>
-        <button type="submit" onClick={(e) => Login("students")}>
-          Student Login
-        </button>
+          <Button size="sm" variant="light" type="submit" onClick={(e) => Login("students")}>
+            Student Login
+          </Button> {' '}
 
-        <button type="submit" onClick={(e) => Login("lecturers")}>
-          Lecturers Login
-        </button>
+          <Button size="sm" variant="light" type="submit" onClick={(e) => Login("lecturers")}>
+            Lecturer Login
+          </Button>
       </form>
     </div>
   );

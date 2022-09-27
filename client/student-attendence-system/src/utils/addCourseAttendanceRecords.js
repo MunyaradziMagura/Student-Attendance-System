@@ -1,4 +1,6 @@
 import {addCourseAttendanceRecord} from "./doRequest"
+import { ClientJS } from "clientjs";
+
 
 var attendanceRecord = {
     "courseID": "156761",
@@ -14,26 +16,26 @@ class addCourseAttendanceRecords {
 
     addRecord = () => {
         addCourseAttendanceRecord({
-        courseID: attendanceRecord.courseID,
-        courseName: attendanceRecord.courseName,
-        staffID: attendanceRecord.staffID,
-        date: attendanceRecord.date,
-        studyPeriod: attendanceRecord.staffID,
-        classType: attendanceRecord.classType,
-        attendance: attendanceRecord.attendance
+            courseID: attendanceRecord.courseID,
+            courseName: attendanceRecord.courseName,
+            staffID: attendanceRecord.staffID,
+            date: attendanceRecord.date,
+            studyPeriod: attendanceRecord.staffID,
+            classType: attendanceRecord.classType,
+            attendance: attendanceRecord.attendance
         })
     }
     
     constructor() {
-    //   this.client = new ClientJS();
+      this.client = new ClientJS();
     }
     
   
     fingerprint() {
-    //   return this.client.getFingerprint();
+      return this.client.getFingerprint();
     }
     browser() {
-    //   this.client.getBrowserVersion();
+      this.client.getBrowserVersion();
     }
   }
   
