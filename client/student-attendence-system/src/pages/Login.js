@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button'
 import { useState } from "react";
 import { userLogin } from "../utils/doRequest";
 import { useNavigate } from "react-router-dom";
+import logo from './unisa-logo.png'
+
 function Login() {
   const [userEmail, setEmail] = useState("");
   const [userPassword, setPassword] = useState("");
@@ -46,7 +48,11 @@ function Login() {
 
   return (
     <div className="Login">
+      
+
       <form onSubmit={handleSubmit}>
+      <img src={logo} style={{width: 150, height: 150}} alt="logo"></img>
+
         <h1>Login</h1>
         <div>
           <InputGroup className="mb-3">
