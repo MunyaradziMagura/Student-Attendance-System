@@ -16,6 +16,7 @@ function AttendanceTakingPopUp(props) {
     var jsonObjectsArray = [] // stores student objects scanned in 
 
     function convertToJSON(element) {
+
       // console.log(element)
       let jsonFormat = JSON.parse(element)
       // console.log(JSON.stringify(jsonFormat))
@@ -24,11 +25,19 @@ function AttendanceTakingPopUp(props) {
       // console.log(jsonObjectsArray)
       
   }
+  
+
   const staff = JSON.parse(localStorage.getItem('lecturer'))
 
 
   function submitStudents(){
-    const currentStudents = result.slice(2)  
+    let students = "";
+
+    jsonObjectsArray.forEach(e => {
+      let person = JSON.stringify(e)
+      person = person.replaceAll(`"`, `'`);
+      students = students + person + '||'
+    });
 
 
     addCourseAttendanceRecord({
@@ -40,13 +49,9 @@ function AttendanceTakingPopUp(props) {
         "date": props.date,
         "studyPeriod": localStorage.getItem('studyPeriod'),
         "classType": props.classType,
-        "attendance": currentStudents
+        "attendance": students
     }
     );
-
-
-
-
   }
 
   return (
