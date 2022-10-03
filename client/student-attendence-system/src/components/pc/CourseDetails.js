@@ -12,7 +12,8 @@ import CourseDetailsTable from './CourseDetailsTable';
 const CourseDetails = ({backFunction, courseName}, props) => {
     const [takeAttendance, setTakeAttendance] = useState(false);
   const [SelectedClassType,setSelectedClassType] = useState("")
-  console.log(SelectedClassType)
+  const currentDate = new Date();
+
     return(
         <>
             <div>
@@ -44,7 +45,9 @@ const CourseDetails = ({backFunction, courseName}, props) => {
       </Button>
                     {/* show popup */}
                     <AttendanceTakingPopUp
-                    classType = {}
+                    classType = {SelectedClassType}
+                    date = {`${currentDate.getDate() }/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
+                    // set popup state 
                     show={takeAttendance}
                     style={{ width: "100%", fontSize: "0.8rem" }}
                     onHide={() => setTakeAttendance(false)}

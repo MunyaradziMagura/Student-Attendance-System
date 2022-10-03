@@ -6,7 +6,7 @@ import Table from "react-bootstrap/Table"
 import BarcodeReader from 'react-barcode-reader'
 import React from "react";
 
-function AttendanceTakingPopUp(props, date) {
+function AttendanceTakingPopUp({props, date}) {
 
   let deviceFingerprintsSet = new Set()
   const [result, setResult] = useState("")
