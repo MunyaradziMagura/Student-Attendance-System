@@ -6,20 +6,41 @@ import Table from "react-bootstrap/Table"
 import BarcodeReader from 'react-barcode-reader'
 import React from "react";
 
-function AttendanceTakingPopUp({props, date}) {
+function AttendanceTakingPopUp(props) {
+
 
   let deviceFingerprintsSet = new Set()
   const [result, setResult] = useState("")
     var array = []
-    var jsonObjectsArray = []
+    var jsonObjectsArray = [] // stores student objects scanned in 
 
     function convertToJSON(element) {
+      // console.log(element)
       let jsonFormat = JSON.parse(element)
-      // console.log(jsonFormat)
+      // console.log(JSON.stringify(jsonFormat))
       jsonObjectsArray.push(jsonFormat)
       // jsonObjectsArray.pop()
-      console.log(jsonObjectsArray)
+      // console.log(jsonObjectsArray)
       
+  }
+  const staff = JSON.parse(localStorage.getItem('lecturer'))
+
+
+  function submitStudents(){
+
+    const currentStudents = result.slice(2)  
+    // object which will be sent to the 'course attendance records' collection
+      var attendanceRecord = {
+        "catalogueID": localStorage.getItem('catalogueID'),
+        "courseName": localStorage.getItem('courseName'),
+        "staffID": staff.staffID,
+        "date": props.date,
+        "studyPeriod": localStorage.getItem('studyPeriod'),
+        "classType": props.classType,
+        "attendance": currentStudents
+    }
+    console.log(attendanceRecord)
+
   }
 
   return (
@@ -82,7 +103,8 @@ function AttendanceTakingPopUp({props, date}) {
 
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>CLOSE</Button>
+        <Button variant="success" onClick={() => submitStudents()}>Submit Students</Button>
+        <Button variant="warning" onClick={props.onHide}>CLOSE</Button>
       </Modal.Footer>
     </Modal>
   );

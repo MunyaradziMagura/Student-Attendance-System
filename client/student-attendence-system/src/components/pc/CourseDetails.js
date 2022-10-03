@@ -10,8 +10,9 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import CourseDetailsTable from './CourseDetailsTable';
 
 const CourseDetails = ({backFunction, courseName}, props) => {
-    const [takeAttendance, setTakeAttendance] = useState(false);
-  const [SelectedClassType,setSelectedClassType] = useState("")
+
+  const [takeAttendance, setTakeAttendance] = useState(false);
+  const [SelectedClassType, setSelectedClassType] = useState("")
   const currentDate = new Date();
 
     return(
