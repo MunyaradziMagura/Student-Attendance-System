@@ -3,20 +3,33 @@ import CourseRecord from "../models/attendedCourseRecords.model.js";
 
 const attendedCourseRecordsRouter = express.Router();
 
-attendedCourseRecordsRouter.route('/add').post((req, res) => {
+attendedCourseRecordsRouter.route('/add').put((req, res) => {
+
+        const catalogueID = req.body.catalogueID;
+        const courseName = req.body.courseName;
+        const staffID = req.body.staffID;
+        const date = req.body.date;
+        const studyPeriod = req.body.studyPeriod;
+        const classType = req.body.classType;
+        const attendance = req.body.attendance;
+
+
+    // CourseRecord.insert({
+    //     catalogueID,
+    //     courseName,
+    //     staffID,
+    //     date,
+    //     studyPeriod,
+    //     classType,
+    //     attendance        
+    // })
 
     //Various fields to be used in the API request
-    const courseID = req.body.courseID;
-    const courseName = req.body.courseName;
-    const staffID = req.body.staffID;
-    const date = req.body.date;
-    const studyPeriod = req.body.studyPeriod;
-    const classType = req.body.classType;
-    const attendance = req.body.attendance;
+    
 
     //Creates a new course document that uses the imported 'course' model
     const newAttendanceRecord = new CourseRecord({
-        courseID,
+        catalogueID,
         courseName,
         staffID,
         date,

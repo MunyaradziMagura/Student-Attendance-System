@@ -30,7 +30,7 @@ export function getAttendanceDetails(data) {
 
 export function addCourseAttendanceRecord(data) {
   return service.request({
-    url: `courseAttendanceRecords/`,
+    url: `/courseAttendanceRecords/add`,
     method: "PUT",
     data
   })

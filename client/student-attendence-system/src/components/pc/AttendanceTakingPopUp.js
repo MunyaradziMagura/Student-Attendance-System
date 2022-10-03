@@ -5,6 +5,7 @@ import ReactTypingEffect from "react-typing-effect";
 import Table from "react-bootstrap/Table"
 import BarcodeReader from 'react-barcode-reader'
 import React from "react";
+import { addCourseAttendanceRecord } from "../../utils/doRequest"
 
 function AttendanceTakingPopUp(props) {
 
@@ -27,10 +28,12 @@ function AttendanceTakingPopUp(props) {
 
 
   function submitStudents(){
-
     const currentStudents = result.slice(2)  
+
+
+    addCourseAttendanceRecord({
     // object which will be sent to the 'course attendance records' collection
-      var attendanceRecord = {
+      
         "catalogueID": localStorage.getItem('catalogueID'),
         "courseName": localStorage.getItem('courseName'),
         "staffID": staff.staffID,
@@ -39,7 +42,10 @@ function AttendanceTakingPopUp(props) {
         "classType": props.classType,
         "attendance": currentStudents
     }
-    console.log(attendanceRecord)
+    );
+
+
+
 
   }
 
@@ -103,8 +109,8 @@ function AttendanceTakingPopUp(props) {
 
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="success" onClick={() => submitStudents()}>Submit Students</Button>
-        <Button variant="warning" onClick={props.onHide}>CLOSE</Button>
+        <Button variant="outline-success" onClick={() => submitStudents()}>Submit Students</Button>
+        <Button variant="outline-warning" onClick={props.onHide}>CLOSE</Button>
       </Modal.Footer>
     </Modal>
   );

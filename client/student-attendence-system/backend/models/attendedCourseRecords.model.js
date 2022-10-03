@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const courseRecordsSchema = new Schema ({
 
-    courseID: {
+    catalogueID: {
         type: String,
         required: true,
         trim: true
