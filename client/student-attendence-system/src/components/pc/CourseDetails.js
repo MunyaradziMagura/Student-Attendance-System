@@ -11,14 +11,15 @@ import CourseDetailsTable from './CourseDetailsTable';
 
 const CourseDetails = ({backFunction, courseName}, props) => {
     const [takeAttendance, setTakeAttendance] = useState(false);
-
+  const [SelectedClassType,setSelectedClassType] = useState("")
+  console.log(SelectedClassType)
     return(
         <>
             <div>
                 <Stack direction="horizontal" gap={2}>
                     <Button onClick={backFunction}>Back</Button>
                     <h4>Class Type:</h4>
-                    <Form.Select style = {{width: '20rem'}}>
+                    <Form.Select style = {{width: '20rem'}} onChange={(e) => setSelectedClassType(e.target.value)}>
                         <option value="">All</option>
                         <option value = "Lecture">Lecture</option>
                         <option value = "Practical">Practical</option>
@@ -37,16 +38,17 @@ const CourseDetails = ({backFunction, courseName}, props) => {
                     variant="primary"
                     style={{ width: "85%", fontSize: "0.8rem" }}
                     onClick={() => setTakeAttendance(true)}
+                    disabled = {(SelectedClassType === "") ? true : false}
                     >
                     Launch Attendance Taking
       </Button>
                     {/* show popup */}
                     <AttendanceTakingPopUp
+                    classType = {}
                     show={takeAttendance}
                     style={{ width: "100%", fontSize: "0.8rem" }}
                     onHide={() => setTakeAttendance(false)}
                     />
-                    {console.log(takeAttendance)}
                 </Stack>
             </div>
             <div>
