@@ -10,7 +10,7 @@ const UserProfile = ({ fullName, studentID, program }) => {
   return (<>
     <div
       className="d-flex justify-content-around"
-      style={{ paddingTop: "1rem", paddingBottom: "1024px" }}
+      style={{ paddingTop: "1rem"}}
     >
       <Card
         style={{

@@ -49,33 +49,18 @@ function StudentHome() {
 
   return (
     <>
-      <Container>
-        <Row>
-          {/* nav */}
-          <StudentNavigation
-            style={{ backgroundColor: "#0052a0" }}
-            fullName={student.fullName}
-            setPage={setPage}
-          ></StudentNavigation>
-        </Row>
-        <Row>
-          <Container
-            style={{
-              backgroundColor: "#0052a0",
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            {/*  body */}
-            <Row>
-              <Col style={{ width: "100%", height: "100%" }}>
-                {/* load the right page */}
-                {pageComponent}
-              </Col>
-            </Row>
-          </Container>
-        </Row>
-      </Container>
+      <div  style={{backgroundColor:"#0052a0", height:window.screen.height + 25}}>
+        <StudentNavigation
+              style={{ backgroundColor: "#0052a0", borderstyle:"solid" }}
+              fullName={student.fullName}
+              setPage={setPage}
+        ></StudentNavigation>
+          <div>
+            {pageComponent}
+          </div>
+      
+
+      </div>
     </>
   );
 }

@@ -6,7 +6,7 @@ const StudentClassList = ({ classes, varientList }) => {
   // show model for visualising a students attendence
   const [modalShow, setModalShow] = React.useState(false);
   return (
-    <ListGroup style={{ paddingTop: "1rem", paddingBottom: "100%" }}>
+    <ListGroup style={{ paddingTop: "1rem" }}>
       <ListGroup.Item
         className="d-flex justify-content-between align-items-start"
         id="classHeading"
@@ -16,17 +16,19 @@ const StudentClassList = ({ classes, varientList }) => {
           {Object.keys(classes).length}
         </Badge>
       </ListGroup.Item>
-      {/* visualise students classes */}
-      {Object.keys(classes).forEach((item) => {
-        <ListGroup.Item
-          onClick={() => setModalShow(true)}
-          action
-          variant="primary"
-          id="studentClasses"
-        >
-          {classes[`${item}`].courseName}
-        </ListGroup.Item>;
-      })}
+      <div set>
+        {/* visualise students classes */}
+        {Object.keys(classes).forEach((item) => {
+          <ListGroup.Item
+            onClick={() => setModalShow(true)}
+            action
+            variant="primary"
+            id="studentClasses"
+          >
+            {classes[`${item}`].courseName}
+          </ListGroup.Item>;
+        })}
+      </div>
       <StudentAttendenceGraph
         show={modalShow}
         onHide={() => setModalShow(false)}
