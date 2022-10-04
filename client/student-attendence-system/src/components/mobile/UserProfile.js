@@ -7,14 +7,14 @@ import axios from "axios";
 const UserProfile = ({ fullName, studentID, program }) => {
   const [userinfo, setUserinfo] = useState({});
 
-  return (
+  return (<>
     <div
       className="d-flex justify-content-around"
-      style={{ paddingTop: "3rem", paddingBottom: "3rem" }}
+      style={{ paddingTop: "1rem", paddingBottom: "1024px" }}
     >
       <Card
         style={{
-          paddingBottom: "0rem",
+          paddingBottom: "1rem",
           backgroundColor: "#0052a0",
         }}
         bg={"info"}
@@ -53,14 +53,15 @@ const UserProfile = ({ fullName, studentID, program }) => {
             <ListGroup.Item style={{ width: "100%" }}>{program}</ListGroup.Item>
           </ListGroup>
         </Card.Body>
-        <Card.Footer
+        {/* <Card.Footer
           className="text-muted text-center"
           style={{ color: "#FFF" }}
         >
           Finishing on X date
-        </Card.Footer>
+        </Card.Footer> */}
       </Card>
     </div>
+    </>
   );
 };
 

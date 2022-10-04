@@ -25,22 +25,22 @@ function StudentHome() {
       break;
 
     case "Classes":
-      pageComponent = (
+      pageComponent = 
         <StudentClasses
           width={window.screen.width}
           attendance={student.attendance}
         />
-      );
+      ;
       break;
 
     case "Profile":
-      pageComponent = (
+      pageComponent = 
         <UserProfile
           fullName={student.fullName}
           studentID={student.studentID}
           program={student.program}
         />
-      );
+      ;
       break;
 
     default:

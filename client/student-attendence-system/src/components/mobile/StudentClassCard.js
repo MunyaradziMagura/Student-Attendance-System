@@ -8,7 +8,7 @@ const StudentClassCard = ({ classesObject, varientList }) => {
   const [modalShow, setModalShow] = React.useState(false);
 
   return (
-    <ListGroup style={{ paddingTop: "3rem", paddingBottom: "3rem" }}>
+    <ListGroup style={{ paddingTop: "1rem", paddingBottom: "100%" }}>
       <ListGroup.Item
         className="d-flex justify-content-between align-items-start"
         id="classHeading"
