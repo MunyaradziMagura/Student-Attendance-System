@@ -9,12 +9,15 @@ import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import Nav from "react-bootstrap/Nav"
-import Courses from "./Courses"
+
 
 export default function Dashboard() {
+  
+  
   var userData = { userName: localStorage.getItem("name") };
   const lecturer = JSON.parse(localStorage.getItem("lecturer"));
   const [value, onChange] = useState(new Date());
+  
   // take attendance
   const navigate = useNavigate();
 

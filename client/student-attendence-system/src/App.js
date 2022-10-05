@@ -4,9 +4,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
   Navigate,
-  parsePath,
 } from "react-router-dom";
 import "./styles/index.css";
 import Login from "./pages/Login";

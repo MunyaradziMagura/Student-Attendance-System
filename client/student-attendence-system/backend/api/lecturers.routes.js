@@ -7,6 +7,18 @@ function checkEmail(requestEmail, userEmail) {
     return requestEmail === userEmail;
 }
 
+lecturersRouter.route('/').get((request, result) => {
+  
+})
+
+lecturersRouter.route(`/getLecturer/:id`).get((req, res) => {
+  Lecturer.findOne({
+    staffID: req.body.staffID
+  }) // MongoDB function that will find ALL documents
+    .then((Lecturer) => res.json(Lecturer))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 lecturersRouter.route("/add").post((req, res) => {
     bcrypt
       .hash(req.body.password, 10) // hash the provided password and apply 10 rounds of salting

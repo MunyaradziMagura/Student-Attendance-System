@@ -5,6 +5,7 @@ import dotenv from "dotenv"; //Imports the .env file for backend configuration
 import studentRouter from "./api/students.routes.js"; //Imports student API routes
 import coursesRouter from "./api/courses.routes.js"; //Imports course API routes
 import lecturersRouter from "./api/lecturers.routes.js"
+import attendedCourseRecordsRouter from "./api/attendedCourseRecords.routes.js";
 
 dotenv.config(); //Require statement to import the .env settings file
 
@@ -31,6 +32,7 @@ connection.once("open", () => {
 app.use("/api/students", studentRouter);
 app.use("/api/courses", coursesRouter);
 app.use("/api/lecturers", lecturersRouter)
+app.use("/api/courseAttendanceRecords", attendedCourseRecordsRouter)
 
 //Console log to show that the backend is listening on the specified port in .env file
 app.listen(port, () => {
