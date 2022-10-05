@@ -56,38 +56,30 @@ const CourseDetails = ({backFunction, courseName}, props) => {
                 </Stack>
             </div>
             <div>
-
-            <CardGroup>
-      <Card>
-        <Card.Img style={{textAlign: "center", width: "250px", height: "250px"}}variant="top" src="https://www.advsofteng.com/doc/cdpydoc/images/simpleline.png" />
-        
-      </Card>
-      <Card style={{ width: '18rem' }}>
-      <ListGroup>
-        <ListGroup.Item>Name:</ListGroup.Item>
-        <ListGroup.Item>ID:</ListGroup.Item>
-        <ListGroup.Item>Attendances:</ListGroup.Item>
-        <ListGroup.Item>Absences:</ListGroup.Item>
-        <Button>Clear</Button>
-
-      </ListGroup>
-    </Card>
-    </CardGroup>
-
-            
+              <CardGroup>
+                  <Card>
+                    <Card.Img style={{textAlign: "center", width: "250px", height: "250px"}}variant="top" src="https://www.advsofteng.com/doc/cdpydoc/images/simpleline.png" />
+                  </Card>
+                  <Card style={{ width: '18rem' }}>
+                  <ListGroup>
+                      <ListGroup.Item>Name:</ListGroup.Item>
+                      <ListGroup.Item>ID:</ListGroup.Item>
+                      <ListGroup.Item>Attendances:</ListGroup.Item>
+                      <ListGroup.Item>Absences:</ListGroup.Item>
+                      <Button>Clear</Button>
+                  </ListGroup>
+              </Card>
+              </CardGroup>
             </div>
             
             <div>
             <div className="d-flex justify-content-start">
-            <Button variant="outline-info" size="lg">
-                    <b>Load Students</b>
-            </Button>
+              <Button variant="outline-info" size="lg">
+                      <b style={{ color: '#0052a0', opacity: '80%' }}>Load Students</b>
+              </Button>
                 <h2>Students</h2>
             </div>
         
- 
-
-
                 {/* table which shows all students */}
                 <CourseDetailsTable/>
                 
