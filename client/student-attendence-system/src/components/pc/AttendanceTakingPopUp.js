@@ -7,9 +7,8 @@ import BarcodeReader from 'react-barcode-reader'
 import React from "react";
 import Toast from 'react-bootstrap/Toast'
 import ToastContainer from 'react-bootstrap/ToastContainer'
-
 import { addCourseAttendanceRecord } from "../../utils/doRequest"
-import {IoCheckmarkCircle} from 'react-icons/io5'
+import {IoCheckmarkCircle, IoCloseCircle} from 'react-icons/io5'
 
 
 function AttendanceTakingPopUp(props) {
@@ -17,7 +16,9 @@ function AttendanceTakingPopUp(props) {
 
   let deviceFingerprintsSet = new Set()
   const [result, setResult] = useState("")
-  const [show, setShow] = useState(false) //State variables for the toast notification
+  const [successToast, setSuccessToast] = useState(false) //State variables for the toast notification
+  const [failureToast, setFailureToast] = useState(false) //State variables for the toast notification
+
     var array = []
     var jsonObjectsArray = [] // stores student objects scanned in 
 
@@ -32,14 +33,21 @@ function AttendanceTakingPopUp(props) {
       
   }
 
-  // Triggers the toast to be displayed when attendance is submitted
-  function showToast() {
-    setShow(true)
-  }
-  
+  // Validates whether there is any scanned students to submit 
+  // If no students in attendance object, show failure notification, otherwise show success notification
+  function validateAttendance() {
+    if(jsonObjectsArray.length == 0) {
+      setFailureToast(true)
+    } else {
+      submitStudents()
+      setSuccessToast(true)
+    }
+  }  
   const staff = JSON.parse(localStorage.getItem('lecturer'))
 
+
   function submitStudents(){
+
     
     let students = "";
 
@@ -128,7 +136,7 @@ function AttendanceTakingPopUp(props) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="outline-success" onClick={() => {submitStudents(); showToast()}}>Submit Students</Button>
+        <Button variant="outline-success" onClick={() => {validateAttendance()}}>Submit Students</Button>
         <Button variant="outline-warning" onClick={props.onHide}>CLOSE</Button>
       </Modal.Footer>
       
@@ -136,15 +144,26 @@ function AttendanceTakingPopUp(props) {
 
     {/* Notification known as a 'Toast' that appears when 'Submit Students' button is clicked*/}
     <ToastContainer position="bottom-start">
-        <Toast bg="success" onClose={() => setShow(false)} show={show} delay={3000} autohide>
+        <Toast bg="success" onClose={() => setSuccessToast(false)} show={successToast} delay={3000} autohide>
           <Toast.Header>
             <IoCheckmarkCircle/>
-            <strong>Notification</strong>
+            <strong>Submission Successful</strong>
           </Toast.Header>
           <Toast.Body style={{color: "white"}}>
             {props.classType} Attendance Submitted Successfully!
           </Toast.Body>
         </Toast>
+
+        <Toast bg="danger" onClose={() => setFailureToast(false)} show={failureToast} delay={3000} autohide>
+          <Toast.Header>
+            <IoCloseCircle/>
+            <strong>Submission Failed</strong>
+          </Toast.Header>
+          <Toast.Body style={{color: "white"}}>
+            No<strong>{props.classType}</strong> Attendance to Submit!
+          </Toast.Body>
+        </Toast>
+
       </ToastContainer>
     </>
 
