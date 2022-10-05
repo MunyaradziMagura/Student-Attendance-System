@@ -17,7 +17,6 @@ function AttendanceTakingPopUp(props) {
   let deviceFingerprintsSet = new Set()
   const [result, setResult] = useState("")
   const [toast, setToast] = useState(false) //State variables for the toast notification
-  const [failureToast, setFailureToast] = useState(false) //State variables for the toast notification
 
     var array = []
     var jsonObjectsArray = [] // stores student objects scanned in 
@@ -30,23 +29,26 @@ function AttendanceTakingPopUp(props) {
       jsonObjectsArray.push(jsonFormat)
       // jsonObjectsArray.pop()
       // console.log(jsonObjectsArray)
-      
   }
 
   // Validates whether there is any scanned students to submit 
   // If no students in attendance object, show failure notification, otherwise show success notification
-  function validateAttendance() {
-    if(jsonObjectsArray.length == 0) {
-      return setToast(false)
-    } 
-    return setToast(true)
-  }
+
+
   const staff = JSON.parse(localStorage.getItem('lecturer'))
 
+  function validateAttendance() {
+    if(jsonObjectsArray.length == 0) {
+      setToast(true)
+    } else {
+      submitStudents()
+    }
+  }
 
   function submitStudents(){
 
-    
+    setToast(true)
+
     let students = "";
 
     jsonObjectsArray.forEach(e => {
@@ -138,17 +140,18 @@ function AttendanceTakingPopUp(props) {
         <Button variant="outline-warning" onClick={props.onHide}>CLOSE</Button>
       </Modal.Footer>
       
-    </Modal>
 
+    </Modal>
+            
     {/* Notification known as a 'Toast' that appears when 'Submit Students' button is clicked*/}
     <ToastContainer position="bottom-start">
-        <Toast onClose={() => validateAttendance()} bg={(toast) ? 'success' : 'danger'} show={(toast) ? true : false} delay={3000} autohide>
+        <Toast onClose={() => setToast(false)} bg={(jsonObjectsArray.length > 0) ? 'success' : 'danger'} show={toast}  delay={1500} autohide>
           <Toast.Header>
             <IoCheckmarkCircle/>
-            <strong>Submission Successful</strong>
+            <strong>Submission {(jsonObjectsArray.length >0) ? "Successful" : "Failed"}</strong>
           </Toast.Header>
           <Toast.Body style={{color: "white"}}>
-            {props.classType} Attendance Submitted Successfully!
+            {props.classType} Attendance Submitted {(jsonObjectsArray.length > 0) ? "Successfully" : "Fail"}!
           </Toast.Body>
         </Toast>
 
