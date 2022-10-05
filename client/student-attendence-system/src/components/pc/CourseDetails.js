@@ -76,8 +76,18 @@ const CourseDetails = ({backFunction, courseName}, props) => {
 
             
             </div>
+            
             <div>
+            <div className="d-flex justify-content-start">
+            <Button variant="outline-info" size="lg">
+                    <b>Load Students</b>
+            </Button>
                 <h2>Students</h2>
+            </div>
+        
+ 
+
+
                 {/* table which shows all students */}
                 <CourseDetailsTable/>
                 
