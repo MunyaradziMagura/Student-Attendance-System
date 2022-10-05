@@ -16,7 +16,7 @@ function AttendanceTakingPopUp(props) {
 
   let deviceFingerprintsSet = new Set()
   const [result, setResult] = useState("")
-  const [successToast, setSuccessToast] = useState(false) //State variables for the toast notification
+  const [toast, setToast] = useState(false) //State variables for the toast notification
   const [failureToast, setFailureToast] = useState(false) //State variables for the toast notification
 
     var array = []
@@ -37,12 +37,10 @@ function AttendanceTakingPopUp(props) {
   // If no students in attendance object, show failure notification, otherwise show success notification
   function validateAttendance() {
     if(jsonObjectsArray.length == 0) {
-      setFailureToast(true)
-    } else {
-      submitStudents()
-      setSuccessToast(true)
-    }
-  }  
+      return setToast(false)
+    } 
+    return setToast(true)
+  }
   const staff = JSON.parse(localStorage.getItem('lecturer'))
 
 
@@ -144,23 +142,13 @@ function AttendanceTakingPopUp(props) {
 
     {/* Notification known as a 'Toast' that appears when 'Submit Students' button is clicked*/}
     <ToastContainer position="bottom-start">
-        <Toast bg="success" onClose={() => setSuccessToast(false)} show={successToast} delay={3000} autohide>
+        <Toast onClose={() => validateAttendance()} bg={(toast) ? 'success' : 'danger'} show={(toast) ? true : false} delay={3000} autohide>
           <Toast.Header>
             <IoCheckmarkCircle/>
             <strong>Submission Successful</strong>
           </Toast.Header>
           <Toast.Body style={{color: "white"}}>
             {props.classType} Attendance Submitted Successfully!
-          </Toast.Body>
-        </Toast>
-
-        <Toast bg="danger" onClose={() => setFailureToast(false)} show={failureToast} delay={3000} autohide>
-          <Toast.Header>
-            <IoCloseCircle/>
-            <strong>Submission Failed</strong>
-          </Toast.Header>
-          <Toast.Body style={{color: "white"}}>
-            No<strong>{props.classType}</strong> Attendance to Submit!
           </Toast.Body>
         </Toast>
 
