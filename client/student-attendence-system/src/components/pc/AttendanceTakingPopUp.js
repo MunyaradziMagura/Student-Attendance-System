@@ -16,38 +16,20 @@ function AttendanceTakingPopUp(props) {
 
   let deviceFingerprintsSet = new Set()
   const [result, setResult] = useState("")
-  const [toast, setToast] = useState(false) //State variables for the toast notification
-
-    var array = []
-    var jsonObjectsArray = [] // stores student objects scanned in 
+  const [showToast, setShowToast] = useState(false) //State variables for the toast notification
+  var array = []
+  var jsonObjectsArray = [] // stores student objects scanned in 
 
     function convertToJSON(element) {
-
-      // console.log(element)
       let jsonFormat = JSON.parse(element)
-      // console.log(JSON.stringify(jsonFormat))
       jsonObjectsArray.push(jsonFormat)
-      // jsonObjectsArray.pop()
-      // console.log(jsonObjectsArray)
   }
-
-  // Validates whether there is any scanned students to submit 
-  // If no students in attendance object, show failure notification, otherwise show success notification
-
 
   const staff = JSON.parse(localStorage.getItem('lecturer'))
 
-  function validateAttendance() {
-    if(jsonObjectsArray.length == 0) {
-      setToast(true)
-    } else {
-      submitStudents()
-    }
-  }
-
   function submitStudents(){
 
-    setToast(true)
+    setShowToast(true)
 
     let students = "";
 
@@ -56,6 +38,7 @@ function AttendanceTakingPopUp(props) {
       person = person.replaceAll(`"`, `'`);
       students = students + person + '||'
     });
+
 
 
     addCourseAttendanceRecord({
@@ -69,7 +52,7 @@ function AttendanceTakingPopUp(props) {
         "attendance": students
     }
     
-    )};
+  )};
 
 
   return (
@@ -81,7 +64,6 @@ function AttendanceTakingPopUp(props) {
       centered
     >
       
-
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           <ReactTypingEffect
@@ -136,7 +118,7 @@ function AttendanceTakingPopUp(props) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="outline-success" onClick={() => {validateAttendance()}}>Submit Students</Button>
+        <Button disabled={(jsonObjectsArray.length === 0) ? true: false}variant="primary" onClick={() => {submitStudents()}}>Submit Students</Button>
         <Button variant="outline-warning" onClick={props.onHide}>CLOSE</Button>
       </Modal.Footer>
       
@@ -145,13 +127,13 @@ function AttendanceTakingPopUp(props) {
             
     {/* Notification known as a 'Toast' that appears when 'Submit Students' button is clicked*/}
     <ToastContainer position="bottom-start">
-        <Toast onClose={() => setToast(false)} bg={(jsonObjectsArray.length > 0) ? 'success' : 'danger'} show={toast}  delay={1500} autohide>
+        <Toast onClose={() => setShowToast(false)} bg={'success'} show={showToast}  delay={2500} autohide>
           <Toast.Header>
-            <IoCheckmarkCircle/>
-            <strong>Submission {(jsonObjectsArray.length >0) ? "Successful" : "Failed"}</strong>
+            {(jsonObjectsArray.length >0) ? <IoCheckmarkCircle/> : <IoCloseCircle/>}
+            <strong>Submission Successful</strong>
           </Toast.Header>
           <Toast.Body style={{color: "white"}}>
-            {props.classType} Attendance Submitted {(jsonObjectsArray.length > 0) ? "Successfully" : "Fail"}!
+            {props.classType} Attendance Submitted Successfully!
           </Toast.Body>
         </Toast>
 
