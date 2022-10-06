@@ -27,10 +27,10 @@ function AttendanceTakingPopUp(props) {
 
   const staff = JSON.parse(localStorage.getItem('lecturer'))
 
+
   function submitStudents(){
 
     setShowToast(true)
-
     let students = "";
 
     jsonObjectsArray.forEach(e => {
@@ -71,7 +71,7 @@ function AttendanceTakingPopUp(props) {
             cursor={" "}
             typingDelay={500}
             eraseSpeed={80}
-            text={["TAKING ATTENDANCE...", "DO NOT TOUCH KEYBOARD"]}
+            text={[`TAKING ATTENDANCE..., DO NOT TOUCH KEYBOARD`]}
           />
         </Modal.Title>
       </Modal.Header>
@@ -118,8 +118,8 @@ function AttendanceTakingPopUp(props) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button disabled={(jsonObjectsArray.length === 0) ? true: false}variant="primary" onClick={() => {submitStudents()}}>Submit Students</Button>
-        <Button variant="outline-warning" onClick={props.onHide}>CLOSE</Button>
+        <Button disabled={(jsonObjectsArray.length === 0) ? true: false}variant="primary" onClick={() => submitStudents()}>Submit Students</Button>
+        <Button variant="outline-warning" onClick={props.onHide}>Close</Button>
       </Modal.Footer>
       
 
