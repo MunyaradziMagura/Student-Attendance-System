@@ -12,26 +12,27 @@ export function userLogin(data) {
   });
 }
 
-export function retrieveAttendance(data) {
-  return service.request({
-    url: `students/getAttendance/${data.studentID}`,
-    method: "GET",
-    data,
-  });
-}
+// export function retrieveAttendance(data) {
+//   return service.request({
+//     url: `students/getAttendance/${data.studentID}`,
+//     method: "GET",
+//     data,
+//   });
+// }
 
-export function getAttendanceDetails(data) {
-  return service.request({
-    url: `lecturers/getAttendance/`,
-    method: "GET",
-    data,
-  })
-}
 
 export function addCourseAttendanceRecord(data) {
   return service.request({
     url: `/courseAttendanceRecords/add`,
     method: "PUT",
+    data
+  })
+}
+
+export function getAttendanceDetails(data) {
+  return service.request({
+    url: `/courseAttendanceRecords/getAttendance/`,
+    method: "GET",
     data
   })
 }

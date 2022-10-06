@@ -44,5 +44,13 @@ attendedCourseRecordsRouter.route('/add').put((req, res) => {
     .catch((err => res.status(400).json('Error: ' + err)))
 });
 
+attendedCourseRecordsRouter.route("/getAttendance").get(async(req, res) => {
+    await CourseRecord.findOne({
+        classType: req.body.classType,
+    })
+    .then((CourseRecord) => res.json(CourseRecord))
+    .catch((err) => res.status(400).json("Error: " + err))
+})
+
 
 export default attendedCourseRecordsRouter

@@ -8,12 +8,23 @@ import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import ListGroup from 'react-bootstrap/ListGroup'
 import CourseDetailsTable from './CourseDetailsTable';
+import { getAttendanceDetails } from '../../utils/doRequest';
 
 const CourseDetails = ({backFunction, courseName}, props) => {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
   const [SelectedClassType, setSelectedClassType] = useState("")
   const currentDate = new Date();
+
+  function queryAttendance() {
+    getAttendanceDetails({
+      classType: SelectedClassType
+    })
+  }
+
+  let attendance = queryAttendance()
+
+  console.log(attendance)
 
     return(
         <>
@@ -74,7 +85,7 @@ const CourseDetails = ({backFunction, courseName}, props) => {
             
             <div>
             <div className="d-flex justify-content-start">
-              <Button variant="outline-info" size="lg">
+              <Button variant="outline-info" size="lg" onClick={() => queryAttendance()}>
                       <b style={{ color: '#0052a0', opacity: '80%' }}>Load Students</b>
               </Button>
                 <h2>Students</h2>
