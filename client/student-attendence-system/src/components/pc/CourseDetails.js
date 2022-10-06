@@ -1,7 +1,5 @@
 import React,  { useState } from 'react'
-import {IoLink} from "react-icons/io5"
 import Form from "react-bootstrap/Form"
-import Table from "react-bootstrap/esm/Table";
 import Stack from "react-bootstrap/Stack";
 import Button from 'react-bootstrap/esm/Button';
 import InputGroup from 'react-bootstrap/InputGroup'
@@ -9,9 +7,13 @@ import AttendanceTakingPopUp from "./AttendanceTakingPopUp";
 import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import ListGroup from 'react-bootstrap/ListGroup'
+import CourseDetailsTable from './CourseDetailsTable';
 
 const CourseDetails = ({backFunction, courseName}, props) => {
-    const [takeAttendance, setTakeAttendance] = React.useState(false);
+
+  const [takeAttendance, setTakeAttendance] = useState(false);
+  const [SelectedClassType, setSelectedClassType] = useState("")
+  const currentDate = new Date();
 
     return(
         <>
@@ -19,7 +21,7 @@ const CourseDetails = ({backFunction, courseName}, props) => {
                 <Stack direction="horizontal" gap={2}>
                     <Button onClick={backFunction}>Back</Button>
                     <h4>Class Type:</h4>
-                    <Form.Select style = {{width: '20rem'}}>
+                    <Form.Select style = {{width: '20rem'}} onChange={(e) => setSelectedClassType(e.target.value)}>
                         <option value="">All</option>
                         <option value = "Lecture">Lecture</option>
                         <option value = "Practical">Practical</option>
@@ -38,11 +40,15 @@ const CourseDetails = ({backFunction, courseName}, props) => {
                     variant="primary"
                     style={{ width: "85%", fontSize: "0.8rem" }}
                     onClick={() => setTakeAttendance(true)}
+                    disabled = {(SelectedClassType === "") ? true : false}
                     >
                     Launch Attendance Taking
-                    </Button>
+      </Button>
                     {/* show popup */}
                     <AttendanceTakingPopUp
+                    classType = {SelectedClassType}
+                    date = {`${currentDate.getDate() }/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
+                    // set popup state 
                     show={takeAttendance}
                     style={{ width: "100%", fontSize: "0.8rem" }}
                     onHide={() => setTakeAttendance(false)}
@@ -50,38 +56,33 @@ const CourseDetails = ({backFunction, courseName}, props) => {
                 </Stack>
             </div>
             <div>
-
-            <CardGroup>
-      <Card>
-        <Card.Img style={{textAlign: "center", width: "250px", height: "250px"}}variant="top" src="https://www.advsofteng.com/doc/cdpydoc/images/simpleline.png" />
-        
-      </Card>
-      <Card style={{ width: '18rem' }}>
-      <ListGroup variant="flush">
-        <ListGroup.Item>Name</ListGroup.Item>
-        <ListGroup.Item>ID</ListGroup.Item>
-        <ListGroup.Item>Attendances</ListGroup.Item>
-        <ListGroup.Item>Abcenses</ListGroup.Item>
-
-      </ListGroup>
-    </Card>
-    </CardGroup>
-
-            
+              <CardGroup>
+                  <Card>
+                    <Card.Img style={{textAlign: "center", width: "250px", height: "250px"}}variant="top" src="https://www.advsofteng.com/doc/cdpydoc/images/simpleline.png" />
+                  </Card>
+                  <Card style={{ width: '18rem' }}>
+                  <ListGroup>
+                      <ListGroup.Item>Name:</ListGroup.Item>
+                      <ListGroup.Item>ID:</ListGroup.Item>
+                      <ListGroup.Item>Attendances:</ListGroup.Item>
+                      <ListGroup.Item>Absences:</ListGroup.Item>
+                      <Button>Clear</Button>
+                  </ListGroup>
+              </Card>
+              </CardGroup>
             </div>
+            
             <div>
+            <div className="d-flex justify-content-start">
+              <Button variant="outline-info" size="lg">
+                      <b style={{ color: '#0052a0', opacity: '80%' }}>Load Students</b>
+              </Button>
                 <h2>Students</h2>
-                <Table striped bordered hover variant="light">
-                    <thead>
-                        <tr>
-                            <th style= {{textAlign:'center'}}>StudentID</th>
-                            <th style= {{textAlign:'center'}}>Student Name</th>
-                            <th style= {{textAlign: 'center'}}>Device Hash</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </Table>
+            </div>
+        
+                {/* table which shows all students */}
+                <CourseDetailsTable/>
+                
             </div>
         </>
     )

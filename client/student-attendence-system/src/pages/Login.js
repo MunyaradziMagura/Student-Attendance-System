@@ -1,9 +1,11 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import axios from "axios";
+import Button from 'react-bootstrap/Button'
 import { useState } from "react";
-import { loginLecturer, userLogin } from "../utils/doRequest";
+import { userLogin } from "../utils/doRequest";
 import { useNavigate } from "react-router-dom";
+import logo from './unisa-logo.png'
+
 function Login() {
   const [userEmail, setEmail] = useState("");
   const [userPassword, setPassword] = useState("");
@@ -19,16 +21,15 @@ function Login() {
       localStorage.setItem("login", "yes");
       // localStorage.setItem("email", res.data.email);
 
-      if (role == "students") {
+      if (role === "students") {
         navigate("/StudentHome", { state: { student: res.data } });
         localStorage.setItem("role", res.data.role);
         localStorage.setItem("student", JSON.stringify(res.data));
-      } else if (role == "lecturers") {
+      } else if (role === "lecturers") {
         navigate("/Dashboard", { state: { lecturer: res.data } });
         localStorage.setItem("email", res.data.email);
         localStorage.setItem("name", res.data.fullName);
         localStorage.setItem("lecturer", JSON.stringify(res.data))
-        console.log(localStorage.getItem("lecturer"))
       } else {
         navigate("/Login");
       }
@@ -47,7 +48,11 @@ function Login() {
 
   return (
     <div className="Login">
+      
+
       <form onSubmit={handleSubmit}>
+      <img src={logo} style={{width: 150, height: 150}} alt="logo"></img>
+
         <h1>Login</h1>
         <div>
           <InputGroup className="mb-3">
@@ -76,13 +81,13 @@ function Login() {
             />
           </InputGroup>
         </div>
-        <button type="submit" onClick={(e) => Login("students")}>
-          Student Login
-        </button>
+          <Button size="sm" variant="light" type="submit" onClick={(e) => Login("students")}>
+            Student Login
+          </Button> {' '}
 
-        <button type="submit" onClick={(e) => Login("lecturers")}>
-          Lecturers Login
-        </button>
+          <Button size="sm" variant="light" type="submit" onClick={(e) => Login("lecturers")}>
+            Lecturer Login
+          </Button>
       </form>
     </div>
   );

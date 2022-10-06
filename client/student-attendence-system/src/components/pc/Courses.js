@@ -3,8 +3,14 @@ import Button from 'react-bootstrap/esm/Button';
 import Table from "react-bootstrap/Table";
 import { IoLink } from 'react-icons/io5';
 
-const Courses = ({sendDetailsPageButton, classesObject}) => {
-console.log(classesObject)
+const Courses = ({sendDetailsPageButton, classesObject, studyPeriod}) => {
+    function sendDetails(index){
+        localStorage.setItem('studyPeriod', studyPeriod);
+        localStorage.setItem('catalogueID', classesObject[index].catalogueID);
+        localStorage.setItem('courseName', classesObject[index].courseName);
+
+        sendDetailsPageButton()
+    }
     return(
 
         <Table striped bordered hover variant="light">
@@ -27,8 +33,7 @@ console.log(classesObject)
                         <td>{classesObject[key].courseName}</td>
                         <td>{classesObject[key].catalogueID}</td>
                         <td>{classesObject[key].students.length}</td>
-                        <td class="w-10"> <Button onClick={sendDetailsPageButton}><IoLink></IoLink>View</Button></td>
-
+                        <td class="w-10"> <Button onClick={() => sendDetails(key)}><IoLink></IoLink>View</Button></td>
                     </tr>)
                 )
               )

@@ -1,6 +1,5 @@
 import React from "react";
 import StudentClassCard from "./StudentClassCard";
-import StudentClassList from "./StudentClassList";
 // import image from '../'
 function StudentClasses({ width, attendance }) {
   const varientList = [
