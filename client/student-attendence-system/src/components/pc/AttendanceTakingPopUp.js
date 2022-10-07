@@ -7,9 +7,8 @@ import BarcodeReader from 'react-barcode-reader'
 import React from "react";
 import Toast from 'react-bootstrap/Toast'
 import ToastContainer from 'react-bootstrap/ToastContainer'
-
 import { addCourseAttendanceRecord } from "../../utils/doRequest"
-import {IoCheckmarkCircle} from 'react-icons/io5'
+import {IoCheckmarkCircle, IoCloseCircle} from 'react-icons/io5'
 
 
 function AttendanceTakingPopUp(props) {
@@ -17,30 +16,21 @@ function AttendanceTakingPopUp(props) {
 
   let deviceFingerprintsSet = new Set()
   const [result, setResult] = useState("")
-  const [show, setShow] = useState(false) //State variables for the toast notification
-    var array = []
-    var jsonObjectsArray = [] // stores student objects scanned in 
+  const [showToast, setShowToast] = useState(false) //State variables for the toast notification
+  var array = []
+  var jsonObjectsArray = [] // stores student objects scanned in 
 
     function convertToJSON(element) {
-
-      // console.log(element)
       let jsonFormat = JSON.parse(element)
-      // console.log(JSON.stringify(jsonFormat))
       jsonObjectsArray.push(jsonFormat)
-      // jsonObjectsArray.pop()
-      // console.log(jsonObjectsArray)
-      
   }
 
-  // Triggers the toast to be displayed when attendance is submitted
-  function showToast() {
-    setShow(true)
-  }
-  
   const staff = JSON.parse(localStorage.getItem('lecturer'))
 
+
   function submitStudents(){
-    
+
+    setShowToast(true)
     let students = "";
 
     jsonObjectsArray.forEach(e => {
@@ -48,6 +38,7 @@ function AttendanceTakingPopUp(props) {
       person = person.replaceAll(`"`, `'`);
       students = students + person + '||'
     });
+
 
 
     addCourseAttendanceRecord({
@@ -61,7 +52,7 @@ function AttendanceTakingPopUp(props) {
         "attendance": students
     }
     
-    )};
+  )};
 
 
   return (
@@ -73,7 +64,6 @@ function AttendanceTakingPopUp(props) {
       centered
     >
       
-
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           <ReactTypingEffect
@@ -81,7 +71,7 @@ function AttendanceTakingPopUp(props) {
             cursor={" "}
             typingDelay={500}
             eraseSpeed={80}
-            text={["TAKING ATTENDANCE...", "DO NOT TOUCH KEYBOARD"]}
+            text={[`TAKING ATTENDANCE..., DO NOT TOUCH KEYBOARD`]}
           />
         </Modal.Title>
       </Modal.Header>
@@ -128,23 +118,25 @@ function AttendanceTakingPopUp(props) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="outline-success" onClick={() => {submitStudents(); showToast()}}>Submit Students</Button>
-        <Button variant="outline-warning" onClick={props.onHide}>CLOSE</Button>
+        <Button disabled={(jsonObjectsArray.length === 0) ? true: false}variant="primary" onClick={() => submitStudents()}>Submit Students</Button>
+        <Button variant="outline-warning" onClick={props.onHide}>Close</Button>
       </Modal.Footer>
       
-    </Modal>
 
+    </Modal>
+            
     {/* Notification known as a 'Toast' that appears when 'Submit Students' button is clicked*/}
     <ToastContainer position="bottom-start">
-        <Toast bg="success" onClose={() => setShow(false)} show={show} delay={3000} autohide>
+        <Toast onClose={() => setShowToast(false)} bg={'success'} show={showToast}  delay={2500} autohide>
           <Toast.Header>
-            <IoCheckmarkCircle/>
-            <strong>Notification</strong>
+            {(jsonObjectsArray.length >0) ? <IoCheckmarkCircle/> : <IoCloseCircle/>}
+            <strong>Submission Successful</strong>
           </Toast.Header>
           <Toast.Body style={{color: "white"}}>
             {props.classType} Attendance Submitted Successfully!
           </Toast.Body>
         </Toast>
+
       </ToastContainer>
     </>
 
