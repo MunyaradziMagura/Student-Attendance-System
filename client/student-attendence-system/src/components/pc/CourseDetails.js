@@ -1,4 +1,4 @@
-import React,  { useState } from 'react'
+import React,  { useEffect, useState } from 'react'
 import Form from "react-bootstrap/Form"
 import Stack from "react-bootstrap/Stack";
 import Button from 'react-bootstrap/esm/Button';
@@ -8,23 +8,26 @@ import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import ListGroup from 'react-bootstrap/ListGroup'
 import CourseDetailsTable from './CourseDetailsTable';
-import { getAttendanceDetails } from '../../utils/doRequest';
 
 const CourseDetails = ({backFunction, courseName}, props) => {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
+  const [attendanceData, setAttendanceData] = useState()
   const [SelectedClassType, setSelectedClassType] = useState("")
   const currentDate = new Date();
 
-  function queryAttendance() {
-    getAttendanceDetails({
-      classType: SelectedClassType
-    })
-  }
+  useEffect(() => {
+    fetch(`http://localhost:5001/api/courseAttendanceRecords/`)
+    .then((response) => response.json())
+    .then((jsonResponse) => setAttendanceData(jsonResponse))
+    .catch((error) => console.log(error))
+  }, [])
 
-  let attendance = queryAttendance()
+  console.log(`http://localhost:5001/api/courseAttendanceRecords/getAttendance/${SelectedClassType}`)
 
-  console.log(attendance)
+  useEffect(() => {
+    console.log(attendanceData)
+  }, [SelectedClassType])
 
     return(
         <>
@@ -85,14 +88,14 @@ const CourseDetails = ({backFunction, courseName}, props) => {
             
             <div>
             <div className="d-flex justify-content-start">
-              <Button variant="outline-info" size="lg" onClick={() => queryAttendance()}>
+              <Button variant="outline-info" size="lg">
                       <b style={{ color: '#0052a0', opacity: '80%' }}>Load Students</b>
               </Button>
                 <h2>Students</h2>
             </div>
         
                 {/* table which shows all students */}
-                <CourseDetailsTable/>
+                <CourseDetailsTable classData={attendanceData}/>
                 
             </div>
         </>

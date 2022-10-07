@@ -1,7 +1,7 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
 
-function CourseDetailsTable() {
+const CourseDetailsTable = ({classData}) => {
   return (
     <Table striped bordered hover>
       <thead>
@@ -12,11 +12,13 @@ function CourseDetailsTable() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          {/* <td></td>
-          <td></td>
-          <td></td> */}
-        </tr>
+        {/* {Object.keys(classData).map((key) => {
+          <tr>
+            <td>{classData[key].courseName}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        })} */}
       </tbody>
     </Table>
     

@@ -3,6 +3,12 @@ import CourseRecord from "../models/attendedCourseRecords.model.js";
 
 const attendedCourseRecordsRouter = express.Router();
 
+attendedCourseRecordsRouter.route('/').get((req, res) => {
+    CourseRecord.find()
+    .then(CourseRecord => res.json(CourseRecord))
+    .catch((error) => res.status(400).json("Error:" + error))
+})
+
 attendedCourseRecordsRouter.route('/add').put((req, res) => {
 
         const catalogueID = req.body.catalogueID;
@@ -44,9 +50,9 @@ attendedCourseRecordsRouter.route('/add').put((req, res) => {
     .catch((err => res.status(400).json('Error: ' + err)))
 });
 
-attendedCourseRecordsRouter.route("/getAttendance").get(async(req, res) => {
-    await CourseRecord.findOne({
-        classType: req.body.classType,
+attendedCourseRecordsRouter.get("/getAttendance/:classType", (req, res) => {
+    CourseRecord.collection.find({
+        classType: req.body.classType
     })
     .then((CourseRecord) => res.json(CourseRecord))
     .catch((err) => res.status(400).json("Error: " + err))
