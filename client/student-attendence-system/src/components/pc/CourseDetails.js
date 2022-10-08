@@ -8,29 +8,50 @@ import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import ListGroup from 'react-bootstrap/ListGroup'
 import CourseDetailsTable from './CourseDetailsTable';
+import { getAttendanceDetails } from '../../utils/doRequest';
 
-const CourseDetails = ({backFunction, courseName}, props) => {
+
+const CourseDetails = ({backFunction, staffID}, props) => {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
-  const [attendanceData, setAttendanceData] = useState()
+  const [attendanceData, setAttendanceData] = useState({})
   const [SelectedClassType, setSelectedClassType] = useState("")
   const currentDate = new Date();
+  let courseName = localStorage.getItem("courseName").replace(" ", "_")
 
-  useEffect(() => {
-    fetch(`http://localhost:5001/api/courseAttendanceRecords/`)
-    .then((response) => response.json())
-    .then((jsonResponse) => setAttendanceData(jsonResponse))
-    .catch((error) => console.log(error))
-  }, [])
+  let staff = localStorage.getItem("lecturer").staffID
 
-  console.log(`http://localhost:5001/api/courseAttendanceRecords/getAttendance/${SelectedClassType}`)
 
+  // useEffect(() => {
+  //   fetch(`http://localhost:5001/api/courseAttendanceRecords/`)
+  //   .then((response) => response.json())
+  //   .then((jsonResponse) => setAttendanceData(jsonResponse))
+  //   .catch((error) => console.log(error))
+  // }, [])
+
+
+useEffect(() => {
+  fetch(`http://localhost:5001/api/courseAttendanceRecords/getAttendance/Lecture/110205689/Data_Structures`)
+  .then((response) => response.json())
+  .then((jsonResponse) => setAttendanceData(jsonResponse))
+  .catch((error) => console.log(error))
+}, [SelectedClassType])
+
+  // useEffect(() => {
+  //   fetch(`http://localhost:5001/api/courseAttendanceRecords/getAttendance/classType=Tutorial_staffID=110205689_courseName=Data_Structures`)
+  //   .then((response) => response.json())
+  //   .then((jsonResponse) => setAttendanceData(jsonResponse))
+  //   .catch((error) => console.log(error))
+  // }, [])
+
+  
   useEffect(() => {
     console.log(attendanceData)
   }, [SelectedClassType])
 
     return(
         <>
+          <h1>{localStorage.getItem('courseName')}</h1>
             <div>
                 <Stack direction="horizontal" gap={2}>
                     <Button onClick={backFunction}>Back</Button>
