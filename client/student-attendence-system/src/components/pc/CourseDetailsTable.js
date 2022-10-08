@@ -9,19 +9,20 @@ function CourseDetailsTable({attendanceString}, props) {
   return (
     <Table striped bordered hover>
       <thead>
+      <Badge id="classHeadingBall" bg="primary" pill>
+          {attandanceObject.length} Student(s)
+        </Badge>
         <tr>
           <th>Student Name</th>
           <th>Student ID</th>
           <th>Device Hash</th>
         </tr>
-        <Badge id="classHeadingBall" bg="primary" pill>
-          {attandanceObject.length} Students
-        </Badge>
+        
       </thead>
       <tbody>
       {attandanceObject.map(item => 
         <tr id={item.deviceFingerPrint}>
-          <td>{item.firstName +" "+ item.lastName}</td>
+          <td>{item.firstName + " " + item.lastName}</td>
           <td>{item.userName}</td>
           <td>{item.deviceFingerPrint}</td>
         </tr>
@@ -32,7 +33,7 @@ function CourseDetailsTable({attendanceString}, props) {
   )
 }
 CourseDetailsTable.defaultProps = {
-  attendanceString: "{'deviceFingerPrint':No Student Loaded,'userName':'No Student Loaded','firstName':'No Student Loaded','lastName':'No Student Loaded','date':'No Student Loaded','courseID':'No Student Loaded'}||"
+  attendanceString: "{'deviceFingerPrint':201586541,'userName':'111111111','firstName':'Tom','lastName':'Smith','date':'Wed Sep 14 2022 16:37:08 GMT+0930 (Australian Central Standard Time)','courseID':null}||"
 }
 
 export default CourseDetailsTable
