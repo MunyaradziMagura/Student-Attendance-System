@@ -14,6 +14,7 @@ const port = process.env.PORT || 8000; //Set the port number to what is specifie
 
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({extended: false}))
 
 //Set the URI (DB connection string) to the variable specified in .env file
 const uri = process.env.URI;

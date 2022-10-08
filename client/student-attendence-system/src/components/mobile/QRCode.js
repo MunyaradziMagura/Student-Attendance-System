@@ -56,7 +56,7 @@ function QRCode({ studentInfo }, props) {
   return (
     <div
       className="d-flex justify-content-around"
-      style={{ paddingTop: "3rem", paddingBottom: "3rem" }}
+      style={{ paddingTop: "1rem"}}
     >
       <Card
         border="info"
@@ -67,7 +67,7 @@ function QRCode({ studentInfo }, props) {
           animation="wave"
           variant="top"
           src={personQRSrc}
-          class="img-thumbnail"
+          className="img-thumbnail"
         />
         <Card.Body>
           <Card.Title

@@ -1,4 +1,4 @@
-import React,  { useState } from 'react'
+import React,  { useEffect, useState } from 'react'
 import Form from "react-bootstrap/Form"
 import Stack from "react-bootstrap/Stack";
 import Button from 'react-bootstrap/esm/Button';
@@ -9,20 +9,78 @@ import CardGroup from 'react-bootstrap/CardGroup'
 import ListGroup from 'react-bootstrap/ListGroup'
 import CourseDetailsTable from './CourseDetailsTable';
 
-const CourseDetails = ({backFunction, courseName}, props) => {
+const CourseDetails = ({backFunction, staffID}, props) => {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
-  const [SelectedClassType, setSelectedClassType] = useState("")
+  const [attendanceData, setAttendanceData] = useState([])
   const currentDate = new Date();
+  let courseName = localStorage.getItem("courseName").replaceAll(" ", "%20")
+
+  let staff = JSON.parse(localStorage.getItem("lecturer"))
+  let url = `http://localhost:5001/api/courseAttendanceRecords/getAttendance/${courseName}/${staff.staffID}/`
+let SelectedClassType  =""
+  //Fetches all of the attendance records from the database
+
+  useEffect(() => {
+    fetch(url)
+    .then((response) => response.json())
+    .then((jsonResponse) => setAttendanceData(jsonResponse))
+    .catch((error) => console.log(error))
+  }, [SelectedClassType])
+
+  function getClassTypeData(_class){
+    SelectedClassType = _class
+    let classAttendanceData = attendanceData.filter(type => type.classType === _class);
+    console.log(_class)
+    console.log(classAttendanceData)
+    
+  }
+
+// useEffect(() => {
+// console.log(url)
+//   fetch(url)
+//   .then((response) => response.json())
+//   .then((jsonResponse) => setAttendanceData(jsonResponse))
+//   .catch((error) => console.log(error))
+// console.log(attendanceData)
+
+// }, [SelectedClassType])
+
+
+
+  // useEffect(() => {
+  //   fetch(`http://localhost:5001/api/courseAttendanceRecords/getAttendance/classType=Tutorial_staffID=110205689_courseName=Data_Structures`)
+  //   .then((response) => response.json())
+  //   .then((jsonResponse) => setAttendanceData(jsonResponse))
+  //   .catch((error) => console.log(error))
+  // }, [])
+      
+  // useEffect(() => {
+  //   console.log(attendanceData)
+  // }, [SelectedClassType])
+
+
+
+  // async function currentClassAttendance (_class){
+  //   let URLL = `http://localhost:5001/api/courseAttendanceRecords/getAttendance/${_class}/${staff.staffID}/${courseName}`
+
+  //   console.log(URLL)
+  //   await fetch(URLL)
+  //     .then((response) => response.json())
+  //     .then((jsonResponse) => setAttendanceData(jsonResponse))
+  //     .catch((error) => console.log(error))
+  //   console.log(attendanceData)
+  // }
 
     return(
         <>
+          <h1>{localStorage.getItem('courseName')}</h1>
             <div>
                 <Stack direction="horizontal" gap={2}>
                     <Button onClick={backFunction}>Back</Button>
                     <h4>Class Type:</h4>
-                    <Form.Select style = {{width: '20rem'}} onChange={(e) => setSelectedClassType(e.target.value)}>
-                        <option value="">All</option>
+                    <Form.Select style = {{width: '20rem'}} onChange={(e) => getClassTypeData(e.target.value)}>
+                        <option value="">Select Class Type</option>
                         <option value = "Lecture">Lecture</option>
                         <option value = "Practical">Practical</option>
                         <option value = "Tutorial">Tutorial</option>
@@ -81,7 +139,7 @@ const CourseDetails = ({backFunction, courseName}, props) => {
             </div>
         
                 {/* table which shows all students */}
-                <CourseDetailsTable attendanceString={"{'deviceFingerPrint':201580001,'userName':'213148324','firstName':'John','lastName':'Black','date':'Wed Sep 14 2022 16:36:43 GMT+0930 (Australian Central Standard Time)','courseID':null}||{'deviceFingerPrint':201580001,'userName':'111111111','firstName':'Tom','lastName':'Smith','date':'Wed Sep 14 2022 16:37:08 GMT+0930 (Australian Central Standard Time)','courseID':null}||"}/>
+                <CourseDetailsTable classData={attendanceData}/>
                 
             </div>
         </>
