@@ -81,7 +81,7 @@ const CourseDetails = ({backFunction, courseName}, props) => {
             </div>
         
                 {/* table which shows all students */}
-                <CourseDetailsTable/>
+                <CourseDetailsTable attendanceString={"{'deviceFingerPrint':201580001,'userName':'213148324','firstName':'John','lastName':'Black','date':'Wed Sep 14 2022 16:36:43 GMT+0930 (Australian Central Standard Time)','courseID':null}||{'deviceFingerPrint':201580001,'userName':'111111111','firstName':'Tom','lastName':'Smith','date':'Wed Sep 14 2022 16:37:08 GMT+0930 (Australian Central Standard Time)','courseID':null}||"}/>
                 
             </div>
         </>
