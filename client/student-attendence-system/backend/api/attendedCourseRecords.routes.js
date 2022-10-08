@@ -51,11 +51,11 @@ attendedCourseRecordsRouter.route('/add').put((req, res) => {
     .catch((err => res.status(400).json('Error: ' + err)))
 });
 
-attendedCourseRecordsRouter.get(`/getAttendance/:classType/:staffID/:courseName`,(req, res) => {    
+attendedCourseRecordsRouter.get(`/getAttendance/:courseName/:staffID`, (req, res) => {    
     CourseRecord.find({
-        classType: req.params.classType,
+        //classType: req.params.classType,
+        courseName: req.params.courseName,
         staffID: req.params.staffID,
-        courseName: req.params.courseName
     })
     .then((CourseRecord) => res.json(CourseRecord))
     .catch((err) => res.status(400).json("Error: " + err))
