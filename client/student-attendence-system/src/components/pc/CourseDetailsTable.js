@@ -34,8 +34,8 @@ function CourseDetailsTable({attendanceString}, props) {
     
   )
 }
-CourseDetailsTable.defaultProps = {
-  attendanceString: "{'deviceFingerPrint':201586541,'userName':'111111111','firstName':'Tom','lastName':'Smith','date':'Wed Sep 14 2022 16:37:08 GMT+0930 (Australian Central Standard Time)','courseID':null}||"
-}
+// CourseDetailsTable.defaultProps = {
+//   attendanceString: "{'deviceFingerPrint':201586541,'userName':'111111111','firstName':'Tom','lastName':'Smith','date':'Wed Sep 14 2022 16:37:08 GMT+0930 (Australian Central Standard Time)','courseID':null}||"
+// }
 
 export default CourseDetailsTable

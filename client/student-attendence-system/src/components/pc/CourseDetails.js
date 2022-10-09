@@ -17,7 +17,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   const [SelectedClassType, setSelectedClassType] = useState()
   const currentDate = new Date();
   let courseName = localStorage.getItem("courseName").replaceAll(" ", "%20")
-
+  let unknownStudents = "{'deviceFingerPrint':'N/A','userName':'Unknown Student','firstName':'','lastName':'N/A','date':'N/A','courseID':null}||"
   let staff = JSON.parse(localStorage.getItem("lecturer"))
   let url = `http://localhost:5001/api/courseAttendanceRecords/getAttendance/${courseName}/${staff.staffID}/`
   //let SelectedClassType = ""
@@ -35,20 +35,20 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     // store and filter attendance data 
     let classAttendanceData = attendanceData.filter(type => type.classType === _class).filter(dateFilter => dateFilter.date === "12/10/2022"); // add dynamic date capture 
     // create attendance table
-  
+    if(classAttendanceData[0] === undefined) {
+      setTable(<CourseDetailsTable attendanceString={unknownStudents}/>)
 
-    setTable(generateAttendanceTable(classAttendanceData[0].attendance))
+    }else{
+      setTable(generateAttendanceTable(classAttendanceData[0].attendance))
+
+    }
     console.log(_class)
-    console.log(classAttendanceData)
+    console.log(classAttendanceData[0])
     
   }
 
   function generateAttendanceTable(attendanceString){
-    if(attendanceString.length > 0){
       return <CourseDetailsTable attendanceString={attendanceString}/>
-    }
-    return <CourseDetailsTable attendanceString={"{'deviceFingerPrint':N/A,'userName':'N/A','firstName':'N/A','lastName':'N/A','date':'N/A','courseID':null}||"}/>
-
   }
 
   // useEffect(() => {
