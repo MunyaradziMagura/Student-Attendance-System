@@ -17,19 +17,9 @@ attendedCourseRecordsRouter.route('/add').put((req, res) => {
         const staffID = req.body.staffID;
         const date = req.body.date;
         const studyPeriod = req.body.studyPeriod;
+        const attendies = req.body.attendies;
         const classType = req.body.classType;
         const attendance = req.body.attendance;
-
-
-    // CourseRecord.insert({
-    //     catalogueID,
-    //     courseName,
-    //     staffID,
-    //     date,
-    //     studyPeriod,
-    //     classType,
-    //     attendance        
-    // })
 
     //Various fields to be used in the API request
     
@@ -41,6 +31,7 @@ attendedCourseRecordsRouter.route('/add').put((req, res) => {
         staffID,
         date,
         studyPeriod,
+        attendies,
         classType,
         attendance,
     });
