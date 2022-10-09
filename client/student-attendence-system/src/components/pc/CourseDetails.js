@@ -17,7 +17,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   const [SelectedClassType, setSelectedClassType] = useState()
   const currentDate = new Date();
   let courseName = localStorage.getItem("courseName").replaceAll(" ", "%20")
-  let unknownStudents = "{'deviceFingerPrint':'N/A','userName':'Unknown Student','firstName':'','lastName':'N/A','date':'N/A','courseID':null}||"
+  let unknownStudents = "{'deviceFingerPrint':'N/A','userName':'N/A','firstName':'Unknown Student','lastName':'','date':'N/A','courseID':null}||"
   let staff = JSON.parse(localStorage.getItem("lecturer"))
   let url = `http://localhost:5001/api/courseAttendanceRecords/getAttendance/${courseName}/${staff.staffID}/`
   //let SelectedClassType = ""

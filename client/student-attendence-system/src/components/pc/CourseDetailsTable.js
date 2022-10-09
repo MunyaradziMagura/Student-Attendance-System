@@ -7,10 +7,12 @@ function CourseDetailsTable({attendanceString}, props) {
   let attandanceObject = attendanceString.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
   // object. key = hash, value = number 
   // javascript dom query, 
-
+ 
   return (
-    <Table responsive striped bordered hover>
+    // NOTE: MAKE THE TABLE RESPONSIVE I.E. SCROLLABLE 
+    <Table responsive striped bordered hover size="sm"> 
       <thead>
+      {/* NOTE: CHANGE THE BADGE TO SHOW NOTHING WHEN THERE ARE NO STUDENTS */}
       <Badge id="classHeadingBall" bg="primary" pill>
           {attandanceObject.length} Student(s)
         </Badge>
@@ -22,6 +24,7 @@ function CourseDetailsTable({attendanceString}, props) {
         
       </thead>
       <tbody>
+      
       {attandanceObject.map(item => 
         <tr id={item.deviceFingerPrint}>
           <td>{item.firstName + " " + item.lastName}</td>
@@ -34,8 +37,8 @@ function CourseDetailsTable({attendanceString}, props) {
     
   )
 }
-// CourseDetailsTable.defaultProps = {
-//   attendanceString: "{'deviceFingerPrint':201586541,'userName':'111111111','firstName':'Tom','lastName':'Smith','date':'Wed Sep 14 2022 16:37:08 GMT+0930 (Australian Central Standard Time)','courseID':null}||"
-// }
+CourseDetailsTable.defaultProps = {
+  attendanceString: "{'deviceFingerPrint':201586541,'userName':'111111111','firstName':'Tom','lastName':'Smith','date':'Wed Sep 14 2022 16:37:08 GMT+0930 (Australian Central Standard Time)','courseID':null}||"
+}
 
 export default CourseDetailsTable
