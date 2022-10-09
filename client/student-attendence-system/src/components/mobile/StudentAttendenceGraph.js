@@ -1,8 +1,16 @@
 import Modal from "react-bootstrap/Modal";
 import AttendenceChart from "./AttendenceChart";
-const StudentAttendenceGraph = ({attendanceObject},props) => {
-  console.table(attendanceObject);
-  return (
+const StudentAttendenceGraph = (props) => {
+  //console.table(props.props);
+  var newClassesObject = {};
+  var temp1 = structuredClone(props.props);
+  //console.log(temp1);
+  newClassesObject = Object.keys(temp1).map((key) => {
+    return{...newClassesObject,
+        [key]: {date: temp1[key].date, attendance: temp1[key].attendance},
+    }
+  },{})
+  return (  
     <Modal
       {...props}
       size="lg"
@@ -16,7 +24,7 @@ const StudentAttendenceGraph = ({attendanceObject},props) => {
       </Modal.Header>
       <Modal.Body>
         {/* visualise chart */}
-        <AttendenceChart />
+        <AttendenceChart props={newClassesObject}/>
       </Modal.Body>
     </Modal>
   );
