@@ -13,7 +13,8 @@ const CourseDetails = ({backFunction, staffID}, props) => {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
   const [attendanceData, setAttendanceData] = useState([])
-  const [SelectedClassType, setSelectedClassType] = useState("")
+  const [table, setTable] = useState()
+  const [SelectedClassType, setSelectedClassType] = useState()
   const currentDate = new Date();
   let courseName = localStorage.getItem("courseName").replaceAll(" ", "%20")
 
@@ -31,10 +32,23 @@ const CourseDetails = ({backFunction, staffID}, props) => {
 
   function getClassTypeData(_class){
     setSelectedClassType(_class)
-    let classAttendanceData = attendanceData.filter(type => type.classType === _class);
+    // store and filter attendance data 
+    let classAttendanceData = attendanceData.filter(type => type.classType === _class).filter(dateFilter => dateFilter.date === "12/10/2022"); // add dynamic date capture 
+    // create attendance table
+  
+
+    setTable(generateAttendanceTable(classAttendanceData[0].attendance))
     console.log(_class)
     console.log(classAttendanceData)
     
+  }
+
+  function generateAttendanceTable(attendanceString){
+    if(attendanceString.length > 0){
+      return <CourseDetailsTable attendanceString={attendanceString}/>
+    }
+    return <CourseDetailsTable attendanceString={"{'deviceFingerPrint':N/A,'userName':'N/A','firstName':'N/A','lastName':'N/A','date':'N/A','courseID':null}||"}/>
+
   }
 
   // useEffect(() => {
@@ -111,8 +125,8 @@ const CourseDetails = ({backFunction, staffID}, props) => {
             </div>
         
                 {/* table which shows all students */}
-                <CourseDetailsTable attendanceString={"{'deviceFingerPrint':201586541,'userName':'111111111','firstName':'Tom','lastName':'Smith','date':'Wed Sep 14 2022 16:37:08 GMT+0930 (Australian Central Standard Time)','courseID':null}||"}/>
-                
+                {/* <CourseDetailsTable attendanceString={"{'deviceFingerPrint':201586541,'userName':'111111111','firstName':'Tom','lastName':'Smith','date':'Wed Sep 14 2022 16:37:08 GMT+0930 (Australian Central Standard Time)','courseID':null}||"}/> */}
+                {table}
             </div>
         </>
     )
