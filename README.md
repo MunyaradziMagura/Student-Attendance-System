@@ -55,3 +55,12 @@ import * as ReactDOM from 'react-dom';
 | ----------- | ---------------------------------------------------------------- |
 | Unisa Blue  | ![#0052a0](https://via.placeholder.com/10/0052a0?text=+) #0052a0 |
 | Unisa White | ![#FFF](https://via.placeholder.com/10/FFF?text=+) #FFF          |
+
+
+
+
+//1. cd  client/student-attendence-system
+//2. npm start 
+//3.新建终端窗口
+//4.cd  client/student-attendence-system/backend 
+//5. npm start 
