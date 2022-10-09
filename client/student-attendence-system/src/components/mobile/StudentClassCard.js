@@ -77,6 +77,7 @@ const StudentClassCard = ({ classesObject, varientList }) => {
         ))
       }
       <StudentAttendenceGraph
+        attendanceObject={classesObject}
         show={modalShow}
         onHide={() => setModalShow(false)}
       />

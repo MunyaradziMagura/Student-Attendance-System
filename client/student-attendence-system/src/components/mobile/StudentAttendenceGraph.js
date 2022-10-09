@@ -1,6 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import AttendenceChart from "./AttendenceChart";
-const StudentAttendenceGraph = (props) => {
+const StudentAttendenceGraph = ({attendanceObject},props) => {
+  console.table(attendanceObject);
   return (
     <Modal
       {...props}
