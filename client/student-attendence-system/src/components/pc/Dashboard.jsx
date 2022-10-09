@@ -17,7 +17,8 @@ export default function Dashboard() {
   var userData = { userName: localStorage.getItem("name") };
   const lecturer = JSON.parse(localStorage.getItem("lecturer"));
   const [value, onChange] = useState(new Date());
-  
+  var calendarDate = `${value.getDate()}/${value.getMonth() + 1}/${value.getFullYear()}`
+  localStorage.setItem("calendarDate", calendarDate) // set calendar date to local storage 
   // take attendance
   const navigate = useNavigate();
 

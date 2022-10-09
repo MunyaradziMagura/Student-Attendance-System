@@ -20,9 +20,9 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   let unknownStudents = "{'deviceFingerPrint':'N/A','userName':'N/A','firstName':'Unknown Student','lastName':'','date':'N/A','courseID':null}||"
   let staff = JSON.parse(localStorage.getItem("lecturer"))
   let url = `http://localhost:5001/api/courseAttendanceRecords/getAttendance/${courseName}/${staff.staffID}/`
-  //let SelectedClassType = ""
+  
   //Fetches all of the attendance records from the database
-
+  let calendarDate = localStorage.getItem('calendarDate')
   useEffect(() => {
     fetch(url)
     .then((response) => response.json())
@@ -33,7 +33,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   function getClassTypeData(_class){
     setSelectedClassType(_class)
     // store and filter attendance data 
-    let classAttendanceData = attendanceData.filter(type => type.classType === _class).filter(dateFilter => dateFilter.date === "12/10/2022"); // add dynamic date capture 
+    let classAttendanceData = attendanceData.filter(type => type.classType === _class).filter(dateFilter => dateFilter.date === calendarDate); // add dynamic date capture 
     // create attendance table
     if(classAttendanceData[0] === undefined) {
       setTable(<CourseDetailsTable attendanceString={unknownStudents}/>)
