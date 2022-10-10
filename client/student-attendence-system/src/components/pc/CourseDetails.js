@@ -8,7 +8,8 @@ import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import CourseDetailsTable from './CourseDetailsTable';
 import StudentProfile from './StudentProfile';
-
+import Dropdown from 'react-bootstrap/Dropdown';
+import SplitButton from 'react-bootstrap/SplitButton';
 const CourseDetails = ({backFunction, staffID}, props) => {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
@@ -142,16 +143,17 @@ const CourseDetails = ({backFunction, staffID}, props) => {
             <div>
             
             <InputGroup className="mb-3">
-        <Button variant="outline-secondary" id="button-addon1">
-          Button
-        </Button>
-        <Form.Control
-          aria-label="Example text with button addon"
-          aria-describedby="basic-addon1"
-        />
-              <InputGroup className="mb-3">
-        <InputGroup.Checkbox aria-label="Checkbox for following text input"/>
-      </InputGroup>
+        <Form.Control aria-label="Text input with dropdown button" />
+        <SplitButton
+          variant="outline-secondary"
+          title="Search Student"
+          id="segmented-button-dropdown-2"
+          alignRight
+        >
+          <Dropdown.Item>Show All Attendance</Dropdown.Item>
+          <Dropdown.Divider />
+          <Dropdown.Item>Filter Attendance</Dropdown.Item>
+        </SplitButton>
       </InputGroup>
         
                 {/* table which shows all students */}
