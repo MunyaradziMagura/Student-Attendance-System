@@ -6,7 +6,6 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import AttendanceTakingPopUp from "./AttendanceTakingPopUp";
 import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
-import ListGroup from 'react-bootstrap/ListGroup'
 import CourseDetailsTable from './CourseDetailsTable';
 import StudentProfile from './StudentProfile';
 
@@ -108,14 +107,8 @@ const CourseDetails = ({backFunction, staffID}, props) => {
                         <option value = "Seminar">Seminar</option>
                         <option value = "Workshop">Workshop</option>
                     </Form.Select>
-                    <InputGroup size="lg">
-        <InputGroup.Text id="inputGroup-sizing-lg">Student Search</InputGroup.Text>
-        <Form.Control
-          aria-label="Large"
-          aria-describedby="inputGroup-sizing-sm"
-        />
-      </InputGroup>
-      <Button
+                    
+                  <Button
                     variant="primary"
                     style={{ width: "85%", fontSize: "0.8rem" }}
                     onClick={() => setTakeAttendance(true)}
@@ -141,17 +134,25 @@ const CourseDetails = ({backFunction, staffID}, props) => {
                   </Card>
                   <Card style={{ width: '18rem' }}>
                     {/* student profile */}
-                  {/* <StudentProfile userName={profileData[1]} fullName={profileData[0]} attendanceCount={profileData[2]} classType={SelectedClassType}/> */}
                   {studentProfileComponent}
               </Card>
               </CardGroup>
             </div>
             
             <div>
-            <div className="d-flex justify-content-start">
-              
-                <h2>Students</h2>
-            </div>
+            
+            <InputGroup className="mb-3">
+        <Button variant="outline-secondary" id="button-addon1">
+          Button
+        </Button>
+        <Form.Control
+          aria-label="Example text with button addon"
+          aria-describedby="basic-addon1"
+        />
+              <InputGroup className="mb-3">
+        <InputGroup.Checkbox aria-label="Checkbox for following text input"/>
+      </InputGroup>
+      </InputGroup>
         
                 {/* table which shows all students */}
                 {table}
