@@ -22,7 +22,6 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   const [studentProfileComponent, setStudentProfileComponent] = useState()
 
 
-
   const currentDate = new Date();
   let courseName = localStorage.getItem("courseName").replaceAll(" ", "%20")
   let unknownStudents = "{'deviceFingerPrint':'N/A','userName':'N/A','firstName':'Unknown Student','lastName':'','date':'N/A','courseID':null}||"
@@ -58,25 +57,40 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     
   }
   useEffect(() => {
-    // console.log(newProfileData)
-    setStudentProfileComponent(<StudentProfile userName={profileData[0]} fullName={profileData[1]} attendanceCount={profileData[2]} classType={SelectedClassType}/>)
-
-    
+    let attendanceCounter = getStudentAttendanceCount(profileData[0], SelectedClassType)
+    setStudentProfileComponent(<StudentProfile userName={profileData[0]} fullName={profileData[1]} attendanceCount={profileData[2]} classType={SelectedClassType}  attendancesCount={attendanceCounter[0]}totalAttendances={attendanceCounter[1]}/>)
   },[profileData])
 
   function generateAttendanceTable(attendanceString){
 
     function getStudentCallBack(_studentID, _fullName){
-      setProfileData([_studentID, _fullName, "10000"])
+      setProfileData([_studentID, _fullName, "000"])
     }
+
       return <CourseDetailsTable attendanceString={attendanceString}  passStudentInfo={getStudentCallBack}/>
   }
 
    
-  function getStudentAttendanceCount(_studentID){
-    
-    // let attendanceCount = attendanceData.filter((student) => {return student.attendies === _studentID})
-    return 300
+  function getStudentAttendanceCount(_studentID, myClass){
+
+    let totalAttendance = 0
+    let classAttendance = 0
+
+    attendanceData.forEach((e) => {
+
+      // get total attendances 
+      if (e.attendies.indexOf(_studentID) >= 0){
+        totalAttendance++
+        // get attendances for specific class type
+        if(e.classType === myClass) {
+
+          classAttendance++
+        }
+      }
+    })
+    console.log("Total attendance: " + totalAttendance)
+    console.log("Class attendance: " + classAttendance)
+    return [totalAttendance, classAttendance]
   }
  
     return(

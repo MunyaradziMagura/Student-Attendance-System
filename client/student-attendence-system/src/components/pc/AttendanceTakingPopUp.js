@@ -74,7 +74,7 @@ function AttendanceTakingPopUp(props) {
             cursor={" "}
             typingDelay={500}
             eraseSpeed={80}
-            text={[`TAKING ATTENDANCE..., DO NOT TOUCH KEYBOARD`]}
+            text={[`TAKING ATTENDANCE... DO NOT TOUCH KEYBOARD`]}
           />
         </Modal.Title>
       </Modal.Header>
