@@ -8,6 +8,7 @@ import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import ListGroup from 'react-bootstrap/ListGroup'
 import CourseDetailsTable from './CourseDetailsTable';
+import StudentProfile from './StudentProfile';
 
 const CourseDetails = ({backFunction, staffID}, props) => {
 
@@ -15,6 +16,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   const [attendanceData, setAttendanceData] = useState([])
   const [table, setTable] = useState()
   const [SelectedClassType, setSelectedClassType] = useState()
+  const [studentProfile, setStudentProfile] = useState(["N/A", "Not Selected", "N/A"])
   const currentDate = new Date();
   let courseName = localStorage.getItem("courseName").replaceAll(" ", "%20")
   let unknownStudents = "{'deviceFingerPrint':'N/A','userName':'N/A','firstName':'Unknown Student','lastName':'','date':'N/A','courseID':null}||"
@@ -38,9 +40,11 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     if(classAttendanceData[0] === undefined) {
       setTable(<CourseDetailsTable attendanceString={unknownStudents}/>)
 
-    }else{
+    }
+    else {
+      // table containing all attendances for that class
       setTable(generateAttendanceTable(classAttendanceData[0].attendance))
-
+      
     }
     console.log(_class)
     console.log(classAttendanceData[0])
@@ -48,17 +52,12 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   }
 
   function generateAttendanceTable(attendanceString){
-      return <CourseDetailsTable attendanceString={attendanceString}/>
+    function getStudent(_studentID, _fullName){
+      console.log(_studentID, _fullName)
+    }
+      return <CourseDetailsTable attendanceString={attendanceString}  getStudent={() => getStudent()}/>
   }
-
-  // useEffect(() => {
-  //   fetch(`http://localhost:5001/api/courseAttendanceRecords/getAttendance/classType=Tutorial_staffID=110205689_courseName=Data_Structures`)
-  //   .then((response) => response.json())
-  //   .then((jsonResponse) => setAttendanceData(jsonResponse))
-  //   .catch((error) => console.log(error))
-  // }, [])
-      
-
+ 
 
     return(
         <>
@@ -75,13 +74,13 @@ const CourseDetails = ({backFunction, staffID}, props) => {
                         <option value = "Seminar">Seminar</option>
                         <option value = "Workshop">Workshop</option>
                     </Form.Select>
-                    {/* <InputGroup size="lg">
+                    <InputGroup size="lg">
         <InputGroup.Text id="inputGroup-sizing-lg">Student Search</InputGroup.Text>
         <Form.Control
           aria-label="Large"
           aria-describedby="inputGroup-sizing-sm"
         />
-      </InputGroup> */}
+      </InputGroup>
       <Button
                     variant="primary"
                     style={{ width: "85%", fontSize: "0.8rem" }}
@@ -107,13 +106,8 @@ const CourseDetails = ({backFunction, staffID}, props) => {
                     <Card.Img style={{textAlign: "center", width: "250px", height: "250px"}}variant="top" src="https://www.advsofteng.com/doc/cdpydoc/images/simpleline.png" />
                   </Card>
                   <Card style={{ width: '18rem' }}>
-                  <ListGroup>
-                      <ListGroup.Item>Name:</ListGroup.Item>
-                      <ListGroup.Item>ID:</ListGroup.Item>
-                      <ListGroup.Item>Attendances:</ListGroup.Item>
-                      <ListGroup.Item>Absences:</ListGroup.Item>
-                      <Button>Clear</Button>
-                  </ListGroup>
+                    {/* student profile */}
+                  <StudentProfile userName={"110205647"} fullName={"Zack Anderson"} attendanceCount={5}/>
               </Card>
               </CardGroup>
             </div>
@@ -125,7 +119,6 @@ const CourseDetails = ({backFunction, staffID}, props) => {
             </div>
         
                 {/* table which shows all students */}
-                {/* <CourseDetailsTable attendanceString={"{'deviceFingerPrint':201586541,'userName':'111111111','firstName':'Tom','lastName':'Smith','date':'Wed Sep 14 2022 16:37:08 GMT+0930 (Australian Central Standard Time)','courseID':null}||"}/> */}
                 {table}
             </div>
         </>

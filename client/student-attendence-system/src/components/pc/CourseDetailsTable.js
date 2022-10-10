@@ -2,12 +2,17 @@ import React from 'react'
 import Table from 'react-bootstrap/Table'
 import Badge from "react-bootstrap/Badge";
 
-function CourseDetailsTable({attendanceString}, props) {
+function CourseDetailsTable({attendanceString, getStudent}, props) {
   // split string on ||, then replace single quotes with double quotes, then remove empty spaces from array, then convert string to json object
   let attandanceObject = attendanceString.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
   // object. key = hash, value = number 
   // javascript dom query, 
- 
+  function setStudent(id, firstName, lastName){
+    let fullName = firstName + " " + lastName
+    console.log(`${id} : ${fullName}`)
+  }
+  
+
   return (
     // NOTE: MAKE THE TABLE RESPONSIVE I.E. SCROLLABLE 
     <Table responsive striped bordered hover size="sm"> 
@@ -26,7 +31,7 @@ function CourseDetailsTable({attendanceString}, props) {
       <tbody>
       
       {attandanceObject.map(item => 
-        <tr id={item.deviceFingerPrint}>
+        <tr id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
           <td>{item.firstName + " " + item.lastName}</td>
           <td>{item.userName}</td>
           <td>{item.deviceFingerPrint}</td>
