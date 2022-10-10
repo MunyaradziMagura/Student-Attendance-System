@@ -16,7 +16,13 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   const [attendanceData, setAttendanceData] = useState([])
   const [table, setTable] = useState()
   const [SelectedClassType, setSelectedClassType] = useState()
-  const [studentProfile, setStudentProfile] = useState(["N/A", "Not Selected", "N/A"])
+
+
+  const [profileData, setProfileData] = useState(["N/A", "Not Selected", "N/A"])
+  const [studentProfileComponent, setStudentProfileComponent] = useState()
+
+
+
   const currentDate = new Date();
   let courseName = localStorage.getItem("courseName").replaceAll(" ", "%20")
   let unknownStudents = "{'deviceFingerPrint':'N/A','userName':'N/A','firstName':'Unknown Student','lastName':'','date':'N/A','courseID':null}||"
@@ -34,6 +40,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
 
   function getClassTypeData(_class){
     setSelectedClassType(_class)
+  
     // store and filter attendance data 
     let classAttendanceData = attendanceData.filter(type => type.classType === _class).filter(dateFilter => dateFilter.date === calendarDate); // add dynamic date capture 
     // create attendance table
@@ -46,19 +53,32 @@ const CourseDetails = ({backFunction, staffID}, props) => {
       setTable(generateAttendanceTable(classAttendanceData[0].attendance))
       
     }
-    console.log(_class)
-    console.log(classAttendanceData[0])
+    // console.log(_class)
+    // console.log(classAttendanceData[0])
     
   }
+  useEffect(() => {
+    // console.log(newProfileData)
+    setStudentProfileComponent(<StudentProfile userName={profileData[0]} fullName={profileData[1]} attendanceCount={profileData[2]} classType={SelectedClassType}/>)
+
+    
+  },[profileData])
 
   function generateAttendanceTable(attendanceString){
-    function getStudent(_studentID, _fullName){
-      console.log(_studentID, _fullName)
+
+    function getStudentCallBack(_studentID, _fullName){
+      setProfileData([_studentID, _fullName, "10000"])
     }
-      return <CourseDetailsTable attendanceString={attendanceString}  getStudent={() => getStudent()}/>
+      return <CourseDetailsTable attendanceString={attendanceString}  passStudentInfo={getStudentCallBack}/>
+  }
+
+   
+  function getStudentAttendanceCount(_studentID){
+    
+    // let attendanceCount = attendanceData.filter((student) => {return student.attendies === _studentID})
+    return 300
   }
  
-
     return(
         <>
           <h1>{localStorage.getItem('courseName')}</h1>
@@ -107,7 +127,8 @@ const CourseDetails = ({backFunction, staffID}, props) => {
                   </Card>
                   <Card style={{ width: '18rem' }}>
                     {/* student profile */}
-                  <StudentProfile userName={"110205647"} fullName={"Zack Anderson"} attendanceCount={5}/>
+                  {/* <StudentProfile userName={profileData[1]} fullName={profileData[0]} attendanceCount={profileData[2]} classType={SelectedClassType}/> */}
+                  {studentProfileComponent}
               </Card>
               </CardGroup>
             </div>

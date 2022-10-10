@@ -2,14 +2,15 @@ import React from 'react'
 import Table from 'react-bootstrap/Table'
 import Badge from "react-bootstrap/Badge";
 
-function CourseDetailsTable({attendanceString, getStudent}, props) {
+function CourseDetailsTable({attendanceString, passStudentInfo}, props) {
   // split string on ||, then replace single quotes with double quotes, then remove empty spaces from array, then convert string to json object
   let attandanceObject = attendanceString.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
   // object. key = hash, value = number 
   // javascript dom query, 
   function setStudent(id, firstName, lastName){
     let fullName = firstName + " " + lastName
-    console.log(`${id} : ${fullName}`)
+    passStudentInfo(id, fullName)
+    // console.log(`${id} : ${fullName}`)
   }
   
 

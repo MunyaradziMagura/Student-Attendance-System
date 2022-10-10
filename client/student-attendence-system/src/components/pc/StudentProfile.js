@@ -3,22 +3,16 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button'
 
 
-const StudentProfile = ({userName, fullName, attendanceCount}) => {
+function StudentProfile ({userName, fullName, attendanceCount, classType}) {
 
-    
-    const [studentDetails, setStudentDetails] = useState([userName, fullName, attendanceCount])
-    function clear(){
-        setStudentDetails(["N/A", "Not Selected", "N/A"])
-    }
   return (
-    <>
     <ListGroup>
-        <ListGroup.Item>Name: {studentDetails[1]}</ListGroup.Item>
-        <ListGroup.Item>ID: {studentDetails[0]}</ListGroup.Item>
-        <ListGroup.Item>Attendances: {studentDetails[2]}</ListGroup.Item>
-        <Button onClick={() => clear()}>Clear</Button>
+        <ListGroup.Item><h2>Student Details</h2></ListGroup.Item>
+        <ListGroup.Item>Name: {fullName}</ListGroup.Item>
+        <ListGroup.Item>ID: {userName}</ListGroup.Item>
+        <ListGroup.Item>{classType} Attendances: {attendanceCount}</ListGroup.Item>
+        <ListGroup.Item>Total Attendances: {attendanceCount}</ListGroup.Item>
     </ListGroup> 
-    </>
   )
 }
 
