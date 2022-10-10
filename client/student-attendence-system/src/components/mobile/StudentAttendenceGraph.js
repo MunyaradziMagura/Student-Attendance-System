@@ -7,9 +7,10 @@ const StudentAttendenceGraph = (props) => {
   //console.log(temp1);
   newClassesObject = Object.keys(temp1).map((key) => {
     return{...newClassesObject,
-        [key]: {date: temp1[key].date, attendance: temp1[key].attendance},
+        [key]: {date: temp1[key].date, attendance: temp1[key].attendance}
     }
   },{})
+ 
   return (  
     <Modal
       {...props}
