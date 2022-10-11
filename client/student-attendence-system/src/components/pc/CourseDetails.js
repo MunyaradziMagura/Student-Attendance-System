@@ -10,6 +10,7 @@ import CourseDetailsTable from './CourseDetailsTable';
 import StudentProfile from './StudentProfile';
 import Dropdown from 'react-bootstrap/Dropdown';
 import SplitButton from 'react-bootstrap/SplitButton';
+import {useNavigate } from "react-router-dom";
 const CourseDetails = ({backFunction, staffID}, props) => {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
@@ -21,6 +22,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   const [profileData, setProfileData] = useState(["N/A", "Not Selected", "N/A"])
   const [studentProfileComponent, setStudentProfileComponent] = useState()
 
+  const navigate = useNavigate();
 
   const currentDate = new Date();
   let courseName = localStorage.getItem("courseName").replaceAll(" ", "%20")
@@ -101,7 +103,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
           <h1>{localStorage.getItem('courseName')}</h1>
             <div>
                 <Stack direction="horizontal" gap={2}>
-                    <Button onClick={backFunction}>Back</Button>
+                    <Button onClick={() => navigate(-1)}>Back</Button>
                     <h4>Class Type:</h4>
                     <Form.Select style = {{width: '20rem'}} onChange={(e) => getClassTypeData(e.target.value)}>
                         <option value= "">Select Class Type</option>

@@ -33,7 +33,7 @@ const Courses = ({sendDetailsPageButton, classesObject, studyPeriod}) => {
                         <td>{classesObject[key].courseName}</td>
                         <td>{classesObject[key].catalogueID}</td>
                         <td>{classesObject[key].students.length}</td>
-                        <td class="w-10"> <Button onClick={() => sendDetails(key)}><IoLink></IoLink>View</Button></td>
+                        <td class="w-10"> <Button onClick={() => sendDetails(key)} href="/Dashboard/CoursesDetail"><IoLink></IoLink>View</Button></td>
                     </tr>)
                 )
               )
