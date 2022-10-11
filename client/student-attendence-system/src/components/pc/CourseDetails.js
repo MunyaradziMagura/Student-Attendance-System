@@ -15,7 +15,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   const [takeAttendance, setTakeAttendance] = useState(false);
   const [attendanceData, setAttendanceData] = useState([])
   const [table, setTable] = useState()
-  const [SelectedClassType, setSelectedClassType] = useState()
+  const [SelectedClassType, setSelectedClassType] = useState("")
 
 
   const [profileData, setProfileData] = useState(["N/A", "Not Selected", "N/A"])
@@ -50,15 +50,15 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     else {
       // table containing all attendances for that class
       setTable(generateAttendanceTable(classAttendanceData[0].attendance))
-      
     }
     // console.log(_class)
     // console.log(classAttendanceData[0])
     
   }
+
   useEffect(() => {
     let attendanceCounter = getStudentAttendanceCount(profileData[0], SelectedClassType)
-    setStudentProfileComponent(<StudentProfile userName={profileData[0]} fullName={profileData[1]} attendanceCount={profileData[2]} classType={SelectedClassType}  attendancesCount={attendanceCounter[0]}totalAttendances={attendanceCounter[1]}/>)
+    setStudentProfileComponent(<StudentProfile userName={profileData[0]} fullName={profileData[1]} attendanceCount={profileData[2]} classType={SelectedClassType}  attendancesCount={attendanceCounter[1]} totalAttendances={attendanceCounter[0]}/>)
   },[profileData])
 
   function generateAttendanceTable(attendanceString){
@@ -67,7 +67,8 @@ const CourseDetails = ({backFunction, staffID}, props) => {
       setProfileData([_studentID, _fullName, "000"])
     }
 
-      return <CourseDetailsTable attendanceString={attendanceString}  passStudentInfo={getStudentCallBack}/>
+
+    return <CourseDetailsTable attendanceString={attendanceString}  passStudentInfo={getStudentCallBack}/>
   }
 
    
@@ -92,6 +93,8 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     console.log("Class attendance: " + classAttendance)
     return [totalAttendance, classAttendance]
   }
+
+  console.log(SelectedClassType)
  
     return(
         <>

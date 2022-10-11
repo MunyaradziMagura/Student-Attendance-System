@@ -11,7 +11,7 @@ function StudentProfile ({userName, fullName, classType, attendancesCount, total
         <ListGroup.Item>Name: {fullName}</ListGroup.Item>
         <ListGroup.Item>ID: {userName}</ListGroup.Item>
         <ListGroup.Item>{classType} Attendances: {attendancesCount}</ListGroup.Item>
-        <ListGroup.Item>Total Attendances: {totalAttendances}</ListGroup.Item>
+        <ListGroup.Item>Overall Course Attendances: {totalAttendances}</ListGroup.Item>
     </ListGroup> 
   )
 }

@@ -11,7 +11,6 @@ attendedCourseRecordsRouter.route('/').get((req, res) => {
 
 attendedCourseRecordsRouter.route('/add').put((req, res) => {
 
-
         const catalogueID = req.body.catalogueID;
         const courseName = req.body.courseName;
         const staffID = req.body.staffID;
