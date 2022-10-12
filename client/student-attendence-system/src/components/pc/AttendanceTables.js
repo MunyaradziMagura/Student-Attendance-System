@@ -9,11 +9,11 @@ if (tabState.length > 0  && attendanceData.length > 0){
     // store data fro total attendance
     let classDataTemplate = {
         "name": "Total Attandance",
-        "Lecture": 10,
-        "Practical": 20,
-        "Tutorial": 30,
-        "Seminar":  40,
-        "Workshop": 50,
+        "Lecture": 0,
+        "Practical": 0,
+        "Tutorial": 0,
+        "Seminar":  0,
+        "Workshop": 0,
     }
     attendanceData.forEach((e) => {
         classDataTemplate[e.classType] += e.attendies.length
