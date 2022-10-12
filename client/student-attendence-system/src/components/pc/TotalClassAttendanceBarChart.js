@@ -26,12 +26,12 @@ function TotalClassAttendanceBarChart({data}, props) {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Seminar" fill="#03045E" />
+          <Bar dataKey="Seminar" fill="#03045e" />
+          <Bar dataKey="Workshop" fill="#023e8a"/>
           <Bar dataKey="Lecture" fill="#0077b6" />
-          <Bar dataKey="Practical" fill="#00b4d8" />
-          <Bar dataKey="Tutorial" fill="#90e0ef" />
-          <Bar dataKey="Seminar" fill="#caf0f8" />
-    
+          <Bar dataKey="Practical" fill="#0096c7" />
+          <Bar dataKey="Tutorial" fill="#00b4d8" />
+          <Bar dataKey="Seminar" fill="#48cae4" />
         </BarChart>
       );
 }

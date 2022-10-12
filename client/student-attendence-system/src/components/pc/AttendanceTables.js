@@ -2,13 +2,13 @@ import React, { useState,useEffect } from 'react'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import TotalClassAttendanceBarChart from './TotalClassAttendanceBarChart'
-function AttendanceTables({tabState, attendanceData},props) {
+function AttendanceTables({tabState, attendanceData}, props) {
 if (tabState.length > 0  && attendanceData.length > 0){
     console.log(attendanceData)
 
-    // store data fro total attendance
+    // store data for total attendance
     let classDataTemplate = {
-        "name": "Total Attandance",
+        "name": "Total Attendance",
         "Lecture": 0,
         "Practical": 0,
         "Tutorial": 0,
@@ -52,7 +52,7 @@ if (tabState.length > 0  && attendanceData.length > 0){
           <Tab eventKey="home" title="Top Students" disabled>
           </Tab>
           <Tab eventKey="profile" title="Attendance Class" disabled>
-          <p>Class Attendance <b>Unavalible</b>, please select a class type</p>
+          <p>Class Attendance <b>Unavailable</b>, please select a class type</p>
           </Tab>
           <Tab eventKey="longer-tab" title="Bottom Students" disabled>
           </Tab>
