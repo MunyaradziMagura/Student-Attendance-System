@@ -14,7 +14,7 @@ const MainRoutes = () =>{
         <Route path="/" element={<><InnerContent></InnerContent></>}>
             <Route path="/" element={<Navigate replace to="Courses"/>}/>
             <Route path="Courses" element={<><Header pageName={"Your Course"}/><div className={sty.rightDesc}><YourCourse courseList={lecturer.courses}/></div></>}/>
-            <Route path="CoursesDetail" element={<><Header pageName={lecturer.courseName}/><div className={sty.rightDesc}><CourseDetails courseName={lecturer.courseName} staffID={lecturer.staffID}></CourseDetails></div></>}></Route>
+            <Route path="CoursesDetail" element={<><Header pageName={"Course"}/><div className={sty.rightDesc}><CourseDetails courseName={lecturer.courseName} staffID={lecturer.staffID}></CourseDetails></div></>}></Route>
         </Route>
         </Routes>
     )

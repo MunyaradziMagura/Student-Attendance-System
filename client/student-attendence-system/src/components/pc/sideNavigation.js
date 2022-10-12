@@ -29,12 +29,12 @@ const SideNavigation = () => {
               href="/Dashboard/Courses"
             > Courses
             </Nav.Link>
-            <Nav.Link 
+            {/* <Nav.Link 
               style={{color: "#3b4149"}}
               className={sty.navItem}
               href="/Dashboard/StudentSearch"
             > Student Search
-            </Nav.Link>
+            </Nav.Link> */}
           </Nav>
           <div className = {sty.calendar}>
             <Calendar onChange={onChange} value={value}/>

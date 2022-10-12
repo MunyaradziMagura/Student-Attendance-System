@@ -4,13 +4,13 @@ const Header = ({pageName}) => {
     console.log(pageName);
     const Dashboard = "Dashboard > ";
     const subLink = Dashboard + pageName;
-    if(pageName === undefined){
-        return(
-            <div>
-                <h1>{pageName}</h1>
-            </div>
-        )
-    }
+    // if(pageName === undefined){
+    //     return(
+    //         <div>
+    //             <h1>{pageName}</h1>
+    //         </div>
+    //     )
+    // }
     return(
         <>
             <div className={sty.rightTop}>
