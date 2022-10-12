@@ -59,7 +59,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
       setTable(generateAttendanceTable(classAttendanceData[0].attendance))
     }
     // console.log(_class)
-    // console.log(classAttendanceData[0])
+    console.table(classAttendanceData[0])
     
   }
 
@@ -109,7 +109,6 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   }
 
   // console.log(SelectedClassType)
- 
     return(
         <>
           <h1>{localStorage.getItem('courseName')}</h1>
