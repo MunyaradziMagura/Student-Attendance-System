@@ -11,6 +11,7 @@ import StudentProfile from './StudentProfile';
 import Dropdown from 'react-bootstrap/Dropdown';
 import SplitButton from 'react-bootstrap/SplitButton';
 import {useNavigate } from "react-router-dom";
+import AttendanceTables from './AttendanceTables'
 const CourseDetails = ({backFunction, staffID}, props) => {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
@@ -23,6 +24,9 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   const [studentProfileComponent, setStudentProfileComponent] = useState()
 
   const navigate = useNavigate();
+  const [attendanceGraphs, setAttendanceGraphs] = useState() // this is used to generate attendance data
+  // choose class type
+  const [selectedGraphClassType,setSelectedGraphClassType] = useState("")
 
   const currentDate = new Date();
   let courseName = localStorage.getItem("courseName").replaceAll(" ", "%20")
@@ -40,6 +44,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   }, [SelectedClassType])
 
   function getClassTypeData(_class){
+    setSelectedGraphClassType(_class)
     setSelectedClassType(_class)
   
     // store and filter attendance data 
@@ -62,6 +67,13 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     let attendanceCounter = getStudentAttendanceCount(profileData[0], SelectedClassType)
     setStudentProfileComponent(<StudentProfile userName={profileData[0]} fullName={profileData[1]} attendanceCount={profileData[2]} classType={SelectedClassType}  attendancesCount={attendanceCounter[1]} totalAttendances={attendanceCounter[0]}/>)
   },[profileData])
+
+  // check if we can generate attendance graphical data 
+  useEffect(() => {
+    
+    setAttendanceGraphs(<AttendanceTables tabState={selectedGraphClassType} attendanceData={attendanceData}/>)
+
+  },[selectedGraphClassType])
 
   function generateAttendanceTable(attendanceString){
 
@@ -91,12 +103,12 @@ const CourseDetails = ({backFunction, staffID}, props) => {
         }
       }
     })
-    console.log("Total attendance: " + totalAttendance)
-    console.log("Class attendance: " + classAttendance)
+    // console.log("Total attendance: " + totalAttendance)
+    // console.log("Class attendance: " + classAttendance)
     return [totalAttendance, classAttendance]
   }
 
-  console.log(SelectedClassType)
+  // console.log(SelectedClassType)
  
     return(
         <>
@@ -108,10 +120,10 @@ const CourseDetails = ({backFunction, staffID}, props) => {
                     <Form.Select style = {{width: '20rem'}} onChange={(e) => getClassTypeData(e.target.value)}>
                         <option value= "">Select Class Type</option>
                         <option value = "Lecture">Lecture</option>
-                        <option value = "Practical">Practical</option>
+                        <option value = "Practical" >Practical</option>
                         <option value = "Tutorial">Tutorial</option>
-                        <option value = "Seminar">Seminar</option>
-                        <option value = "Workshop">Workshop</option>
+                        <option value = "Seminar" >Seminar</option>
+                        <option value = "Workshop" >Workshop</option>
                     </Form.Select>
                     
                   <Button
@@ -136,7 +148,8 @@ const CourseDetails = ({backFunction, staffID}, props) => {
             <div>
               <CardGroup>
                   <Card>
-                    <Card.Img style={{textAlign: "center", width: "250px", height: "250px"}}variant="top" src="https://www.advsofteng.com/doc/cdpydoc/images/simpleline.png" />
+                  {/* visualise attendance graphs */}
+                  {attendanceGraphs}
                   </Card>
                   <Card style={{ width: '18rem' }}>
                     {/* student profile */}

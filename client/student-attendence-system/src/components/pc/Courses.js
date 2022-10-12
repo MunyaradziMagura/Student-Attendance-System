@@ -18,7 +18,6 @@ const Courses = ({sendDetailsPageButton, classesObject, studyPeriod}) => {
             <tr>
                 <th>Course Name</th>
                 <th>Catalogue ID</th>
-                <th>No. Students</th>
                 <th>View Course</th>
             </tr>
         </thead>
