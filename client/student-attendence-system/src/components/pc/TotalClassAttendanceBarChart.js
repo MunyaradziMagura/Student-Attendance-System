@@ -31,7 +31,6 @@ function TotalClassAttendanceBarChart({data}, props) {
           <Bar dataKey="Lecture" fill="#0077b6" />
           <Bar dataKey="Practical" fill="#0096c7" />
           <Bar dataKey="Tutorial" fill="#00b4d8" />
-          <Bar dataKey="Seminar" fill="#48cae4" />
         </BarChart>
       );
 }
