@@ -36,6 +36,7 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
     return false;
   })
   
+  //command = "highlight";
   
   if(command === "highlight"){
     return(<>
@@ -56,12 +57,13 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
       
       {modifiedUserList.map(item => 
           (<tr style={{backgroundColor: ""}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
-            {item.redFlag === true && <td style={{backgroundColor:"red", color:"white"}}>{item.firstName + " " + item.lastName}</td>}
-            {item.redFlag === true && <td style={{backgroundColor:"red", color:"white"}}>{item.userName}</td>}
-            {item.redFlag === true && <td style={{backgroundColor:"red", color:"white"}}>{item.deviceFingerPrint}</td>}
-            {item.redFlag === false && <td >{item.firstName + " " + item.lastName}</td>}
-            {item.redFlag === false && <td >{item.userName}</td>}
-            {item.redFlag === false && <td >{item.deviceFingerPrint}</td>}
+            {(item.redFlag === true || item.yellowFlag === true) && <><td style={{backgroundColor:"red", color:"white"}}>{item.firstName + " " + item.lastName}</td>
+              <td style={{backgroundColor:"red", color:"white"}}>{item.userName}</td>
+              <td style={{backgroundColor:"red", color:"white"}}>{item.deviceFingerPrint}</td></>}
+            {(item.redFlag === false && item.yellowFlag === false) && <><td >{item.firstName + " " + item.lastName}</td>
+              <td >{item.userName}</td>
+              <td >{item.deviceFingerPrint}</td>
+            </>}
           </tr>)
         )
       }
@@ -88,12 +90,12 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
       
       {modifiedUserList.map(item => 
           (<tr style={{backgroundColor: ""}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
-            {item.yellowFlag === true && <td style={{backgroundColor:"yellow", }}>{item.firstName + " " + item.lastName}</td>}
-            {item.yellowFlag === true && <td style={{backgroundColor:"yellow", }}>{item.userName}</td>}
-            {item.yellowFlag === true && <td style={{backgroundColor:"yellow", }}>{item.deviceFingerPrint}</td>}
-            {item.redFlag === true && <td style={{backgroundColor:"red", color:"white"}}>{item.firstName + " " + item.lastName}</td>}
-            {item.redFlag === true && <td style={{backgroundColor:"red", color:"white"}}>{item.userName}</td>}
-            {item.redFlag === true && <td style={{backgroundColor:"red", color:"white"}}>{item.deviceFingerPrint}</td>}
+            {item.yellowFlag === true && <><td style={{backgroundColor:"yellow", }}>{item.firstName + " " + item.lastName}</td>
+              <td style={{backgroundColor:"yellow", }}>{item.userName}</td>
+              <td style={{backgroundColor:"yellow", }}>{item.deviceFingerPrint}</td></>}
+            {item.redFlag === true && <><td style={{backgroundColor:"red", color:"white"}}>{item.firstName + " " + item.lastName}</td>
+              <td style={{backgroundColor:"red", color:"white"}}>{item.userName}</td>
+              <td style={{backgroundColor:"red", color:"white"}}>{item.deviceFingerPrint}</td></>}
           </tr>)
         )
       }
