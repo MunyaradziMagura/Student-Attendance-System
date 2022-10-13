@@ -4,8 +4,10 @@ import Tabs from 'react-bootstrap/Tabs';
 import TotalClassAttendanceBarChart from './TotalClassAttendanceBarChart'
 function AttendanceTables({tabState, attendanceData},props) {
 if (tabState.length > 0  && attendanceData.length > 0){
-    console.log(attendanceData)
 
+    // stores a set of all students ID
+    const studentIDs = new Set();
+    let studentAttandenceRecord = []
     // store data fro total attendance
     let classDataTemplate = {
         "name": "Total Attandance",
@@ -17,11 +19,36 @@ if (tabState.length > 0  && attendanceData.length > 0){
     }
     attendanceData.forEach((e) => {
         classDataTemplate[e.classType] += e.attendies.length
-        console.log(e.classType)
-        console.log(e.attendies.length)
-        // clear classDataTemplate
+        // add students to the set of students 
+        studentIDs.add(e.attendies.map(e => e.toString()));
     })
-    let data = [classDataTemplate]
+
+    studentIDs.forEach((currentStudentId) => {
+      let currentStudentAttendance = {
+        "name" : currentStudentId,
+        "Lecture": 0,
+        "Practical": 0,
+        "Tutorial": 0,
+        "Seminar":  0,
+        "Workshop": 0,
+        "total": 0
+      }
+      attendanceData.forEach((i) =>{
+
+        console.log(i.attendies)
+        console.log(currentStudentId)
+        if(i.attendies.includes(currentStudentId)){
+          // increment that class type 
+          currentStudentAttendance[i.classType] += 1
+          // increment total
+          currentStudentAttendance["total"] += 1
+          console.log(currentStudentAttendance)
+        }
+      })
+      
+    })
+    // console.log(studentAttandenceRecord)
+    let classTypeTotals = [classDataTemplate]
 
   return (
     <Tabs
@@ -34,7 +61,7 @@ if (tabState.length > 0  && attendanceData.length > 0){
       <p>Top student attendance TBA</p>
       </Tab>
       <Tab eventKey="profile" title="Attendance Class" disabled={tabState.length > 0 ? false : true}>
-      <TotalClassAttendanceBarChart data={data}/>
+      <TotalClassAttendanceBarChart data={classTypeTotals}/>
       </Tab>
       <Tab eventKey="longer-tab" title="Bottom Students" disabled={tabState.length > 0 ? false : true}>
       <p>Bottom student attendance TBA</p>
