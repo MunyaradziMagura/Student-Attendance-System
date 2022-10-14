@@ -3,6 +3,12 @@ import CourseRecord from "../models/attendedCourseRecords.model.js";
 
 const attendedCourseRecordsRouter = express.Router();
 
+attendedCourseRecordsRouter.route('/').get((req, res) => {
+    CourseRecord.find()
+    .then(CourseRecord => res.json(CourseRecord))
+    .catch((error) => res.status(400).json("Error:" + error))
+})
+
 attendedCourseRecordsRouter.route('/add').put((req, res) => {
 
         const catalogueID = req.body.catalogueID;
@@ -10,19 +16,9 @@ attendedCourseRecordsRouter.route('/add').put((req, res) => {
         const staffID = req.body.staffID;
         const date = req.body.date;
         const studyPeriod = req.body.studyPeriod;
+        const attendies = req.body.attendies;
         const classType = req.body.classType;
         const attendance = req.body.attendance;
-
-
-    // CourseRecord.insert({
-    //     catalogueID,
-    //     courseName,
-    //     staffID,
-    //     date,
-    //     studyPeriod,
-    //     classType,
-    //     attendance        
-    // })
 
     //Various fields to be used in the API request
     
@@ -34,6 +30,7 @@ attendedCourseRecordsRouter.route('/add').put((req, res) => {
         staffID,
         date,
         studyPeriod,
+        attendies,
         classType,
         attendance,
     });
@@ -43,6 +40,16 @@ attendedCourseRecordsRouter.route('/add').put((req, res) => {
     .then(() => res.json('New Course Attendance Record Added!'))
     .catch((err => res.status(400).json('Error: ' + err)))
 });
+
+attendedCourseRecordsRouter.get(`/getAttendance/:courseName/:staffID`, (req, res) => {    
+    CourseRecord.find({
+        //classType: req.params.classType,
+        courseName: req.params.courseName,
+        staffID: req.params.staffID,
+    })
+    .then((CourseRecord) => res.json(CourseRecord))
+    .catch((err) => res.status(400).json("Error: " + err))
+})
 
 
 export default attendedCourseRecordsRouter

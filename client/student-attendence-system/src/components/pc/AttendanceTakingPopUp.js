@@ -19,10 +19,13 @@ function AttendanceTakingPopUp(props) {
   const [showToast, setShowToast] = useState(false) //State variables for the toast notification
   var array = []
   var jsonObjectsArray = [] // stores student objects scanned in 
+  var attendies = [] //Array to store student usernames/IDs
 
-    function convertToJSON(element) {
-      let jsonFormat = JSON.parse(element)
-      jsonObjectsArray.push(jsonFormat)
+
+  function convertToJSON(element) {
+    let jsonFormat = JSON.parse(element)
+    attendies.push(jsonFormat.userName)
+    jsonObjectsArray.push(jsonFormat)
   }
 
   const staff = JSON.parse(localStorage.getItem('lecturer'))
@@ -40,7 +43,6 @@ function AttendanceTakingPopUp(props) {
     });
 
 
-
     addCourseAttendanceRecord({
     // object which will be sent to the 'course attendance records' collection
         "catalogueID": localStorage.getItem('catalogueID'),
@@ -48,6 +50,7 @@ function AttendanceTakingPopUp(props) {
         "staffID": staff.staffID,
         "date": props.date,
         "studyPeriod": localStorage.getItem('studyPeriod'),
+        "attendies": attendies,
         "classType": props.classType,
         "attendance": students
     }
@@ -71,7 +74,7 @@ function AttendanceTakingPopUp(props) {
             cursor={" "}
             typingDelay={500}
             eraseSpeed={80}
-            text={[`TAKING ATTENDANCE..., DO NOT TOUCH KEYBOARD`]}
+            text={[`TAKING ATTENDANCE... DO NOT TOUCH KEYBOARD`]}
           />
         </Modal.Title>
       </Modal.Header>
