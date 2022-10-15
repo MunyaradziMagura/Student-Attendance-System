@@ -8,8 +8,6 @@ import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import CourseDetailsTable from './CourseDetailsTable';
 import StudentProfile from './StudentProfile';
-import Dropdown from 'react-bootstrap/Dropdown';
-import SplitButton from 'react-bootstrap/SplitButton';
 import {json, useNavigate } from "react-router-dom";
 import AttendanceTables from './AttendanceTables'
 const CourseDetails = ({backFunction, staffID}, props) => {
@@ -71,6 +69,40 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     
   // }
 
+  //Section of flagging the data
+  const flagByAttendance = (attendanceData) =>{
+    let attandanceObject = attendanceData.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
+    var modifiedUserList = attandanceObject.map(element => ({...element, yellowFlag: false,redFlag: false})) //This is AttdanceObject has been modified to add another flag attribut
+    var uniqueDeviceHash = []; //This list ensure the unique of deviceFingerPrint data only 
+    var badListDevice = [];
+    var unique = modifiedUserList.filter(element => { //the unique variable is a Set of Array with no duplication of dataset
+      const isDuplicate = uniqueDeviceHash.includes(element.deviceFingerPrint);
+      if(!isDuplicate){
+        uniqueDeviceHash.push(element.deviceFingerPrint);
+        return true;
+      }
+      element.redFlag = true;
+      badListDevice.push(element.deviceFingerPrint);
+      return false;
+    }); 
+  
+    var newUnique = modifiedUserList.filter(element =>{
+      const isYellowFlag = badListDevice.includes(element.deviceFingerPrint);
+      if(isYellowFlag === true && element.redFlag === false){
+        element.yellowFlag = true;
+        return true;
+      }
+      return false;
+    })
+    
+    var jsonString = JSON.stringify(Object.keys(modifiedUserList).map((id) => modifiedUserList[id]));
+    jsonString = jsonString.replace("[", "");
+    jsonString = jsonString.replace("]", "||");
+    jsonString = jsonString.replaceAll("},", "}||");
+    jsonString = jsonString.replaceAll('"', "'");
+    return jsonString;
+  }
+
   const filteringByClassType = (attendanceData) =>{
     if(!SelectedClassType){
       return unknownStudents;
@@ -104,7 +136,6 @@ const CourseDetails = ({backFunction, staffID}, props) => {
       jsonString = jsonString.replace("]", "||");
       jsonString = jsonString.replace("},", "}||");
       jsonString = jsonString.replaceAll('"', "'");
-      console.log(jsonString);
       if(jsonString === "||"){
         return unknownStudents;
       }
@@ -133,7 +164,9 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     setAttendanceGraphs(<AttendanceTables tabState={selectedGraphClassType} attendanceData={attendanceData}/>)
     //The Section is filtering 
     let filteredListData = filteringByClassType(attendanceData); //This will return a list of class data based on selected Class Type
-    filteredListData= filteringBySearch(filteredListData);
+    filteredListData=flagByAttendance(filteredListData);//This will create a flag when it retrieve the Attendance Object from the date picker and class type
+    filteredListData= filteringBySearch(filteredListData);//This will filtering the attendance object by comparing between user input and firstname
+    //The Section of displaying table of data 
     setTable(generateAttendanceTable(filteredListData, selectSortType)) //This will create a table based on the updating of filterListData
   },[profileData,selectedGraphClassType, selectSortType, searchItem])
 

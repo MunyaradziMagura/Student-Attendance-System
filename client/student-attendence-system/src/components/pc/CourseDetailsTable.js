@@ -12,31 +12,7 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
     passStudentInfo(id, fullName)
     // console.log(`${id} : ${fullName}`)
   }
-  
-  var modifiedUserList = attandanceObject.map(element => ({...element, yellowFlag: false,redFlag: false})) //This is AttdanceObject has been modified to add another flag attribut
-  var uniqueDeviceHash = []; //This list ensure the unique of deviceFingerPrint data only 
-  var badListDevice = [];
-  var unique = modifiedUserList.filter(element => { //the unique variable is a Set of Array with no duplication of dataset
-    const isDuplicate = uniqueDeviceHash.includes(element.deviceFingerPrint);
-    if(!isDuplicate){
-      uniqueDeviceHash.push(element.deviceFingerPrint);
-      return true;
-    }
-    element.redFlag = true;
-    badListDevice.push(element.deviceFingerPrint);
-    return false;
-  }); 
 
-  var newUnique = modifiedUserList.filter(element =>{
-    const isYellowFlag = badListDevice.includes(element.deviceFingerPrint);
-    if(isYellowFlag === true && element.redFlag === false){
-      element.yellowFlag = true;
-      return true;
-    }
-    return false;
-  })
-  
-  //command = "highlight";
   
   if(command === "highlight"){
     return(<>
@@ -55,15 +31,17 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
       </thead>
       <tbody>
       
-      {modifiedUserList.map(item => 
+      {attandanceObject.map(item => 
           (<tr style={{backgroundColor: ""}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
             {(item.redFlag === true || item.yellowFlag === true) && <><td style={{backgroundColor:"red", color:"white"}}>{item.firstName + " " + item.lastName}</td>
               <td style={{backgroundColor:"red", color:"white"}}>{item.userName}</td>
               <td style={{backgroundColor:"red", color:"white"}}>{item.deviceFingerPrint}</td></>}
             {(item.redFlag === false && item.yellowFlag === false) && <><td >{item.firstName + " " + item.lastName}</td>
               <td >{item.userName}</td>
-              <td >{item.deviceFingerPrint}</td>
-            </>}
+              <td >{item.deviceFingerPrint}</td></>}
+            {item.deviceFingerPrint === "N/A" && <><td>{item.firstName + " " + item.lastName}</td>
+              <td>{item.userName}</td>
+              <td>{item.deviceFingerPrint}</td></>}  
           </tr>)
         )
       }
@@ -88,7 +66,7 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
       </thead>
       <tbody>
       
-      {modifiedUserList.map(item => 
+      {attandanceObject.map(item => 
           (<tr style={{backgroundColor: ""}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
             {item.yellowFlag === true && <><td style={{backgroundColor:"yellow", }}>{item.firstName + " " + item.lastName}</td>
               <td style={{backgroundColor:"yellow", }}>{item.userName}</td>
@@ -96,6 +74,9 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
             {item.redFlag === true && <><td style={{backgroundColor:"red", color:"white"}}>{item.firstName + " " + item.lastName}</td>
               <td style={{backgroundColor:"red", color:"white"}}>{item.userName}</td>
               <td style={{backgroundColor:"red", color:"white"}}>{item.deviceFingerPrint}</td></>}
+            {item.deviceFingerPrint === "N/A" && <><td>{item.firstName + " " + item.lastName}</td>
+              <td>{item.userName}</td>
+              <td>{item.deviceFingerPrint}</td></>}
           </tr>)
         )
       }
