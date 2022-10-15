@@ -17,7 +17,8 @@ export default function Dashboard() {
   var userData = { userName: localStorage.getItem("name") };
   const lecturer = JSON.parse(localStorage.getItem("lecturer"));
   const [value, onChange] = useState(new Date());
-  
+  var calendarDate = `${value.getDate()}/${value.getMonth() + 1}/${value.getFullYear()}`
+  localStorage.setItem("calendarDate", calendarDate) // set calendar date to local storage 
   // take attendance
   const navigate = useNavigate();
 
@@ -47,7 +48,7 @@ export default function Dashboard() {
       headerComponent = <Header pageName={"Student Search"}/>
       break;
     case "CourseDetails":
-        pageComponent = <CourseDetails backFunction={() => setPage("YourCourse")} courseName={"Test"} />
+        pageComponent = <CourseDetails courseName={lecturer.courseName} staffID={lecturer.staffID} backFunction={() => setPage("YourCourse")} />
         headerComponent = <Header pageName={"Course Details"}/>
         break;
 
