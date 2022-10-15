@@ -1,7 +1,11 @@
 import axios from "axios";
+// your ipv4 address
+const YOURIP = ''
 
+let ip = (YOURIP.length > 0) ? YOURIP : "localhost";
+console.log(ip)
 const service = axios.create({
-  baseURL: "http://localhost:5001/api/",
+  baseURL: `http://${ip}:5001/api/`,
   timeout: 10000,
 });
 
