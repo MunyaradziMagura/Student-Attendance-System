@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-export default function TotalStudentAttendanceStackedBarChart({data}, props) {
+export default function BottomStudentsAttendanceStackedBarChart({data}, props) {
     return (
         <BarChart
           width={600}

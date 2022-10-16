@@ -3,6 +3,9 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import TotalClassAttendanceBarChart from './TotalClassAttendanceBarChart'
 import TotalStudentAttendanceStackedBarChart from './TotalStudentAttendanceStackedBarChart'
+import BottomStudentsAttendanceStackedBarChart from './BottomStudentsAttendanceStackedBarChart'
+
+
 function AttendanceTables({tabState, attendanceData}, props) {
 if (tabState.length > 0  && attendanceData.length > 0){
     
@@ -30,13 +33,13 @@ if (tabState.length > 0  && attendanceData.length > 0){
     studentIDList.forEach((e) => {
       // initlise students object
       let studentObject = {
-        "name": e,
-        "Lecture": 0,
-        "Practical": 0,
-        "Tutorial": 0,
-        "Seminar":  0,
-        "Workshop": 0,
-        "totalAttendace": function () {return this.Lecture + this.Practical + this.Tutorial + this.Seminar + this.Workshop}
+        name: e,
+        Lecture: 0,
+        Practical: 0,
+        Tutorial: 0,
+        Seminar:  0,
+        Workshop: 0,
+        totalAttendace: function () {return this.Lecture + this.Practical + this.Tutorial + this.Seminar + this.Workshop}
     }
     // check which classes a student belongs to, then increment the corrosponding counter to the studentObject
       attendanceData.forEach((a) => {
@@ -48,11 +51,14 @@ if (tabState.length > 0  && attendanceData.length > 0){
       rankStudents.push(studentObject)
     })
 
-    // sort the ranked students
-    let sortedRankedStudents = rankStudents.sort(function(a, b) {
+    // sort the  array into a top students array and a bottom students array 
+    let topStudents = rankStudents.sort((a, b) =>  {
       return a.totalAttendace() - b.totalAttendace();
     });
-    console.log(sortedRankedStudents)
+    let bottomStudents = rankStudents.sort((a, b) => {
+      return a.totalAttendace() + b.totalAttendace();
+    });
+
   return (
     <Tabs
       defaultActiveKey="profile"
@@ -60,14 +66,14 @@ if (tabState.length > 0  && attendanceData.length > 0){
       className="mb-3"
       justify
     >
-      <Tab eventKey="home" title="Top Students" disabled={tabState.length > 0 ? false : true}>
-      <TotalStudentAttendanceStackedBarChart data={rankStudents}/>
+      <Tab eventKey="top" title="Top Students" disabled={tabState.length > 0 ? false : true}>
+      <TotalStudentAttendanceStackedBarChart data={topStudents}/>
       </Tab>
       <Tab eventKey="profile" title="Attendance Class" disabled={tabState.length > 0 ? false : true}>
       <TotalClassAttendanceBarChart data={data}/>
       </Tab>
-      <Tab eventKey="longer-tab" title="Bottom Students" disabled={tabState.length > 0 ? false : true}>
-      <p>Bottom student attendance TBA</p>
+      <Tab eventKey="bottom" title="Bottom Students" disabled={tabState.length > 0 ? false : true}>
+      <BottomStudentsAttendanceStackedBarChart data={bottomStudents}/>
       </Tab>
     </Tabs>
   )
