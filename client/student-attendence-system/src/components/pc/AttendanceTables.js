@@ -18,12 +18,36 @@ if (tabState.length > 0  && attendanceData.length > 0){
         "Workshop": 0,
     }
     attendanceData.forEach((e) => {
+      // count the number of students for each class type
         classDataTemplate[e.classType] += e.attendies.length
+
+        // add students to a set
         e.attendies.map((a) => studentIDList.add(a))
-        // clear classDataTemplate
     })
+
     let data = [classDataTemplate]
-    
+    let rankStudents = []
+    studentIDList.forEach((e) => {
+      // initlise students object
+      let studentObject = {
+        "name": e,
+        "Lecture": 0,
+        "Practical": 0,
+        "Tutorial": 0,
+        "Seminar":  0,
+        "Workshop": 0,
+        "totalAttendace": function () {return this.Lecture + this.Practical + this.Tutorial + this.Seminar + this.Workshop}
+    }
+    // check which classes a student belongs to, then increment the corrosponding counter to the studentObject
+      attendanceData.forEach((a) => {
+        if(a.attendies.includes(e)){
+          studentObject[a.classType] += 1
+        }
+      })
+          // push students object
+      rankStudents.push(studentObject)
+    })
+
   return (
     <Tabs
       defaultActiveKey="profile"
@@ -32,7 +56,7 @@ if (tabState.length > 0  && attendanceData.length > 0){
       justify
     >
       <Tab eventKey="home" title="Top Students" disabled={tabState.length > 0 ? false : true}>
-      <TotalStudentAttendanceStackedBarChart/>
+      <TotalStudentAttendanceStackedBarChart data={rankStudents}/>
       </Tab>
       <Tab eventKey="profile" title="Attendance Class" disabled={tabState.length > 0 ? false : true}>
       <TotalClassAttendanceBarChart data={data}/>
