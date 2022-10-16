@@ -25,7 +25,7 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
         <tr>
           <th>Student Name</th>
           <th>Student ID</th>
-          <th>Device Hash</th>
+          <th>Device Fingerprint</th>
         </tr>
         
       </thead>
@@ -60,7 +60,7 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
         <tr>
           <th>Student Name</th>
           <th>Student ID</th>
-          <th>Device Hash</th>
+          <th>Device Fingerprint</th>
         </tr>
         
       </thead>
@@ -96,7 +96,7 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
           <tr>
             <th>Student Name</th>
             <th>Student ID</th>
-            <th>Device Hash</th>
+            <th>Device Fingerprint</th>
           </tr>
           
         </thead>

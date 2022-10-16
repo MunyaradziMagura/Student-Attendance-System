@@ -45,30 +45,6 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     .catch((error) => console.log(error))
   }, [SelectedClassType])
 
-  
-  // function getClassTypeData(_class){
-  //   setSelectedGraphClassType(_class)
-  //   setSelectedClassType(_class)
-  
-  //   // store and filter attendance data 
-  //   let classAttendanceData = attendanceData.filter(type => type.classType === _class).filter(dateFilter => dateFilter.date === calendarDate); // add dynamic date capture 
-  //   // create attendance table
-  //   if(classAttendanceData[0] === undefined) {
-  //     setTable(<CourseDetailsTable attendanceString={unknownStudents}/>)
-
-  //   }
-  //   else {
-  //     // table containing all attendances for that class
-  //     // useEffect(()=> {
-  //     //   setTable(generateAttendanceTable(classAttendanceData[0].attendance, selectSortType))
-  //     // }, selectSortType)
-  //     setTable(generateAttendanceTable(classAttendanceData[0].attendance, selectSortType))
-  //   }
-  //   // console.log(_class)
-  //   console.table(classAttendanceData[0])
-    
-  // }
-
   //Section of flagging the data
   const flagByAttendance = (attendanceData) =>{
     let attandanceObject = attendanceData.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
@@ -258,13 +234,13 @@ const CourseDetails = ({backFunction, staffID}, props) => {
               </Card>
               </CardGroup>
             </div>
-            <div>
+            <div style={{paddingTop: '1vh'}}>
               <InputGroup className="mb-3">
-                <Form.Control onChange={handleSearchChange} value={searchItem} style = {{width: '50%'}} aria-label="Text input with dropdown button" />
+                <Form.Control onChange={handleSearchChange} value={searchItem} style = {{width: '50%'}} aria-label="Text input with dropdown button" placeholder='Search for a Student...'/>
                 <Form.Select style = {{width: ''}} value={selectSortType}onChange={handleSortTypeChange}>
                   <option value="">Show All Attendance</option>
-                  <option value="highlight">Highlight Attendance</option>
-                  <option value="filter">Filter Attendance</option>
+                  <option value="highlight">Highlight Duplicate Device Fingerprint</option>
+                  <option value="filter">Show Only Duplicate Device Fingerprint</option>
                 </Form.Select>
                 {/* <SplitButton
                   variant="outline-secondary"
