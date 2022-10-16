@@ -8,9 +8,7 @@ import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import CourseDetailsTable from './CourseDetailsTable';
 import StudentProfile from './StudentProfile';
-import Dropdown from 'react-bootstrap/Dropdown';
-import SplitButton from 'react-bootstrap/SplitButton';
-import {useNavigate } from "react-router-dom";
+import {json, useNavigate } from "react-router-dom";
 import AttendanceTables from './AttendanceTables'
 const CourseDetails = ({backFunction, staffID}, props) => {
 
@@ -28,6 +26,10 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   // choose class type
   const [selectedGraphClassType,setSelectedGraphClassType] = useState("")
 
+
+  const [selectSortType, setSortType] = useState(""); //This is used to set the type of sort for the student table
+  const [searchItem, setSearchItem] = useState("");
+
   const currentDate = new Date();
   let courseName = localStorage.getItem("courseName").replaceAll(" ", "%20")
   let unknownStudents = "{'deviceFingerPrint':'N/A','userName':'N/A','firstName':'Unknown Student','lastName':'','date':'N/A','courseID':null}||"
@@ -43,46 +45,122 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     .catch((error) => console.log(error))
   }, [SelectedClassType])
 
-  function getClassTypeData(_class){
-    setSelectedGraphClassType(_class)
-    setSelectedClassType(_class)
+  //Section of flagging the data
+  const flagByAttendance = (attendanceData) =>{
+    let attandanceObject = attendanceData.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
+    var modifiedUserList = attandanceObject.map(element => ({...element, yellowFlag: false,redFlag: false})) //This is AttdanceObject has been modified to add another flag attribut
+    var uniqueDeviceHash = []; //This list ensure the unique of deviceFingerPrint data only 
+    var badListDevice = [];
+    var unique = modifiedUserList.filter(element => { //the unique variable is a Set of Array with no duplication of dataset
+      const isDuplicate = uniqueDeviceHash.includes(element.deviceFingerPrint);
+      if(!isDuplicate){
+        uniqueDeviceHash.push(element.deviceFingerPrint);
+        return true;
+      }
+      element.redFlag = true;
+      badListDevice.push(element.deviceFingerPrint);
+      return false;
+    }); 
   
-    // store and filter attendance data 
-    let classAttendanceData = attendanceData.filter(type => type.classType === _class).filter(dateFilter => dateFilter.date === calendarDate); // add dynamic date capture 
-    // create attendance table
-    if(classAttendanceData[0] === undefined) {
-      setTable(<CourseDetailsTable attendanceString={unknownStudents}/>)
-
-    }
-    else {
-      // table containing all attendances for that class
-      setTable(generateAttendanceTable(classAttendanceData[0].attendance))
-    }
-    // console.log(_class)
-    // console.log(classAttendanceData[0])
+    var newUnique = modifiedUserList.filter(element =>{
+      const isYellowFlag = badListDevice.includes(element.deviceFingerPrint);
+      if(isYellowFlag === true && element.redFlag === false){
+        element.yellowFlag = true;
+        return true;
+      }
+      return false;
+    })
     
+    var jsonString = JSON.stringify(Object.keys(modifiedUserList).map((id) => modifiedUserList[id]));
+    jsonString = jsonString.replace("[", "");
+    jsonString = jsonString.replace("]", "||");
+    jsonString = jsonString.replaceAll("},", "}||");
+    jsonString = jsonString.replaceAll('"', "'");
+    return jsonString;
+  }
+
+  const filteringByClassType = (attendanceData) =>{
+    if(!SelectedClassType){
+      return unknownStudents;
+    }
+    let classAttendanceData = attendanceData.filter(type => type.classType === SelectedClassType).filter(dateFilter => dateFilter.date === calendarDate); // add dynamic date capture 
+    if(classAttendanceData[0] === undefined){
+      return unknownStudents;
+    }
+
+    return classAttendanceData[0].attendance;
+  };
+
+  const filteringBySearch = (attendanceData) => {
+    if(attendanceData === undefined){
+      return unknownStudents;
+    }
+    if(searchItem === ""){
+      return attendanceData;
+    }else{
+      let attandanceObject = attendanceData.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
+      var filteredSearch = Object.keys(attandanceObject).filter((id) => attandanceObject[id].firstName.toLowerCase().includes(searchItem)).reduce((obj, id) => {
+        return{
+            ...obj, 
+            [id]: attandanceObject[id]
+
+        };
+      }, {});
+      
+      var jsonString = JSON.stringify(Object.keys(filteredSearch).map((id) => filteredSearch[id]));
+      jsonString = jsonString.replace("[", "");
+      jsonString = jsonString.replace("]", "||");
+      jsonString = jsonString.replace("},", "}||");
+      jsonString = jsonString.replaceAll('"', "'");
+      if(jsonString === "||"){
+        return unknownStudents;
+      }
+      return jsonString;
+    }
+  }
+
+  const handleSearchChange = (event) =>{
+    var lowerCase = event.target.value.toLowerCase();
+    setSearchItem(lowerCase);
+  }
+
+  const handleClassTypeChange =(event)=>{
+    setSelectedGraphClassType(event.target.value)
+    setSelectedClassType(event.target.value)  
+  }
+
+  const handleSortTypeChange = (event) =>{
+    setSortType(event.target.value);
   }
 
   useEffect(() => {
     let attendanceCounter = getStudentAttendanceCount(profileData[0], SelectedClassType)
     setStudentProfileComponent(<StudentProfile userName={profileData[0]} fullName={profileData[1]} attendanceCount={profileData[2]} classType={SelectedClassType}  attendancesCount={attendanceCounter[1]} totalAttendances={attendanceCounter[0]}/>)
-  },[profileData])
-
-  // check if we can generate attendance graphical data 
-  useEffect(() => {
-    
+    // check if we can generate attendance graphical data (Have been combined from the statement below)
     setAttendanceGraphs(<AttendanceTables tabState={selectedGraphClassType} attendanceData={attendanceData}/>)
+    //The Section is filtering 
+    let filteredListData = filteringByClassType(attendanceData); //This will return a list of class data based on selected Class Type
+    filteredListData=flagByAttendance(filteredListData);//This will create a flag when it retrieve the Attendance Object from the date picker and class type
+    filteredListData= filteringBySearch(filteredListData);//This will filtering the attendance object by comparing between user input and firstname
+    //The Section of displaying table of data 
+    setTable(generateAttendanceTable(filteredListData, selectSortType)) //This will create a table based on the updating of filterListData
+  },[profileData,selectedGraphClassType, selectSortType, searchItem])
 
-  },[selectedGraphClassType])
+  // check if we can generate attendance graphical data (UNECESSARY REPEATED useEffect STATEMENT)
+  // useEffect(() => {
+    
+  //   setAttendanceGraphs(<AttendanceTables tabState={selectedGraphClassType} attendanceData={attendanceData}/>)
 
-  function generateAttendanceTable(attendanceString){
+  // },[selectedGraphClassType])
+
+  function generateAttendanceTable(attendanceString, commandString){
 
     function getStudentCallBack(_studentID, _fullName){
       setProfileData([_studentID, _fullName, "000"])
     }
+    
 
-
-    return <CourseDetailsTable attendanceString={attendanceString}  passStudentInfo={getStudentCallBack}/>
+    return <CourseDetailsTable attendanceString={attendanceString}  passStudentInfo={getStudentCallBack} command = {commandString}/>
   }
 
    
@@ -109,7 +187,6 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   }
 
   // console.log(SelectedClassType)
- 
     return(
         <>
           <h1>{localStorage.getItem('courseName')}</h1>
@@ -117,7 +194,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
                 <Stack direction="horizontal" gap={2}>
                     <Button onClick={() => navigate(-1)}>Back</Button>
                     <h4>Class Type:</h4>
-                    <Form.Select style = {{width: '20rem'}} onChange={(e) => getClassTypeData(e.target.value)}>
+                    <Form.Select style = {{width: '20rem'}} value = {SelectedClassType} onChange={handleClassTypeChange}>
                         <option value= "">Select Class Type</option>
                         <option value = "Lecture">Lecture</option>
                         <option value = "Practical" >Practical</option>
@@ -133,7 +210,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
                     disabled = {(SelectedClassType === "") ? true : false}
                     >
                     Launch Attendance Taking
-      </Button>
+                  </Button>
                     {/* show popup */}
                     <AttendanceTakingPopUp
                     classType = {SelectedClassType}
@@ -157,23 +234,28 @@ const CourseDetails = ({backFunction, staffID}, props) => {
               </Card>
               </CardGroup>
             </div>
-            
-            <div>
-            
-            <InputGroup className="mb-3">
-        <Form.Control aria-label="Text input with dropdown button" />
-        <SplitButton
-          variant="outline-secondary"
-          title="Search Student"
-          id="segmented-button-dropdown-2"
-          alignRight
-        >
-          <Dropdown.Item>Show All Attendance</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item>Filter Attendance</Dropdown.Item>
-        </SplitButton>
-      </InputGroup>
-        
+            <div style={{paddingTop: '1vh'}}>
+              <InputGroup className="mb-3">
+                <Form.Control onChange={handleSearchChange} value={searchItem} style = {{width: '50%'}} aria-label="Text input with dropdown button" placeholder='Search for a Student...'/>
+                <Form.Select style = {{width: ''}} value={selectSortType}onChange={handleSortTypeChange}>
+                  <option value="">Show All Attendance</option>
+                  <option value="highlight">Highlight Duplicate Device Fingerprint</option>
+                  <option value="filter">Show Only Duplicate Device Fingerprint</option>
+                </Form.Select>
+                {/* <SplitButton
+                  variant="outline-secondary"
+                  title="Search Student"
+                  id="segmented-button-dropdown-2"
+                  alignRight
+                  value={selectSortType}
+                  onChange={handleSortTypeChange}
+                >  
+                  <Dropdown.Item eventKey="hightlight">Highlight Attendance</Dropdown.Item>
+                  <Dropdown.Item eventKey = "filter">Filter Attendance</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item value = "">Show All Attendance</Dropdown.Item>
+                </SplitButton> */}
+              </InputGroup>        
                 {/* table which shows all students */}
                 {table}
             </div>
