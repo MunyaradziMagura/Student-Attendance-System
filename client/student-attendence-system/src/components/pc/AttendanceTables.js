@@ -48,6 +48,11 @@ if (tabState.length > 0  && attendanceData.length > 0){
       rankStudents.push(studentObject)
     })
 
+    // sort the ranked students
+    let sortedRankedStudents = rankStudents.sort(function(a, b) {
+      return a.totalAttendace() - b.totalAttendace();
+    });
+    console.log(sortedRankedStudents)
   return (
     <Tabs
       defaultActiveKey="profile"
