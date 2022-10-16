@@ -2,9 +2,11 @@ import React, { useState,useEffect } from 'react'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import TotalClassAttendanceBarChart from './TotalClassAttendanceBarChart'
+import TotalStudentAttendanceStackedBarChart from './TotalStudentAttendanceStackedBarChart'
 function AttendanceTables({tabState, attendanceData}, props) {
 if (tabState.length > 0  && attendanceData.length > 0){
-    console.log(attendanceData)
+    
+  var studentIDList = new Set()
 
     // store data for total attendance
     let classDataTemplate = {
@@ -17,12 +19,11 @@ if (tabState.length > 0  && attendanceData.length > 0){
     }
     attendanceData.forEach((e) => {
         classDataTemplate[e.classType] += e.attendies.length
-        console.log(e.classType)
-        console.log(e.attendies.length)
+        e.attendies.map((a) => studentIDList.add(a))
         // clear classDataTemplate
     })
     let data = [classDataTemplate]
-
+    
   return (
     <Tabs
       defaultActiveKey="profile"
@@ -31,7 +32,7 @@ if (tabState.length > 0  && attendanceData.length > 0){
       justify
     >
       <Tab eventKey="home" title="Top Students" disabled={tabState.length > 0 ? false : true}>
-      <p>Top student attendance TBA</p>
+      <TotalStudentAttendanceStackedBarChart/>
       </Tab>
       <Tab eventKey="profile" title="Attendance Class" disabled={tabState.length > 0 ? false : true}>
       <TotalClassAttendanceBarChart data={data}/>
