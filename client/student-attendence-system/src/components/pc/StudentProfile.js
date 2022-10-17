@@ -3,7 +3,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button'
 
 
-function StudentProfile ({userName, fullName, classType, attendancesCount, totalAttendances}) {
+export default function  StudentProfile ({userName, fullName, classType, attendancesCount, totalAttendances}, props) {
 
   return (
     <ListGroup>
@@ -16,4 +16,3 @@ function StudentProfile ({userName, fullName, classType, attendancesCount, total
   )
 }
 
-export default StudentProfile

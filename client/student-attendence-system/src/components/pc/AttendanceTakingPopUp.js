@@ -11,7 +11,7 @@ import { addCourseAttendanceRecord } from "../../utils/doRequest"
 import {IoCheckmarkCircle, IoCloseCircle} from 'react-icons/io5'
 
 
-function AttendanceTakingPopUp(props) {
+export default function AttendanceTakingPopUp(props) {
 
 
   let deviceFingerprintsSet = new Set()
@@ -145,5 +145,3 @@ function AttendanceTakingPopUp(props) {
 
   );
 }
-
-export default AttendanceTakingPopUp;

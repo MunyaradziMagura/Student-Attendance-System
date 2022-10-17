@@ -3,7 +3,8 @@ import React from 'react'
 import {useState} from 'react'
 import BarcodeReader from 'react-barcode-reader'
 
-function BarcodeScanner() {
+
+export default function BarcodeScanner() {
 
     //Setting initial 'useState' values to an empty string for our result variables
     const [result, setResult] = useState("")
@@ -44,5 +45,3 @@ function BarcodeScanner() {
         </div>
     )
 }
-
-export default BarcodeScanner

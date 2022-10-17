@@ -1,7 +1,7 @@
 import React, { useState }  from "react";
 import Form from "react-bootstrap/Form"
 import Courses from "./Courses";
-const YourCourse = ({courseList, forwardFunction}, props) =>{
+export default function YourCourse ({courseList, forwardFunction}, props) {
 
         
         const [classes, setClasses] = useState({});
@@ -33,5 +33,3 @@ const YourCourse = ({courseList, forwardFunction}, props) =>{
      </>) 
      
 }
-
-export default YourCourse;

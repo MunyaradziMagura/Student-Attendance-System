@@ -6,7 +6,7 @@ import TotalStudentAttendanceStackedBarChart from './TotalStudentAttendanceStack
 import BottomStudentsAttendanceStackedBarChart from './BottomStudentsAttendanceStackedBarChart'
 
 
-function AttendanceTables({tabState, attendanceData}, props) {
+export default function AttendanceTables({tabState, attendanceData}, props) {
 if (tabState.length > 0  && attendanceData.length > 0){
     
   var studentIDList = new Set()
@@ -96,5 +96,3 @@ if (tabState.length > 0  && attendanceData.length > 0){
       )
 }
 }
-
-export default AttendanceTables
