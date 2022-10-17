@@ -46,6 +46,13 @@ function StudentNavigation({ fullName, setPage }) {
             >
               <IoBook id="navPageLinkIcon" /> Classes
             </Nav.Link>
+            <Nav.Link
+              href="#Report"
+              id="navPageLink"
+              onClick={() => setPage("Report")}
+            >
+              <IoBook id="navPageLinkIcon" /> Report
+            </Nav.Link>
             <Nav.Link onClick={doLogout}>
               <IoLogOutSharp />
               Logout

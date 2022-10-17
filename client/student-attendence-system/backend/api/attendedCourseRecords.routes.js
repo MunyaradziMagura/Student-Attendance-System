@@ -9,6 +9,21 @@ attendedCourseRecordsRouter.route('/').get((req, res) => {
     .catch((error) => res.status(400).json("Error:" + error))
 })
 
+attendedCourseRecordsRouter.route('/getAttendance/class').post((req, res) => {
+    CourseRecord.find({
+        staffID: req.params.staffID
+    })
+    .then(CourseRecord => res.json(CourseRecord))
+    .catch((error) => res.status(400).json("Error:" + error))
+})
+
+
+attendedCourseRecordsRouter.route('/getAttendance/student').post((req, res) => {
+    CourseRecord.find()
+    .then(CourseRecord => res.json(CourseRecord))
+    .catch((error) => res.status(400).json("Error:" + error))
+})
+
 attendedCourseRecordsRouter.route('/add').put((req, res) => {
 
         const catalogueID = req.body.catalogueID;
@@ -50,6 +65,8 @@ attendedCourseRecordsRouter.get(`/getAttendance/:courseName/:staffID`, (req, res
     .then((CourseRecord) => res.json(CourseRecord))
     .catch((err) => res.status(400).json("Error: " + err))
 })
+
+
 
 
 export default attendedCourseRecordsRouter

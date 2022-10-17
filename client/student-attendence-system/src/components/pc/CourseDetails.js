@@ -171,6 +171,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
           <Dropdown.Item>Show All Attendance</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item>Filter Attendance</Dropdown.Item>
+      
         </SplitButton>
       </InputGroup>
         

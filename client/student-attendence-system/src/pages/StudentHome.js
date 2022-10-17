@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import QRCode from "../components/mobile/QRCode";
 import StudentClasses from "../components/mobile/StudentClasses";
 import UserProfile from "../components/mobile/UserProfile";
+import UserReport from "../components/mobile/UserReport";
 import React from "react";
 
 function StudentHome() {
@@ -41,6 +42,15 @@ function StudentHome() {
         />
       ;
       break;
+      case "Report":
+        pageComponent = 
+          <UserReport
+            fullName={student.fullName}
+            studentID={student.studentID}
+            program={student.program}
+          />
+        ;
+        break;
 
     default:
       pageComponent = <QRCode studentInfo={student} />;

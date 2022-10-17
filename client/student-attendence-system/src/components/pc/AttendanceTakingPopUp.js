@@ -1,5 +1,5 @@
 import Modal from "react-bootstrap/Modal";
-import { useState } from "react";
+import { useState,useRef } from "react";
 import Button from "react-bootstrap/Button";
 import ReactTypingEffect from "react-typing-effect";
 import Table from "react-bootstrap/Table"
@@ -9,8 +9,7 @@ import Toast from 'react-bootstrap/Toast'
 import ToastContainer from 'react-bootstrap/ToastContainer'
 import { addCourseAttendanceRecord } from "../../utils/doRequest"
 import {IoCheckmarkCircle, IoCloseCircle} from 'react-icons/io5'
-
-
+import { exportPDF } from '../exportPDF';
 function AttendanceTakingPopUp(props) {
 
 
@@ -21,7 +20,7 @@ function AttendanceTakingPopUp(props) {
   var jsonObjectsArray = [] // stores student objects scanned in 
   var attendies = [] //Array to store student usernames/IDs
 
-
+  
   function convertToJSON(element) {
     let jsonFormat = JSON.parse(element)
     attendies.push(jsonFormat.userName)
@@ -57,7 +56,11 @@ function AttendanceTakingPopUp(props) {
     
   )};
 
-
+  let pdfRef = useRef();
+  
+const onExportPDF = () => {
+  exportPDF('course pdf', pdfRef.current)
+}
   return (
     <>
     <Modal
@@ -97,7 +100,8 @@ function AttendanceTakingPopUp(props) {
         {/* For each element in the array, convert each into JSON format */}
         {array.forEach(convertToJSON)}
       </div>
-        
+      <div onClick={onExportPDF} > Export PDF</div>
+        <div  ref={pdfRef}>
         <Table responsive striped bordered hover>
           <thead style={{textAlign: "center"}}>
             <tr>
@@ -116,6 +120,8 @@ function AttendanceTakingPopUp(props) {
               </tr>))}
           </tbody>
         </Table>
+        </div>
+        
         
 
       </Modal.Body>
