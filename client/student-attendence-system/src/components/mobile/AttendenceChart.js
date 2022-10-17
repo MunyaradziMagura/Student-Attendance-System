@@ -10,7 +10,7 @@ import {
   Legend,
 } from "recharts";
 
-const AttendenceChart = ({data},props) => {
+export default function AttendenceChart ({data},props){
   return (
     <LineChart
       width={500}
@@ -43,5 +43,3 @@ const AttendenceChart = ({data},props) => {
     </LineChart>
   );
 };
-
-export default AttendenceChart;

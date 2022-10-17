@@ -4,7 +4,7 @@ import qrcode from "qrcode";
 import { useEffect, useState } from "react";
 import DeviceFingerPrint from "./DeviceFingerPrint";
 // import image from '../'
-function QRCode({ studentInfo }, props) {
+export default function QRCode({ studentInfo }, props) {
   const [personQRSrc, setpersonQRSrc] = useState("");
 
 
@@ -92,5 +92,3 @@ function QRCode({ studentInfo }, props) {
     </div>
   );
 }
-
-export default QRCode;
