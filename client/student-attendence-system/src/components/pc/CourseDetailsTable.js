@@ -16,102 +16,96 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
   
   if(command === "highlight"){
     return(<>
-      <Table responsive striped bordered hover size="sm"> 
-      <thead>
-      {/* NOTE: CHANGE THE BADGE TO SHOW NOTHING WHEN THERE ARE NO STUDENTS */}
       <Badge id="classHeadingBall" bg="primary" pill>
-          {attandanceObject.length} Student(s)
-        </Badge>
-        <tr>
-          <th>Student Name</th>
-          <th>Student ID</th>
-          <th>Device Fingerprint</th>
-        </tr>
-        
-      </thead>
-      <tbody>
-      
-      {attandanceObject.map(item => 
-          (<tr style={{backgroundColor: ""}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
-            {(item.redFlag === true || item.yellowFlag === true) && <><td style={{backgroundColor:"red", color:"white"}}>{item.firstName + " " + item.lastName}</td>
-              <td style={{backgroundColor:"red", color:"white"}}>{item.userName}</td>
-              <td style={{backgroundColor:"red", color:"white"}}>{item.deviceFingerPrint}</td></>}
-            {(item.redFlag === false && item.yellowFlag === false) && <><td >{item.firstName + " " + item.lastName}</td>
-              <td >{item.userName}</td>
-              <td >{item.deviceFingerPrint}</td></>}
-            {item.deviceFingerPrint === "N/A" && <><td>{item.firstName + " " + item.lastName}</td>
-              <td>{item.userName}</td>
-              <td>{item.deviceFingerPrint}</td></>}  
-          </tr>)
-        )
-      }
-             
-      </tbody>
-    </Table>
+        {attandanceObject.length} Student(s)
+      </Badge>
+      <div style={{overflow: "scroll", height:"230px"}}>
+        <Table striped bordered hover size="sm"> 
+          <thead style={{position:'sticky', top: 0,  backgroundColor:'white'}}>
+            <tr>
+              <th style={{position: 'sticky', top:0}}>Student Name</th>
+              <th style={{position: 'sticky', top:0}}>Student ID</th>
+              <th style={{position: 'sticky', top:0}}>Device Fingerprint</th>
+            </tr> 
+          </thead>
+          <tbody>      
+            {attandanceObject.map(item => 
+                (<tr style={{backgroundColor: ""}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
+                  {(item.redFlag === true || item.yellowFlag === true) && <><td style={{backgroundColor:"red", color:"white"}}>{item.firstName + " " + item.lastName}</td>
+                    <td style={{backgroundColor:"red", color:"white"}}>{item.userName}</td>
+                    <td style={{backgroundColor:"red", color:"white"}}>{item.deviceFingerPrint}</td></>}
+                  {(item.redFlag === false && item.yellowFlag === false) && <><td >{item.firstName + " " + item.lastName}</td>
+                    <td >{item.userName}</td>
+                    <td >{item.deviceFingerPrint}</td></>}
+                  {item.deviceFingerPrint === "N/A" && <><td>{item.firstName + " " + item.lastName}</td>
+                    <td>{item.userName}</td>
+                    <td>{item.deviceFingerPrint}</td></>}  
+                </tr>)
+              )
+            }
+          </tbody>
+        </Table>
+      </div>
     </>)
   }else if(command === "filter"){
     return(<>
-      <Table responsive striped bordered hover size="sm"> 
-      <thead>
-      {/* NOTE: CHANGE THE BADGE TO SHOW NOTHING WHEN THERE ARE NO STUDENTS */}
       <Badge id="classHeadingBall" bg="primary" pill>
-          {attandanceObject.length} Student(s)
-        </Badge>
-        <tr>
-          <th>Student Name</th>
-          <th>Student ID</th>
-          <th>Device Fingerprint</th>
-        </tr>
-        
-      </thead>
-      <tbody>
-      
-      {attandanceObject.map(item => 
-          (<tr style={{backgroundColor: ""}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
-            {item.yellowFlag === true && <><td style={{backgroundColor:"yellow", }}>{item.firstName + " " + item.lastName}</td>
-              <td style={{backgroundColor:"yellow", }}>{item.userName}</td>
-              <td style={{backgroundColor:"yellow", }}>{item.deviceFingerPrint}</td></>}
-            {item.redFlag === true && <><td style={{backgroundColor:"red", color:"white"}}>{item.firstName + " " + item.lastName}</td>
-              <td style={{backgroundColor:"red", color:"white"}}>{item.userName}</td>
-              <td style={{backgroundColor:"red", color:"white"}}>{item.deviceFingerPrint}</td></>}
-            {item.deviceFingerPrint === "N/A" && <><td>{item.firstName + " " + item.lastName}</td>
-              <td>{item.userName}</td>
-              <td>{item.deviceFingerPrint}</td></>}
-          </tr>)
-        )
-      }
-             
-      </tbody>
-    </Table>
+        {attandanceObject.length} Student(s)
+      </Badge>
+      <div style={{overflow: "scroll", height:"230px"}}>
+        <Table striped bordered hover size="sm"> 
+          <thead style = {{position: 'sticky', top:0,  backgroundColor:'white'}}>
+            <tr>
+              <th style={{position: 'sticky', top: 0}}>Student Name</th>
+              <th style={{position: 'sticky', top: 0}}>Student ID</th>
+              <th style={{position: 'sticky', top: 0}}>Device Fingerprint</th>
+            </tr>
+          </thead>
+          <tbody>
+            {attandanceObject.map(item => 
+                (<tr style={{backgroundColor: ""}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
+                  {item.yellowFlag === true && <><td style={{backgroundColor:"yellow", }}>{item.firstName + " " + item.lastName}</td>
+                    <td style={{backgroundColor:"yellow", }}>{item.userName}</td>
+                    <td style={{backgroundColor:"yellow", }}>{item.deviceFingerPrint}</td></>}
+                  {item.redFlag === true && <><td style={{backgroundColor:"red", color:"white"}}>{item.firstName + " " + item.lastName}</td>
+                    <td style={{backgroundColor:"red", color:"white"}}>{item.userName}</td>
+                    <td style={{backgroundColor:"red", color:"white"}}>{item.deviceFingerPrint}</td></>}
+                  {item.deviceFingerPrint === "N/A" && <><td>{item.firstName + " " + item.lastName}</td>
+                    <td>{item.userName}</td>
+                    <td>{item.deviceFingerPrint}</td></>}
+                </tr>)
+            )}       
+          </tbody>
+        </Table>
+      </div>
     </>)
   }else{
-    return (
-      // NOTE: MAKE THE TABLE RESPONSIVE I.E. SCROLLABLE 
-      <Table responsive striped bordered hover size="sm"> 
-        <thead>
-        {/* NOTE: CHANGE THE BADGE TO SHOW NOTHING WHEN THERE ARE NO STUDENTS */}
-        <Badge id="classHeadingBall" bg="primary" pill>
-            {attandanceObject.length} Student(s)
-          </Badge>
-          <tr>
-            <th>Student Name</th>
-            <th>Student ID</th>
-            <th>Device Fingerprint</th>
-          </tr>
-          
-        </thead>
-        <tbody>
-        
-        {attandanceObject.map(item => 
-          <tr id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
-            <td>{item.firstName + " " + item.lastName}</td>
-            <td>{item.userName}</td>
-            <td>{item.deviceFingerPrint}</td>
-          </tr>
-           )}
-        </tbody>
-      </Table>
-      
+    return (<>
+      <Badge id="classHeadingBall" bg="primary" pill>
+        {attandanceObject.length} Student(s)
+      </Badge>
+      <div style={{overflow: "scroll", height:"230px"}}>
+        <Table striped bordered hover size="sm"> 
+          <thead style = {{position: 'sticky', top:0, backgroundColor:'white'}} >
+            <tr>
+              <th style={{position:'sticky', top:0,  borderBottom: '1px solid #000000'}}>Student Name</th>
+              <th style={{position:'sticky', top:0, borderBottom: '1px solid #000000'}}>Student ID</th>
+              <th style={{position:'sticky', top:0,  borderBottom: '1px solid #000000'}}>Device Fingerprint</th>
+            </tr>
+          </thead>
+          <tbody>        
+            {attandanceObject.map(item => 
+              <tr id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
+                <td>{item.firstName + " " + item.lastName}</td>
+                <td>{item.userName}</td>
+                <td>{item.deviceFingerPrint}</td>
+              </tr>
+              )}
+          </tbody>
+        </Table>
+      </div>
+
+      </>
     )
   }   
 }
