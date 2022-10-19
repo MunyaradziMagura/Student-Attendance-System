@@ -18,14 +18,20 @@ export default function AttendanceTakingPopUp(props) {
   const [result, setResult] = useState("")
   const [showToast, setShowToast] = useState(false) //State variables for the toast notification
   var array = []
+  var jsonObjectsArraySet = new Set()
   var jsonObjectsArray = [] // stores student objects scanned in 
   var attendies = [] //Array to store student usernames/IDs
 
 
   function convertToJSON(element) {
     let jsonFormat = JSON.parse(element)
-    attendies.push(jsonFormat.userName)
-    jsonObjectsArray.push(jsonFormat)
+    // check if the person has already been scanned. if not then add their information
+    if(!(jsonObjectsArraySet.has(JSON.stringify(jsonFormat)))){
+
+      jsonObjectsArraySet.add(JSON.stringify(jsonFormat))
+      attendies.push(jsonFormat.userName)
+      jsonObjectsArray.push(jsonFormat)
+    }
   }
 
   const staff = JSON.parse(localStorage.getItem('lecturer'))
@@ -53,10 +59,14 @@ export default function AttendanceTakingPopUp(props) {
         "attendies": attendies,
         "classType": props.classType,
         "attendance": students
-    }
+    })
     
-  )};
-
+  // clear attendance
+  array = []
+  jsonObjectsArraySet = new Set()
+  jsonObjectsArray = []
+  attendies = []
+};
 
   return (
     <>
