@@ -10,7 +10,7 @@ import CourseDetailsTable from './CourseDetailsTable';
 import StudentProfile from './StudentProfile';
 import {json, useNavigate } from "react-router-dom";
 import AttendanceTables from './AttendanceTables'
-const CourseDetails = ({backFunction, staffID}, props) => {
+export default function CourseDetails ({backFunction, staffID}, props) {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
   const [attendanceData, setAttendanceData] = useState([])
@@ -93,6 +93,8 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     return classAttendanceData[0].attendance;
   };
 
+
+  // IMPORTANT: REMEMEBER TO COMMENT THIS SECTION
   const filteringBySearch = (attendanceData) => {
     console.log(attendanceData)
     if(attendanceData === undefined){
@@ -149,13 +151,6 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     setTable(generateAttendanceTable(filteredListData, selectSortType)) //This will create a table based on the updating of filterListData
   },[profileData,selectedGraphClassType, selectSortType, searchItem])
 
-  // check if we can generate attendance graphical data (UNECESSARY REPEATED useEffect STATEMENT)
-  // useEffect(() => {
-    
-  //   setAttendanceGraphs(<AttendanceTables tabState={selectedGraphClassType} attendanceData={attendanceData}/>)
-
-  // },[selectedGraphClassType])
-
   function generateAttendanceTable(attendanceString, commandString){
 
     function getStudentCallBack(_studentID, _fullName){
@@ -184,12 +179,10 @@ const CourseDetails = ({backFunction, staffID}, props) => {
         }
       }
     })
-    // console.log("Total attendance: " + totalAttendance)
-    // console.log("Class attendance: " + classAttendance)
+
     return [totalAttendance, classAttendance]
   }
 
-  // console.log(SelectedClassType)
     return(
         <>
           <h1>{localStorage.getItem('courseName')}</h1>
@@ -245,19 +238,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
                   <option value="highlight">Highlight Duplicate Device Fingerprint</option>
                   <option value="filter">Show Only Duplicate Device Fingerprint</option>
                 </Form.Select>
-                {/* <SplitButton
-                  variant="outline-secondary"
-                  title="Search Student"
-                  id="segmented-button-dropdown-2"
-                  alignRight
-                  value={selectSortType}
-                  onChange={handleSortTypeChange}
-                >  
-                  <Dropdown.Item eventKey="hightlight">Highlight Attendance</Dropdown.Item>
-                  <Dropdown.Item eventKey = "filter">Filter Attendance</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item value = "">Show All Attendance</Dropdown.Item>
-                </SplitButton> */}
+
               </InputGroup>        
                 {/* table which shows all students */}
                 {table}
@@ -265,5 +246,3 @@ const CourseDetails = ({backFunction, staffID}, props) => {
         </>
     )
 }
-
-export default CourseDetails

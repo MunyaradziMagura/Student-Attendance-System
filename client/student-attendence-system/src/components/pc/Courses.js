@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/esm/Button';
 import Table from "react-bootstrap/Table";
 import { IoLink } from 'react-icons/io5';
 
-const Courses = ({sendDetailsPageButton, classesObject, studyPeriod}) => {
+export default function Courses ({sendDetailsPageButton, classesObject, studyPeriod}) {
     function sendDetails(index){
         localStorage.setItem('studyPeriod', studyPeriod);
         localStorage.setItem('catalogueID', classesObject[index].catalogueID);
@@ -42,5 +42,3 @@ const Courses = ({sendDetailsPageButton, classesObject, studyPeriod}) => {
         </Table> 
     )
 }
-
-export default Courses

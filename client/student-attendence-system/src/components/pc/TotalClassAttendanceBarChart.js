@@ -8,7 +8,7 @@ import {
     Tooltip,
     Legend
   } from "recharts";
-function TotalClassAttendanceBarChart({data}, props) {
+  export default function TotalClassAttendanceBarChart({data}, props) {
 
     return (
         <BarChart
@@ -34,5 +34,3 @@ function TotalClassAttendanceBarChart({data}, props) {
         </BarChart>
       );
 }
-
-export default TotalClassAttendanceBarChart

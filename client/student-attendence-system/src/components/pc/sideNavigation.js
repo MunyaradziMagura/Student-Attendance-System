@@ -4,8 +4,7 @@ import sty from "../styles/Dashboard.module.css";
 import Nav from "react-bootstrap/Nav";
 import Calendar from "react-calendar";
 import Button from "react-bootstrap/Button";
-import {Link} from "react-router-dom";
-const SideNavigation = () => {
+export default function SideNavigation (props) {
     var userData = { userName: localStorage.getItem("name") };
     const navigate = useNavigate();
     const [value, onChange] = useState(new Date());
@@ -49,4 +48,3 @@ const SideNavigation = () => {
       </div>
     </>
 }
-export default SideNavigation;
