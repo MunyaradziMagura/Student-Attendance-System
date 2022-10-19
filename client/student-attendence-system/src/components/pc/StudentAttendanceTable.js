@@ -11,7 +11,7 @@ import Button from "react-bootstrap/Button";
 import { retrieveAttendance } from "../../utils/doRequest";
  
 
-const StudentAttendanceTable = ({ attendanceList }) => {
+export default function  StudentAttendanceTable ({ attendanceList }, props){
   const [filterList, setFilteredList] = useState(attendanceList);
   const [selectedCourse, setCourse] = useState("");
   
@@ -169,5 +169,3 @@ const StudentAttendanceTable = ({ attendanceList }) => {
     </div>
   );
 };
-
-export default StudentAttendanceTable;

@@ -1,11 +1,11 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import sty from "../styles/Dashboard.module.css";
 import InnerContent from "./InnerContent";
 import Header from "./Header";
 import YourCourse from "./YourCourse";
 import CourseDetails from "./CourseDetails";
-const MainRoutes = () =>{
+export default function MainRoutes (props){
     const lecturer = JSON.parse(localStorage.getItem("lecturer"));
     const temp1 = lecturer.courseName;
     console.log(temp1);
@@ -19,5 +19,3 @@ const MainRoutes = () =>{
         </Routes>
     )
 }
-
-export default MainRoutes;
