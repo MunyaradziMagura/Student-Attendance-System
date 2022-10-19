@@ -43,7 +43,9 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     .then((response) => response.json())
     .then((jsonResponse) => setAttendanceData(jsonResponse))
     .catch((error) => console.log(error))
-  }, [SelectedClassType])
+  }, [SelectedClassType, takeAttendance])
+
+  //useEffect will start to reload the data set from the database based on the trigger of SelectedClassType (class type dropdown) && takeAttendance (After the popup being open or close).
 
   //Section of flagging the data
   const flagByAttendance = (attendanceData) =>{
@@ -92,6 +94,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
   };
 
   const filteringBySearch = (attendanceData) => {
+    console.log(attendanceData)
     if(attendanceData === undefined){
       return unknownStudents;
     }
@@ -141,7 +144,7 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     //The Section is filtering 
     let filteredListData = filteringByClassType(attendanceData); //This will return a list of class data based on selected Class Type
     filteredListData=flagByAttendance(filteredListData);//This will create a flag when it retrieve the Attendance Object from the date picker and class type
-    filteredListData= filteringBySearch(filteredListData);//This will filtering the attendance object by comparing between user input and firstname
+    //filteredListData= filteringBySearch(filteredListData);//This will filtering the attendance object by comparing between user input and firstname
     //The Section of displaying table of data 
     setTable(generateAttendanceTable(filteredListData, selectSortType)) //This will create a table based on the updating of filterListData
   },[profileData,selectedGraphClassType, selectSortType, searchItem])

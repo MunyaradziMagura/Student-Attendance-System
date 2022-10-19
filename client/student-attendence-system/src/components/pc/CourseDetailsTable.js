@@ -13,19 +13,36 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
     // console.log(`${id} : ${fullName}`)
   }
 
+  function cntfunction(attandanceObject, command){
+    var count = 0;
+    for(var i =0; i < attandanceObject.length; ++i){
+      if(attandanceObject[i].redFlag === true || attandanceObject[i].yellowFlag === true){
+        count++;
+      }
+    }
+    if(attandanceObject[0].userName === 'N/A'){
+      return 0;
+    }
+    if(command === "highlight" || command === ""){
+      return attandanceObject.length;
+    }
+    return count;
+  }
+  console.log(attandanceObject);
+
   
   if(command === "highlight"){
     return(<>
       <Badge id="classHeadingBall" bg="primary" pill>
-        {attandanceObject.length} Student(s)
+        {cntfunction(attandanceObject, command)} Student(s)
       </Badge>
       <div style={{overflow: "scroll", height:"230px"}}>
         <Table striped bordered hover size="sm"> 
-          <thead style={{position:'sticky', top: 0,  backgroundColor:'white'}}>
+          <thead style={{position:'sticky', top: -1,  backgroundColor:'white', border: '1px'}}>
             <tr>
-              <th style={{position: 'sticky', top:0}}>Student Name</th>
-              <th style={{position: 'sticky', top:0}}>Student ID</th>
-              <th style={{position: 'sticky', top:0}}>Device Fingerprint</th>
+              <th style={{position: 'sticky', top:0, border: '1px'}}>Student Name</th>
+              <th style={{position: 'sticky', top:0, border: '1px'}}>Student ID</th>
+              <th style={{position: 'sticky', top:0, border: '1px'}}>Device Fingerprint</th>
             </tr> 
           </thead>
           <tbody>      
@@ -50,7 +67,7 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
   }else if(command === "filter"){
     return(<>
       <Badge id="classHeadingBall" bg="primary" pill>
-        {attandanceObject.length} Student(s)
+        {cntfunction(attandanceObject, command)} Student(s)
       </Badge>
       <div style={{overflow: "scroll", height:"230px"}}>
         <Table striped bordered hover size="sm"> 
@@ -82,11 +99,11 @@ function CourseDetailsTable({attendanceString, passStudentInfo, command}, props)
   }else{
     return (<>
       <Badge id="classHeadingBall" bg="primary" pill>
-        {attandanceObject.length} Student(s)
+        {cntfunction(attandanceObject, command)} Student(s)
       </Badge>
       <div style={{overflow: "scroll", height:"230px"}}>
         <Table striped bordered hover size="sm"> 
-          <thead style = {{position: 'sticky', top:0, backgroundColor:'white'}} >
+          <thead bordered style = {{position: 'sticky', top:0, backgroundColor:'white'}} >
             <tr>
               <th style={{position:'sticky', top:0,  borderBottom: '1px solid #000000'}}>Student Name</th>
               <th style={{position:'sticky', top:0, borderBottom: '1px solid #000000'}}>Student ID</th>
