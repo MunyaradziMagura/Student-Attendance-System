@@ -231,15 +231,15 @@ export default function CourseDetails ({backFunction, staffID}, props) {
               </CardGroup>
             </div>
             <div style={{paddingTop: '1vh'}}>
-              <InputGroup className="mb-3">
-                <Form.Control onChange={handleSearchChange} value={searchItem} style = {{width: '50%'}} aria-label="Text input with dropdown button" placeholder='Search for a Student...'/>
-                <Form.Select style = {{width: ''}} value={selectSortType}onChange={handleSortTypeChange}>
+              <Stack direction="horizontal" gap={2}>
+                {/* Search bar is currently down to fix the major bug of searching set data from the QR Code Scanner d */}
+                {/* <Form.Control onChange={handleSearchChange} value={searchItem} style = {{width: '50%'}} aria-label="Text input with dropdown button" placeholder='Search for a Student...'/> */}
+                <Form.Select style = {{width: '20rem'}} value={selectSortType}onChange={handleSortTypeChange}>
                   <option value="">Show All Attendance</option>
                   <option value="highlight">Highlight Duplicate Device Fingerprint</option>
                   <option value="filter">Show Only Duplicate Device Fingerprint</option>
                 </Form.Select>
-
-              </InputGroup>        
+              </Stack>
                 {/* table which shows all students */}
                 {table}
             </div>

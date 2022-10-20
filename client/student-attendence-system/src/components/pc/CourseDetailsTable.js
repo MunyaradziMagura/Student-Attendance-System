@@ -28,7 +28,7 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
     }
     return count;
   }
-  console.log(attandanceObject);
+  //console.log(attandanceObject);
 
   
   if(command === "highlight"){
@@ -37,12 +37,12 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
         {cntfunction(attandanceObject, command)} Student(s)
       </Badge>
       <div style={{overflow: "scroll", height:"230px"}}>
-        <Table striped bordered hover size="sm"> 
-          <thead style={{position:'sticky', top: -1,  backgroundColor:'white', border: '1px'}}>
-            <tr>
-              <th style={{position: 'sticky', top:0, border: '1px'}}>Student Name</th>
-              <th style={{position: 'sticky', top:0, border: '1px'}}>Student ID</th>
-              <th style={{position: 'sticky', top:0, border: '1px'}}>Device Fingerprint</th>
+        <Table striped bordered hover size="sm" > 
+          <thead style={{position:'sticky', top: -1,  backgroundColor:'white'}}>
+            <tr >
+              <th style={{position: 'sticky', top:0}}>Student Name</th>
+              <th style={{position: 'sticky', top:0}}>Student ID</th>
+              <th style={{position: 'sticky', top:0}}>Device Fingerprint</th>
             </tr> 
           </thead>
           <tbody>      
@@ -71,7 +71,7 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
       </Badge>
       <div style={{overflow: "scroll", height:"230px"}}>
         <Table striped bordered hover size="sm"> 
-          <thead style = {{position: 'sticky', top:0,  backgroundColor:'white'}}>
+          <thead style = {{position: 'sticky', top:-1,  backgroundColor:'white'}}>
             <tr>
               <th style={{position: 'sticky', top: 0}}>Student Name</th>
               <th style={{position: 'sticky', top: 0}}>Student ID</th>
@@ -103,7 +103,7 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
       </Badge>
       <div style={{overflow: "scroll", height:"230px"}}>
         <Table striped bordered hover size="sm"> 
-          <thead bordered style = {{position: 'sticky', top:0, backgroundColor:'white'}} >
+          <thead bordered style = {{position: 'sticky', top:-1, backgroundColor:'white'}} >
             <tr>
               <th style={{position:'sticky', top:0,  borderBottom: '1px solid #000000'}}>Student Name</th>
               <th style={{position:'sticky', top:0, borderBottom: '1px solid #000000'}}>Student ID</th>
