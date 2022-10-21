@@ -41,56 +41,66 @@ export default function CourseDetails ({backFunction, staffID}, props) {
   useEffect(() => {
     fetch(url)
     .then((response) => response.json())
-    .then((jsonResponse) => setAttendanceData(jsonResponse))
+    .then((jsonResponse) => {
+      setAttendanceData(jsonResponse)})
     .catch((error) => console.log(error))
   }, [SelectedClassType, takeAttendance])
 
   //useEffect will start to reload the data set from the database based on the trigger of SelectedClassType (class type dropdown) && takeAttendance (After the popup being open or close).
-
+  
   //Section of flagging the data
   const flagByAttendance = (attendanceData) =>{
-    let attandanceObject = attendanceData.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
-    var modifiedUserList = attandanceObject.map(element => ({...element, yellowFlag: false,redFlag: false})) //This is AttdanceObject has been modified to add another flag attribut
-    var uniqueDeviceHash = []; //This list ensure the unique of deviceFingerPrint data only 
-    var badListDevice = [];
-    var unique = modifiedUserList.filter(element => { //the unique variable is a Set of Array with no duplication of dataset
-      const isDuplicate = uniqueDeviceHash.includes(element.deviceFingerPrint);
-      if(!isDuplicate){
-        uniqueDeviceHash.push(element.deviceFingerPrint);
-        return true;
-      }
-      element.redFlag = true;
-      badListDevice.push(element.deviceFingerPrint);
-      return false;
-    }); 
-  
-    var newUnique = modifiedUserList.filter(element =>{
-      const isYellowFlag = badListDevice.includes(element.deviceFingerPrint);
-      if(isYellowFlag === true && element.redFlag === false){
-        element.yellowFlag = true;
-        return true;
-      }
-      return false;
-    })
+    return attendanceData.map(element1 =>{
+      let attandanceObject = element1.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
+      var modifiedUserList = attandanceObject.map(element => ({...element, yellowFlag: false,redFlag: false})) //This is AttdanceObject has been modified to add another flag attribut
+      var uniqueDeviceHash = []; //This list ensure the unique of deviceFingerPrint data only 
+      var badListDevice = [];
+      var unique = modifiedUserList.filter(element => { //the unique variable is a Set of Array with no duplication of dataset
+        const isDuplicate = uniqueDeviceHash.includes(element.deviceFingerPrint);
+        if(!isDuplicate){
+          uniqueDeviceHash.push(element.deviceFingerPrint);
+          return true;
+        }
+        element.redFlag = true;
+        badListDevice.push(element.deviceFingerPrint);
+        return false;
+      }); 
     
-    var jsonString = JSON.stringify(Object.keys(modifiedUserList).map((id) => modifiedUserList[id]));
-    jsonString = jsonString.replace("[", "");
-    jsonString = jsonString.replace("]", "||");
-    jsonString = jsonString.replaceAll("},", "}||");
-    jsonString = jsonString.replaceAll('"', "'");
-    return jsonString;
+      var newUnique = modifiedUserList.filter(element =>{
+        const isYellowFlag = badListDevice.includes(element.deviceFingerPrint);
+        if(isYellowFlag === true && element.redFlag === false){
+          element.yellowFlag = true;
+          return true;
+        }
+        return false;
+      })
+      
+      var jsonString = JSON.stringify(Object.keys(modifiedUserList).map((id) => modifiedUserList[id]));
+      jsonString = jsonString.replace("[", "");
+      jsonString = jsonString.replace("]", "||");
+      jsonString = jsonString.replaceAll("},", "}||");
+      jsonString = jsonString.replaceAll('"', "'");
+      return jsonString;
+    })
   }
-
+  
   const filteringByClassType = (attendanceData) =>{
+    var tmpList = [];
     if(!SelectedClassType){
-      return unknownStudents;
+      tmpList.push(unknownStudents)
+      return tmpList;
     }
     let classAttendanceData = attendanceData.filter(type => type.classType === SelectedClassType).filter(dateFilter => dateFilter.date === calendarDate); // add dynamic date capture 
     if(classAttendanceData[0] === undefined){
-      return unknownStudents;
+      tmpList.push(unknownStudents)
+      return tmpList;
     }
-
-    return classAttendanceData[0].attendance;
+    for(var i =0; i <classAttendanceData.length;++i){
+      if(classAttendanceData[i]!=undefined){
+        tmpList.push(classAttendanceData[i].attendance);
+      }
+    }
+    return tmpList;
   };
 
 
@@ -156,11 +166,21 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     function getStudentCallBack(_studentID, _fullName){
       setProfileData([_studentID, _fullName, "000"])
     }
-    
-
-    return <CourseDetailsTable attendanceString={attendanceString}  passStudentInfo={getStudentCallBack} command = {commandString}/>
+    var cnt = 0;
+    console.log(attendanceString[0]);
+    if(attendanceString[0].includes('N/A')){
+      return (<CourseDetailsTable attendanceString={attendanceString[0]}  passStudentInfo={getStudentCallBack} command = {commandString}/>)
+    }
+    return attendanceString.map(element => {
+      cnt++;
+      return(
+        <>
+          <h1>Class {cnt}</h1>
+          <CourseDetailsTable attendanceString={element}  passStudentInfo={getStudentCallBack} command = {commandString}/>
+        </>
+      )
+    })
   }
-
    
   function getStudentAttendanceCount(_studentID, myClass){
 
