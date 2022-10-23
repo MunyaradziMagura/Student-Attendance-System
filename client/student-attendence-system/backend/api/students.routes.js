@@ -4,7 +4,7 @@ const studentRouter = express.Router();
 import Student from "../models/students.model.js"; // Import the 'students' model for validation when adding new student to MongoDB
 
 // Default endpoint GET request that will return all student information contained in the MongoDB
-studentRouter.route("/getAttendance/:id").get((req, res) => {
+studentRouter.route("/getStudent/:id").get((req, res) => {
   Student.findOne({
     studentID: req.body.studentID
   }) // MongoDB function that will find ALL documents
@@ -48,12 +48,10 @@ studentRouter.route("/add").post((req, res) => {
   //Creates a new student document that uses the imported 'Student' model
 });
 
-//Endpoint that performs a GET request to return attendance data for a student
-studentRouter.route(`/getAttendance/:id`).get(async (request, result) => {
-  //Performs a lookup in the MongoDB that will return one document or nothing if not found
-  const attendance = await Student.findOne({
-    studentID: request.body.studentID,
-  })
+//Endpoint that performs a GET request to return all students
+studentRouter.route(`/getStudent`).get((request, result) => {
+  //Performs a lookup in the MongoDB that will return ALL documents or nothing if not found
+  Student.find()
     .then((Student) => result.json(Student))
     .catch((err) => result.status(400).json("Error: " + err));
 });

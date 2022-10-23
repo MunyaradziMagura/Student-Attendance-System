@@ -5,7 +5,7 @@ import dotenv from "dotenv"; //Imports the .env file for backend configuration
 import studentRouter from "./api/students.routes.js"; //Imports student API routes
 import coursesRouter from "./api/courses.routes.js"; //Imports course API routes
 import lecturersRouter from "./api/lecturers.routes.js"
-import attendedCourseRecordsRouter from "./api/attendedCourseRecords.routes.js";
+import attendedCourseRecordsRouter from "./api/attendanceCourseRecords.routes.js";
 
 dotenv.config(); //Require statement to import the .env settings file
 
