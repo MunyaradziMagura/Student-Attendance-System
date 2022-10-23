@@ -49,7 +49,7 @@ studentRouter.route("/add").post((req, res) => {
 });
 
 //Endpoint that performs a GET request to return all students
-studentRouter.route(`/getStudent`).get((request, result) => {
+studentRouter.route(`/getStudents`).get((request, result) => {
   //Performs a lookup in the MongoDB that will return ALL documents or nothing if not found
   Student.find()
     .then((Student) => result.json(Student))
