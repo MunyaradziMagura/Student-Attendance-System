@@ -1,9 +1,9 @@
 import express from "express"
-import CourseRecord from "../models/attendedCourseRecords.model.js";
+import CourseRecord from "../models/attendanceCourseRecords.model.js";
 
 const attendedCourseRecordsRouter = express.Router();
 
-attendedCourseRecordsRouter.route('/').get((req, res) => {
+attendedCourseRecordsRouter.route('/getAttendanceRecords').get((req, res) => {
     CourseRecord.find()
     .then(CourseRecord => res.json(CourseRecord))
     .catch((error) => res.status(400).json("Error:" + error))

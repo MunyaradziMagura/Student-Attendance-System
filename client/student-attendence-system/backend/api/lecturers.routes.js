@@ -7,8 +7,10 @@ function checkEmail(requestEmail, userEmail) {
     return requestEmail === userEmail;
 }
 
-lecturersRouter.route('/').get((request, result) => {
-  
+lecturersRouter.route('/getLecturers').get((request, result) => {
+  Lecturer.find()
+  .then(Lecturer => result.json(Lecturer))
+  .catch(err => res.status(400).json('Error: ' + err))
 })
 
 lecturersRouter.route(`/getLecturer/:id`).get((req, res) => {
