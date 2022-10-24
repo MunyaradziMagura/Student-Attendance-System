@@ -54,9 +54,9 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
                   {(item.redFlag === false && item.yellowFlag === false) && <><td >{item.firstName + " " + item.lastName}</td>
                     <td >{item.userName}</td>
                     <td >{item.deviceFingerPrint}</td></>}
-                  {item.deviceFingerPrint === "N/A" && <><td>{item.firstName + " " + item.lastName}</td>
+                  {/* {item.deviceFingerPrint === "N/A" && <><td>{item.firstName + " " + item.lastName}</td>
                     <td>{item.userName}</td>
-                    <td>{item.deviceFingerPrint}</td></>}  
+                    <td>{item.deviceFingerPrint}</td></>}   */}
                 </tr>)
               )
             }

@@ -10,6 +10,7 @@ import CourseDetailsTable from './CourseDetailsTable';
 import StudentProfile from './StudentProfile';
 import {json, useNavigate } from "react-router-dom";
 import AttendanceTables from './AttendanceTables'
+import sty from "../styles/Dashboard.module.css";
 export default function CourseDetails ({backFunction, staffID}, props) {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
@@ -173,10 +174,17 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     }
     return attendanceString.map(element => {
       cnt++;
-      return(
-        <>
-          <h1>Class {cnt}</h1>
-          <CourseDetailsTable attendanceString={element}  passStudentInfo={getStudentCallBack} command = {commandString}/>
+      return(<>
+          <div style={{paddingTop:'10px'}}>
+            <div className={sty.form}>
+              <div className={sty.formHeader}>
+                <h1>Class {cnt}</h1>
+              </div>
+              <div className={sty.formBody}>
+                <CourseDetailsTable attendanceString={element}  passStudentInfo={getStudentCallBack} command = {commandString}/>
+              </div>
+            </div>
+          </div>
         </>
       )
     })
@@ -205,51 +213,57 @@ export default function CourseDetails ({backFunction, staffID}, props) {
 
     return(
         <>
-          <h1>{localStorage.getItem('courseName')}</h1>
-            <div>
-                <Stack direction="horizontal" gap={2}>
-                    <Button onClick={() => navigate(-1)}>Back</Button>
-                    <h4>Class Type:</h4>
-                    <Form.Select style = {{width: '20rem'}} value = {SelectedClassType} onChange={handleClassTypeChange}>
-                        <option value= "">Select Class Type</option>
-                        <option value = "Lecture">Lecture</option>
-                        <option value = "Practical" >Practical</option>
-                        <option value = "Tutorial">Tutorial</option>
-                        <option value = "Seminar" >Seminar</option>
-                        <option value = "Workshop" >Workshop</option>
-                    </Form.Select>
-                    
-                  <Button
-                    variant="primary"
-                    style={{ width: "85%", fontSize: "0.8rem" }}
-                    onClick={() => setTakeAttendance(true)}
-                    disabled = {(SelectedClassType === "") ? true : false}
-                    >
-                    Launch Attendance Taking
-                  </Button>
-                    {/* show popup */}
-                    <AttendanceTakingPopUp
-                    classType = {SelectedClassType}
-                    date = {`${currentDate.getDate() }/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
-                    // set popup state 
-                    show={takeAttendance}
-                    style={{ width: "100%", fontSize: "0.8rem" }}
-                    onHide={() => setTakeAttendance(false)}
-                    />
-                </Stack>
+          <div className={sty.form}>
+            <div className={sty.formHeader} style={{display:'flex'}}>
+                <h1>{localStorage.getItem('courseName')}</h1>
+                <Button  className={sty.child} href="/Dashboard/Courses">Back</Button>
             </div>
-            <div>
-              <CardGroup>
-                  <Card>
-                  {/* visualise attendance graphs */}
-                  {attendanceGraphs}
-                  </Card>
-                  <Card style={{ width: '18rem' }}>
-                    {/* student profile */}
-                  {studentProfileComponent}
-              </Card>
-              </CardGroup>
-            </div>
+            <div className={sty.formBody}>
+              <div style={{display:'flex'}}>
+                  {/* <Stack direction="horizontal" gap={3}> */}
+                      <h4>Class Type:</h4>
+                      <Form.Select style = {{width: '15rem'}} value = {SelectedClassType} onChange={handleClassTypeChange}>
+                          <option value= "">Select Class Type</option>
+                          <option value = "Lecture">Lecture</option>
+                          <option value = "Practical" >Practical</option>
+                          <option value = "Tutorial">Tutorial</option>
+                          <option value = "Seminar" >Seminar</option>
+                          <option value = "Workshop" >Workshop</option>
+                      </Form.Select>
+                      
+                    <Button
+                      variant="primary"
+                      style={{ width: "35%", fontSize: "0.8rem", marginLeft:'auto' }}
+                      onClick={() => setTakeAttendance(true)}
+                      disabled = {(SelectedClassType === "") ? true : false}
+                      >
+                      Launch Attendance Taking
+                    </Button>
+                      {/* show popup */}
+                      <AttendanceTakingPopUp
+                      classType = {SelectedClassType}
+                      date = {`${currentDate.getDate() }/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
+                      // set popup state 
+                      show={takeAttendance}
+                      style={{ width: "100%", fontSize: "0.8rem" }}
+                      onHide={() => setTakeAttendance(false)}
+                      />
+                  {/* </Stack> */}
+              </div>
+              <div style={{paddingTop:'10px'}}>
+                <CardGroup>
+                    <Card>
+                    {/* visualise attendance graphs */}
+                    {attendanceGraphs}
+                    </Card>
+                    <Card style={{ width: '18rem' }}>
+                      {/* student profile */}
+                    {studentProfileComponent}
+                </Card>
+                </CardGroup>
+              </div>
+            </div>  
+          </div>  
             <div style={{paddingTop: '1vh'}}>
               <Stack direction="horizontal" gap={2}>
                 {/* Search bar is currently down to fix the major bug of searching set data from the QR Code Scanner d */}
