@@ -215,8 +215,8 @@ export default function CourseDetails ({backFunction, staffID}, props) {
         <>
           <div className={sty.form}>
             <div className={sty.formHeader} style={{display:'flex'}}>
-                <h1>{localStorage.getItem('courseName')}</h1>
-                <Button  className={sty.child} href="/Dashboard/Courses">Back</Button>
+              <Button style={{marginLeft:'10px', height:'41px', textAlign:'center'}}href="/Dashboard/Courses">Back</Button>
+              <h1 style={{marginLeft:'5px'}}>{localStorage.getItem('courseName')}</h1> 
             </div>
             <div className={sty.formBody}>
               <div style={{display:'flex'}}>
