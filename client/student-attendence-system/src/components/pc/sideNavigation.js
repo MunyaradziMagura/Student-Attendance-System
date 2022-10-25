@@ -24,11 +24,11 @@ export default function SideNavigation (props) {
               <img src={horizontalLogo} style={{maxWidth:'85%', height:'85%', backgroundColor:'#0052A0', paddingLeft:50, paddingTop:15}} alt="logo"></img>
             </div>
             <div style={{height:300, backgroundColor:'#fff', borderBottom: '1px solid #34393F'}}>
-              <h2 className={sty.helloSideNav}>Welcome {userData.userName},</h2>
+              <h2 className={sty.helloSideNav}>Welcome {userData.userName}</h2>
               <img src={defaultAvater} style={{ Width:'55%', height:'55%', marginLeft:130, marginTop:10,borderRadius:'5px'}} alt="logo"></img>
               <ul className={sty.inlineList}>
                 <li>
-                  <strong style={{fontWeight:600, verticalAlign:'baseline', wordWrap:'break-word'}}>email </strong>
+                  <strong style={{fontWeight:600, verticalAlign:'baseline', wordWrap:'break-word'}}>Email: </strong>
                   <a style={{color:'#0052A0'}}>{localStorage.email}</a>
                 </li>
               </ul>

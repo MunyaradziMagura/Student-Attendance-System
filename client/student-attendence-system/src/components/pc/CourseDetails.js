@@ -221,8 +221,8 @@ export default function CourseDetails ({backFunction, staffID}, props) {
             <div className={sty.formBody}>
               <div style={{display:'flex'}}>
                   {/* <Stack direction="horizontal" gap={3}> */}
-                      <h4>Class Type:</h4>
-                      <Form.Select style = {{width: '15rem'}} value = {SelectedClassType} onChange={handleClassTypeChange}>
+                      <h4 style={{color: "black", paddingTop: "8px", paddingRight: "5px"}}>Class Type:</h4>
+                      <Form.Select style = {{width: '12rem', paddingLeft: "10px"}} value = {SelectedClassType} onChange={handleClassTypeChange}>
                           <option value= "">Select Class Type</option>
                           <option value = "Lecture">Lecture</option>
                           <option value = "Practical" >Practical</option>
