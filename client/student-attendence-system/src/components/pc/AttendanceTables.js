@@ -67,13 +67,19 @@ if (tabState.length > 0  && attendanceData.length > 0){
       justify
     >
       <Tab eventKey="top" title="Top Students" disabled={tabState.length > 0 ? false : true}>
-      <TotalStudentAttendanceStackedBarChart data={topStudents}/>
+        <div style={{display:'flex', alignItems:'center', justifyContent: 'center', marginRight:'30px'}}>
+          <TotalStudentAttendanceStackedBarChart data={topStudents}/>
+        </div>
       </Tab>
       <Tab eventKey="profile" title="Attendance Class" disabled={tabState.length > 0 ? false : true}>
-      <TotalClassAttendanceBarChart data={data}/>
+        <div style={{display:'flex', alignItems:'center', justifyContent: 'center', marginRight:'30px'}}>
+          <TotalClassAttendanceBarChart data={data}/>
+        </div>
       </Tab>
       <Tab eventKey="bottom" title="Bottom Students" disabled={tabState.length > 0 ? false : true}>
-      <BottomStudentsAttendanceStackedBarChart data={bottomStudents}/>
+        <div style={{display:'flex', alignItems:'center', justifyContent: 'center', marginRight:'30px'}}>
+          <BottomStudentsAttendanceStackedBarChart data={bottomStudents}/>
+        </div>
       </Tab>
     </Tabs>
   )
