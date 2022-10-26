@@ -31,7 +31,7 @@ export default function Courses ({sendDetailsPageButton, classesObject, studyPer
                             <tr style={{cursor: 'pointer'}}>
                                 <td>{classesObject[key].courseName}</td>
                                 <td>{classesObject[key].catalogueID}</td>
-                                <td class="w-10"> <Button onClick={() => sendDetails(key)} href="/Dashboard/CoursesDetail"><IoLink></IoLink>View</Button></td>
+                                <td class="w-10"> <Button variant="outline-primary" onClick={() => sendDetails(key)} href="/Dashboard/CoursesDetail"><IoLink></IoLink>View</Button></td>
                             </tr>)
                         )
                     )}   
