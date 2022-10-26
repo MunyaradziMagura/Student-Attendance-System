@@ -8,20 +8,6 @@
     margin: 1px auto;
 }
 
-.calendarTop {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-    border-bottom: 1px solid #000;
-}
-
-.calendar h4 {
-    text-align: center;
-    margin-bottom: 0;
-    font-size: 14px;
-}
-
 .prev,
 .next {
     font-weight: bold;
@@ -29,71 +15,32 @@
     cursor: pointer;
 }
 
-.calendar .week {
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 0;
-}
-
-.calendar .week li {
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    list-style: none;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.calendar .dateList {
-    overflow: hidden;
-    clear: both;
-    /* height: 150px; */
-    padding: 0px 10px;
-    margin-bottom: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.calendar .dateList li {
-    /* float: left; */
-    width: 25px;
-    height: 25px;
-    text-align: center;
-    line-height: 25px;
-    list-style: none;
-    margin-bottom: 5px;
-    margin-right: 5px;
-}
-
-.calendar .dateList .ccc {
-    color: #555962;
-    background-color: #dfe2e7;
-    font-weight: bold;
-}
-
-.calendar .dateList .red {
-    background: #7e8da2;
-    color: #fff;
-}
-
-.calendar .dateList .sun {}
 
 .box {
     display: flex;
     justify-content: space-between;
     background: white;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .left {
-    padding: 20px;
-    border-right: 1px solid #7e8da2;
+    /* padding: 20px; */
+    background-color: white;
+    border-right: 1px solid #555962; 
     height: 100vh;
+}
+
+.helloSideNav {
+    font-family: Arial, sans-serif;
+    text-align: center; 
+    color:#0052a0;
+}
+
+.inlineList {
+    list-style: none;
+    padding:0;
+    padding-top: 10px;
+    text-align: center;
 }
 
 .right {
@@ -103,16 +50,25 @@
 .emailBox {
     width: 150px;
     height: 150px;
-    background: #e1e6ec;
+    background: white;
     margin: 30px auto;
+    border-radius:75px;
 }
 
 .navItem {
     color: #3b4149;
     cursor: pointer;
     font-size: 16px;
-    border-bottom: 1px solid #7e8da2;
+    border-bottom: 1px solid #34393F;
     padding-bottom: 10px;
+    width:430px;
+    height:40px;
+}
+.navItem:hover{
+    border-radius:15px;
+    background-color: #98C0E6;
+    color:white;
+
 }
 
 .btn {
@@ -122,10 +78,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 85px;
+    width: 400px;
     height: 30px;
     margin: auto;
-    margin-top: 10px;
+    margin-top: 80px; 
     cursor: pointer;
 }
 
@@ -133,6 +89,7 @@
     padding: 20px;
     padding-top: 10px;
     border-bottom: 1px solid #555962;
+    background-color: #0052A0;
 }
 
 .rightTop div {
@@ -177,6 +134,8 @@
     font-size: 14px;
     line-height: 28px;
     padding: 20px;
+    background-color:#f3f4f9 ;
+    min-height: 100vh;
 }
 
 
@@ -189,3 +148,34 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+.formHeader{
+    height: 50px;
+    background-color: #98C0E6;
+    padding-top: 4px;
+    padding-bottom:4px;
+}
+.formHeader h1{
+    /* margin: 6px 0 6px 10px !important; */
+    padding-left: 15px !important;
+    padding-top: 10px;
+    font-style: inherit;
+    font-size: 20px !important;
+    color:#003C72 !important;
+    font-family: 'heavy-webfont', 'extrabold-webfont', 'regular-webfont', 'Lato', sans-serif !important;
+    font-weight: 900 !important;
+    justify-content: flex-end;
+}
+.formHeader .child{
+    margin-left:auto;
+}
+.formBody{
+    padding-left:10px;
+    padding-right:10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.form{
+    background-color: white;
+    min-height: 160px;
+} 

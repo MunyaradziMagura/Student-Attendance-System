@@ -11,34 +11,32 @@ export default function Courses ({sendDetailsPageButton, classesObject, studyPer
 
         sendDetailsPageButton()
     }
-    return(
-
-        <Table striped bordered hover variant="light">
-        <thead>
-            <tr>
-                <th>Course Name</th>
-                <th>Catalogue ID</th>
-                <th>View Course</th>
-            </tr>
-        </thead>
-        <tbody>
-        {Object.keys(classesObject).length === 0 ? (
-                <tr>
-                  <td colSpan={5}>No Data to Display</td>
-                </tr>
-              ):(
-                Object.keys(classesObject).map((key) => (
+    return(<>
+        <div style ={{paddingTop:'10px'}}>
+            <Table striped bordered hover variant="light">
+                <thead>
                     <tr>
-                        <td>{classesObject[key].courseName}</td>
-                        <td>{classesObject[key].catalogueID}</td>
-                        <td class="w-10"> <Button onClick={() => sendDetails(key)} href="/Dashboard/CoursesDetail"><IoLink></IoLink>View</Button></td>
-                    </tr>)
-                )
-              )
-              
-            }   
-            </tbody>     
-        
-        </Table> 
-    )
+                        <th>Course Name</th>
+                        <th>Catalogue ID</th>
+                        <th>View Course</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Object.keys(classesObject).length === 0 ? (
+                        <tr>
+                        <td colSpan={5}>No Data to Display</td>
+                        </tr>
+                    ):(
+                        Object.keys(classesObject).map((key) => (
+                            <tr style={{cursor: 'pointer'}}>
+                                <td>{classesObject[key].courseName}</td>
+                                <td>{classesObject[key].catalogueID}</td>
+                                <td class="w-10"> <Button variant="outline-primary" onClick={() => sendDetails(key)} href="/Dashboard/CoursesDetail"><IoLink></IoLink>View</Button></td>
+                            </tr>)
+                        )
+                    )}   
+                </tbody>    
+            </Table> 
+        </div>
+    </>)
 }

@@ -72,7 +72,8 @@ export default function QRCode({ studentInfo }, props) {
             methods and apply professional skills to produce an agreed upon
             software artefact for a client, while working in a project team.
           </Card.Text> */}
-          <Button
+          <Button 
+            variant="outline-primary"
             onClick={() => {
               let aLink = document.createElement("a");
               let blob = base64ToBlob(personQRSrc);
@@ -83,7 +84,6 @@ export default function QRCode({ studentInfo }, props) {
               aLink.click();
               aLink.remove();
             }}
-            variant="primary"
           >
             Download QR
           </Button>

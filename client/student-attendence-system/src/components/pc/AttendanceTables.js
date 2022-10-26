@@ -69,7 +69,7 @@ if (tabState.length > 0  && attendanceData.length > 0){
       <Tab eventKey="top" title="Top Students" disabled={tabState.length > 0 ? false : true}>
       <TotalStudentAttendanceStackedBarChart data={topStudents}/>
       </Tab>
-      <Tab eventKey="profile" title="Attendance Class" disabled={tabState.length > 0 ? false : true}>
+      <Tab eventKey="profile" title="Class Attendance" disabled={tabState.length > 0 ? false : true}>
       <TotalClassAttendanceBarChart data={data}/>
       </Tab>
       <Tab eventKey="bottom" title="Bottom Students" disabled={tabState.length > 0 ? false : true}>
@@ -87,7 +87,7 @@ if (tabState.length > 0  && attendanceData.length > 0){
         >
           <Tab eventKey="home" title="Top Students" disabled>
           </Tab>
-          <Tab eventKey="profile" title="Attendance Class" disabled>
+          <Tab eventKey="profile" title="Class Attendance" disabled>
           <p>Class Attendance <b>Unavailable</b>, please select a class type</p>
           </Tab>
           <Tab eventKey="longer-tab" title="Bottom Students" disabled>

@@ -10,6 +10,7 @@ import CourseDetailsTable from './CourseDetailsTable';
 import StudentProfile from './StudentProfile';
 import {json, useNavigate } from "react-router-dom";
 import AttendanceTables from './AttendanceTables'
+import sty from "../styles/Dashboard.module.css";
 export default function CourseDetails ({backFunction, staffID}, props) {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
@@ -41,59 +42,72 @@ export default function CourseDetails ({backFunction, staffID}, props) {
   useEffect(() => {
     fetch(url)
     .then((response) => response.json())
-    .then((jsonResponse) => setAttendanceData(jsonResponse))
+    .then((jsonResponse) => {
+      setAttendanceData(jsonResponse)})
     .catch((error) => console.log(error))
-  }, [SelectedClassType])
+  }, [SelectedClassType, takeAttendance])
 
+  //useEffect will start to reload the data set from the database based on the trigger of SelectedClassType (class type dropdown) && takeAttendance (After the popup being open or close).
+  
   //Section of flagging the data
   const flagByAttendance = (attendanceData) =>{
-    let attandanceObject = attendanceData.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
-    var modifiedUserList = attandanceObject.map(element => ({...element, yellowFlag: false,redFlag: false})) //This is AttdanceObject has been modified to add another flag attribut
-    var uniqueDeviceHash = []; //This list ensure the unique of deviceFingerPrint data only 
-    var badListDevice = [];
-    var unique = modifiedUserList.filter(element => { //the unique variable is a Set of Array with no duplication of dataset
-      const isDuplicate = uniqueDeviceHash.includes(element.deviceFingerPrint);
-      if(!isDuplicate){
-        uniqueDeviceHash.push(element.deviceFingerPrint);
-        return true;
-      }
-      element.redFlag = true;
-      badListDevice.push(element.deviceFingerPrint);
-      return false;
-    }); 
-  
-    var newUnique = modifiedUserList.filter(element =>{
-      const isYellowFlag = badListDevice.includes(element.deviceFingerPrint);
-      if(isYellowFlag === true && element.redFlag === false){
-        element.yellowFlag = true;
-        return true;
-      }
-      return false;
-    })
+    return attendanceData.map(element1 =>{
+      let attandanceObject = element1.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
+      var modifiedUserList = attandanceObject.map(element => ({...element, yellowFlag: false,redFlag: false})) //This is AttdanceObject has been modified to add another flag attribut
+      var uniqueDeviceHash = []; //This list ensure the unique of deviceFingerPrint data only 
+      var badListDevice = [];
+      var unique = modifiedUserList.filter(element => { //the unique variable is a Set of Array with no duplication of dataset
+        const isDuplicate = uniqueDeviceHash.includes(element.deviceFingerPrint);
+        if(!isDuplicate){
+          uniqueDeviceHash.push(element.deviceFingerPrint);
+          return true;
+        }
+        element.redFlag = true;
+        badListDevice.push(element.deviceFingerPrint);
+        return false;
+      }); 
     
-    var jsonString = JSON.stringify(Object.keys(modifiedUserList).map((id) => modifiedUserList[id]));
-    jsonString = jsonString.replace("[", "");
-    jsonString = jsonString.replace("]", "||");
-    jsonString = jsonString.replaceAll("},", "}||");
-    jsonString = jsonString.replaceAll('"', "'");
-    return jsonString;
+      var newUnique = modifiedUserList.filter(element =>{
+        const isYellowFlag = badListDevice.includes(element.deviceFingerPrint);
+        if(isYellowFlag === true && element.redFlag === false){
+          element.yellowFlag = true;
+          return true;
+        }
+        return false;
+      })
+      
+      var jsonString = JSON.stringify(Object.keys(modifiedUserList).map((id) => modifiedUserList[id]));
+      jsonString = jsonString.replace("[", "");
+      jsonString = jsonString.replace("]", "||");
+      jsonString = jsonString.replaceAll("},", "}||");
+      jsonString = jsonString.replaceAll('"', "'");
+      return jsonString;
+    })
   }
-
+  
   const filteringByClassType = (attendanceData) =>{
+    var tmpList = [];
     if(!SelectedClassType){
-      return unknownStudents;
+      tmpList.push(unknownStudents)
+      return tmpList;
     }
     let classAttendanceData = attendanceData.filter(type => type.classType === SelectedClassType).filter(dateFilter => dateFilter.date === calendarDate); // add dynamic date capture 
     if(classAttendanceData[0] === undefined){
-      return unknownStudents;
+      tmpList.push(unknownStudents)
+      return tmpList;
     }
-
-    return classAttendanceData[0].attendance;
+    for(var i =0; i <classAttendanceData.length;++i){
+      if(classAttendanceData[i]!=undefined){
+        tmpList.push(classAttendanceData[i].attendance);
+      }
+    }
+    return tmpList;
   };
 
 
   // IMPORTANT: REMEMEBER TO COMMENT THIS SECTION
   const filteringBySearch = (attendanceData) => {
+    console.log(attendanceData)
     if(attendanceData === undefined){
       return unknownStudents;
     }
@@ -143,7 +157,7 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     //The Section is filtering 
     let filteredListData = filteringByClassType(attendanceData); //This will return a list of class data based on selected Class Type
     filteredListData=flagByAttendance(filteredListData);//This will create a flag when it retrieve the Attendance Object from the date picker and class type
-    filteredListData= filteringBySearch(filteredListData);//This will filtering the attendance object by comparing between user input and firstname
+    //filteredListData= filteringBySearch(filteredListData);//This will filtering the attendance object by comparing between user input and firstname
     //The Section of displaying table of data 
     setTable(generateAttendanceTable(filteredListData, selectSortType)) //This will create a table based on the updating of filterListData
   },[profileData,selectedGraphClassType, selectSortType, searchItem])
@@ -153,11 +167,28 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     function getStudentCallBack(_studentID, _fullName){
       setProfileData([_studentID, _fullName, "000"])
     }
-    
-
-    return <CourseDetailsTable attendanceString={attendanceString}  passStudentInfo={getStudentCallBack} command = {commandString}/>
+    var cnt = 0;
+    console.log(attendanceString[0]);
+    if(attendanceString[0].includes('N/A')){
+      return (<CourseDetailsTable attendanceString={attendanceString[0]}  passStudentInfo={getStudentCallBack} command = {commandString}/>)
+    }
+    return attendanceString.map(element => {
+      cnt++;
+      return(<>
+          <div style={{paddingTop:'10px'}}>
+            <div className={sty.form}>
+              <div className={sty.formHeader}>
+                <h1>Class {cnt}</h1>
+              </div>
+              <div className={sty.formBody}>
+                <CourseDetailsTable attendanceString={element}  passStudentInfo={getStudentCallBack} command = {commandString}/>
+              </div>
+            </div>
+          </div>
+        </>
+      )
+    })
   }
-
    
   function getStudentAttendanceCount(_studentID, myClass){
 
@@ -182,61 +213,67 @@ export default function CourseDetails ({backFunction, staffID}, props) {
 
     return(
         <>
-          <h1>{localStorage.getItem('courseName')}</h1>
-            <div>
-                <Stack direction="horizontal" gap={2}>
-                    <Button onClick={() => navigate(-1)}>Back</Button>
-                    <h4>Class Type:</h4>
-                    <Form.Select style = {{width: '20rem'}} value = {SelectedClassType} onChange={handleClassTypeChange}>
-                        <option value= "">Select Class Type</option>
-                        <option value = "Lecture">Lecture</option>
-                        <option value = "Practical" >Practical</option>
-                        <option value = "Tutorial">Tutorial</option>
-                        <option value = "Seminar" >Seminar</option>
-                        <option value = "Workshop" >Workshop</option>
-                    </Form.Select>
-                    
-                  <Button
-                    variant="primary"
-                    style={{ width: "85%", fontSize: "0.8rem" }}
-                    onClick={() => setTakeAttendance(true)}
-                    disabled = {(SelectedClassType === "") ? true : false}
-                    >
-                    Launch Attendance Taking
-                  </Button>
-                    {/* show popup */}
-                    <AttendanceTakingPopUp
-                    classType = {SelectedClassType}
-                    date = {`${currentDate.getDate() }/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
-                    // set popup state 
-                    show={takeAttendance}
-                    style={{ width: "100%", fontSize: "0.8rem" }}
-                    onHide={() => setTakeAttendance(false)}
-                    />
-                </Stack>
+          <div className={sty.form}>
+            <div className={sty.formHeader} style={{display:'flex'}}>
+              <Button variant="warning" style={{marginLeft:'10px', height:'41px', textAlign:'center'}}href="/Dashboard/Courses">Back</Button>
+              <h1 style={{marginLeft:'5px'}}>{localStorage.getItem('courseName')}</h1> 
             </div>
-            <div>
-              <CardGroup>
-                  <Card>
-                  {/* visualise attendance graphs */}
-                  {attendanceGraphs}
-                  </Card>
-                  <Card style={{ width: '18rem' }}>
-                    {/* student profile */}
-                  {studentProfileComponent}
-              </Card>
-              </CardGroup>
-            </div>
+            <div className={sty.formBody}>
+              <div style={{display:'flex'}}>
+                  {/* <Stack direction="horizontal" gap={3}> */}
+                      <h4 style={{color: "black", paddingTop: "8px", paddingRight: "5px"}}>Class Type:</h4>
+                      <Form.Select style = {{width: '12rem', paddingLeft: "10px"}} value = {SelectedClassType} onChange={handleClassTypeChange}>
+                          <option value= "">Select Class Type</option>
+                          <option value = "Lecture">Lecture</option>
+                          <option value = "Practical" >Practical</option>
+                          <option value = "Tutorial">Tutorial</option>
+                          <option value = "Seminar" >Seminar</option>
+                          <option value = "Workshop" >Workshop</option>
+                      </Form.Select>
+                      
+                    <Button
+                      variant="primary"
+                      style={{ width: "35%", fontSize: "0.8rem", marginLeft:'auto' }}
+                      onClick={() => setTakeAttendance(true)}
+                      disabled = {(SelectedClassType === "") ? true : false}
+                      >
+                      Launch Attendance Taking
+                    </Button>
+                      {/* show popup */}
+                      <AttendanceTakingPopUp
+                      classType = {SelectedClassType}
+                      date = {`${currentDate.getDate() }/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
+                      // set popup state 
+                      show={takeAttendance}
+                      style={{ width: "100%", fontSize: "0.8rem" }}
+                      onHide={() => setTakeAttendance(false)}
+                      />
+                  {/* </Stack> */}
+              </div>
+              <div style={{paddingTop:'10px'}}>
+                <CardGroup>
+                    <Card>
+                    {/* visualise attendance graphs */}
+                    {attendanceGraphs}
+                    </Card>
+                    <Card style={{ width: '18rem' }}>
+                      {/* student profile */}
+                    {studentProfileComponent}
+                </Card>
+                </CardGroup>
+              </div>
+            </div>  
+          </div>  
             <div style={{paddingTop: '1vh'}}>
-              <InputGroup className="mb-3">
-                <Form.Control onChange={handleSearchChange} value={searchItem} style = {{width: '50%'}} aria-label="Text input with dropdown button" placeholder='Search for a Student...'/>
-                <Form.Select style = {{width: ''}} value={selectSortType}onChange={handleSortTypeChange}>
+              <Stack direction="horizontal" gap={2}>
+                {/* Search bar is currently down to fix the major bug of searching set data from the QR Code Scanner d */}
+                {/* <Form.Control onChange={handleSearchChange} value={searchItem} style = {{width: '50%'}} aria-label="Text input with dropdown button" placeholder='Search for a Student...'/> */}
+                <Form.Select style = {{width: '20rem'}} value={selectSortType}onChange={handleSortTypeChange}>
                   <option value="">Show All Attendance</option>
                   <option value="highlight">Highlight Duplicate Device Fingerprint</option>
                   <option value="filter">Show Only Duplicate Device Fingerprint</option>
                 </Form.Select>
-
-              </InputGroup>        
+              </Stack>
                 {/* table which shows all students */}
                 {table}
             </div>
