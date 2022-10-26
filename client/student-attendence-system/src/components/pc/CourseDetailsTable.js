@@ -47,7 +47,7 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
           </thead>
           <tbody>      
             {attandanceObject.map(item => 
-                (<tr style={{backgroundColor: ""}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
+                (<tr style={{backgroundColor: "", cursor: 'pointer'}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
                   {(item.redFlag === true || item.yellowFlag === true) && <><td style={{backgroundColor:"red", color:"white"}}>{item.firstName + " " + item.lastName}</td>
                     <td style={{backgroundColor:"red", color:"white"}}>{item.userName}</td>
                     <td style={{backgroundColor:"red", color:"white"}}>{item.deviceFingerPrint}</td></>}
@@ -80,7 +80,7 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
           </thead>
           <tbody>
             {attandanceObject.map(item => 
-                (<tr style={{backgroundColor: ""}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
+                (<tr style={{backgroundColor: "", cursor: 'pointer'}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
                   {item.yellowFlag === true && <><td style={{backgroundColor:"yellow", }}>{item.firstName + " " + item.lastName}</td>
                     <td style={{backgroundColor:"yellow", }}>{item.userName}</td>
                     <td style={{backgroundColor:"yellow", }}>{item.deviceFingerPrint}</td></>}
@@ -112,7 +112,7 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
           </thead>
           <tbody>        
             {attandanceObject.map(item => 
-              <tr id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
+              <tr style={{cursor: 'pointer'}} id={item.deviceFingerPrint}  onClick={() => setStudent(item.userName, item.firstName, item.lastName)}>
                 <td>{item.firstName + " " + item.lastName}</td>
                 <td>{item.userName}</td>
                 <td>{item.deviceFingerPrint}</td>
