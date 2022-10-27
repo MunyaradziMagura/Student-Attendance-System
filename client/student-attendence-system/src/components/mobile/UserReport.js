@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Image from "react-bootstrap/Image";
 import { getStudentAttendanceDetails } from "../../utils/doRequest";
-import { exportPDF } from '../exportPDF';
+import { exportFile } from '../exportPDF';
 
 
 const UserReport = ({ fullName, studentID, program }) => {
@@ -20,7 +20,7 @@ useEffect(() => {
 
 
 const onExportPDF = () => {
-  exportPDF('student pdf', pdfRef.current)
+  exportFile('student pdf', pdfRef.current)
 }
 const getStudentData =()=>{
   getStudentAttendanceDetails({ attendies: [studentID] }).then(res=>{

@@ -9,7 +9,7 @@ import Toast from 'react-bootstrap/Toast'
 import ToastContainer from 'react-bootstrap/ToastContainer'
 import { addCourseAttendanceRecord } from "../../utils/doRequest"
 import {IoCheckmarkCircle, IoCloseCircle} from 'react-icons/io5'
-import { exportPDF } from '../exportPDF';
+import { exportFile } from '../exportPDF';
 function AttendanceTakingPopUp(props) {
 
 
@@ -59,7 +59,7 @@ function AttendanceTakingPopUp(props) {
   let pdfRef = useRef();
   
 const onExportPDF = () => {
-  exportPDF('course pdf', pdfRef.current)
+  exportFile('course pdf', pdfRef.current)
 }
   return (
     <>
