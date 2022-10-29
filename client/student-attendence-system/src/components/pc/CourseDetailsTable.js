@@ -1,7 +1,8 @@
 import React from 'react'
+import { useRef } from "react";
 import Table from 'react-bootstrap/Table'
 import Badge from "react-bootstrap/Badge";
-
+import { exportFile } from '../exportPDF';
 function CourseDetailsTable({attendanceString, passStudentInfo}, props) {
   // split string on ||, then replace single quotes with double quotes, then remove empty spaces from array, then convert string to json object
   let attandanceObject = attendanceString.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
@@ -14,14 +15,20 @@ function CourseDetailsTable({attendanceString, passStudentInfo}, props) {
   }
   
 
+  let pdfRef = useRef();
+  
+const onExportPDF = () => {
+  exportFile('course pdf', pdfRef.current)
+}
   return (
     // NOTE: MAKE THE TABLE RESPONSIVE I.E. SCROLLABLE 
-    <Table responsive striped bordered hover size="sm"> 
+    <Table responsive striped bordered hover size="sm" ref={pdfRef}> 
       <thead>
       {/* NOTE: CHANGE THE BADGE TO SHOW NOTHING WHEN THERE ARE NO STUDENTS */}
       <Badge id="classHeadingBall" bg="primary" pill>
           {attandanceObject.length} Student(s)
         </Badge>
+        <div onClick={onExportPDF} > Export PDF</div>
         <tr>
           <th>Student Name</th>
           <th>Student ID</th>
