@@ -1,12 +1,14 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect } from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export default function TotalStudentAttendanceStackedBarChart({data}, props) {
+
+  console.log()
     return (
         <BarChart
           width={600}
           height={400}
-          data={data}
+          data={data.slice(Math.max(data.length - 5, 0)).reverse()}
           margin={{
             top: 20,
             right: 30,
