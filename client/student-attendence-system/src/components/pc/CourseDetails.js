@@ -173,6 +173,34 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     return [totalAttendance, classAttendance]
   }
 
+
+  // this function allows for multiple tables to be queried. NOTE: LOOK UP "react ComponentDidMount" to understand this code
+  function ComponentDidMount (){
+
+    var input = document.getElementById("myInput");
+    var filter = input.value.toUpperCase();
+    const nodeList = document.querySelectorAll('table');
+    for (let i = 0; i < nodeList.length; i++) {
+      mytable(nodeList[i])
+    }
+    function mytable(tableName){
+      var tr = tableName.getElementsByTagName("tr");
+      for (let i = 0; i < tr.length; i++) {
+        var td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          var studentSearchText = td.textContent || td.innerText;
+
+          // if search text is not in the rows set the display none
+          if (studentSearchText.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+      }
+  }
+
     return(
         <>
           <div className={sty.form}>
@@ -228,12 +256,22 @@ export default function CourseDetails ({backFunction, staffID}, props) {
           </div>  
             <div style={{paddingTop: '1vh'}}>
               <Stack direction="horizontal" gap={2}>
+              <InputGroup size="lg">
+        <Form.Control
+          aria-label="Large"
+          aria-describedby="inputGroup-sizing-sm"
+          placeholder='Search Student'
+          id='myInput'
+          onKeyUp={() => ComponentDidMount()}
+        />
+      </InputGroup>
                 <Form.Select style = {{width: '20rem'}} value={selectSortType}onChange={handleSortTypeChange}>
                   <option value="">Show All Attendance</option>
                   <option value="highlight">Highlight Duplicate Device Fingerprint</option>
                   <option value="filter">Show Only Duplicate Device Fingerprint</option>
                 </Form.Select>
               </Stack>
+
                 {/* table which shows all students */}
                 {table}
             </div>
