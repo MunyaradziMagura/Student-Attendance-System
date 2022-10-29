@@ -24,7 +24,7 @@ export const exportFile = async (name, element) => {
   
   var imgWidth = 595.28;
   var imgHeight = 592.28 / contentWidth * contentHeight;
-  const pdfCanvas = await html2canvas(ele, {
+  const pdfCanvas = await html2canvas(element, {
     useCORS: true,
     canvas,
     scale,
