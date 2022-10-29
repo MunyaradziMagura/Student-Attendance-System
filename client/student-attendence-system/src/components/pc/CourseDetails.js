@@ -174,22 +174,24 @@ export default function CourseDetails ({backFunction, staffID}, props) {
   }
 
 
-  // this function allows for multiple tables to be queried 
+  // this function allows for multiple tables to be queried. NOTE: LOOK UP "react ComponentDidMount" to understand this code
   function ComponentDidMount (){
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
+
+    var input = document.getElementById("myInput");
+    var filter = input.value.toUpperCase();
     const nodeList = document.querySelectorAll('table');
     for (let i = 0; i < nodeList.length; i++) {
       mytable(nodeList[i])
     }
     function mytable(tableName){
-      tr = tableName.getElementsByTagName("tr");
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
+      var tr = tableName.getElementsByTagName("tr");
+      for (let i = 0; i < tr.length; i++) {
+        var td = tr[i].getElementsByTagName("td")[0];
         if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          var studentSearchText = td.textContent || td.innerText;
+
+          // if search text is not in the rows set the display none
+          if (studentSearchText.toUpperCase().indexOf(filter) > -1) {
             tr[i].style.display = "";
           } else {
             tr[i].style.display = "none";
