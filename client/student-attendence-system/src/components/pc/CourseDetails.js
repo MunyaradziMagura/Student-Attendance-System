@@ -29,7 +29,6 @@ export default function CourseDetails ({backFunction, staffID}, props) {
 
 
   const [selectSortType, setSortType] = useState(""); //This is used to set the type of sort for the student table
-  const [searchItem, setSearchItem] = useState("");
 
   const currentDate = new Date();
   let courseName = localStorage.getItem("courseName").replaceAll(" ", "%20")
@@ -104,42 +103,6 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     return tmpList;
   };
 
-
-  // IMPORTANT: REMEMEBER TO COMMENT THIS SECTION
-  const filteringBySearch = (attendanceData) => {
-    console.log(attendanceData)
-    if(attendanceData === undefined){
-      return unknownStudents;
-    }
-    if(searchItem === ""){
-      return attendanceData;
-    }else{
-      let attandanceObject = attendanceData.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
-      var filteredSearch = Object.keys(attandanceObject).filter((id) => attandanceObject[id].firstName.toLowerCase().includes(searchItem)).reduce((obj, id) => {
-        return{
-            ...obj, 
-            [id]: attandanceObject[id]
-
-        };
-      }, {});
-      
-      var jsonString = JSON.stringify(Object.keys(filteredSearch).map((id) => filteredSearch[id]));
-      jsonString = jsonString.replace("[", "");
-      jsonString = jsonString.replace("]", "||");
-      jsonString = jsonString.replace("},", "}||");
-      jsonString = jsonString.replaceAll('"', "'");
-      if(jsonString === "||"){
-        return unknownStudents;
-      }
-      return jsonString;
-    }
-  }
-
-  const handleSearchChange = (event) =>{
-    var lowerCase = event.target.value.toLowerCase();
-    setSearchItem(lowerCase);
-  }
-
   const handleClassTypeChange =(event)=>{
     setSelectedGraphClassType(event.target.value)
     setSelectedClassType(event.target.value)  
@@ -157,10 +120,9 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     //The Section is filtering 
     let filteredListData = filteringByClassType(attendanceData); //This will return a list of class data based on selected Class Type
     filteredListData=flagByAttendance(filteredListData);//This will create a flag when it retrieve the Attendance Object from the date picker and class type
-    //filteredListData= filteringBySearch(filteredListData);//This will filtering the attendance object by comparing between user input and firstname
     //The Section of displaying table of data 
     setTable(generateAttendanceTable(filteredListData, selectSortType)) //This will create a table based on the updating of filterListData
-  },[profileData,selectedGraphClassType, selectSortType, searchItem])
+  },[profileData,selectedGraphClassType, selectSortType])
 
   function generateAttendanceTable(attendanceString, commandString){
 
@@ -209,6 +171,34 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     })
 
     return [totalAttendance, classAttendance]
+  }
+
+
+  // this function allows for multiple tables to be queried. NOTE: LOOK UP "react ComponentDidMount" to understand this code
+  function ComponentDidMount (){
+
+    var input = document.getElementById("myInput");
+    var filter = input.value.toUpperCase();
+    const nodeList = document.querySelectorAll('table');
+    for (let i = 0; i < nodeList.length; i++) {
+      mytable(nodeList[i])
+    }
+    function mytable(tableName){
+      var tr = tableName.getElementsByTagName("tr");
+      for (let i = 0; i < tr.length; i++) {
+        var td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          var studentSearchText = td.textContent || td.innerText;
+
+          // if search text is not in the rows set the display none
+          if (studentSearchText.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+      }
   }
 
     return(
@@ -266,14 +256,22 @@ export default function CourseDetails ({backFunction, staffID}, props) {
           </div>  
             <div style={{paddingTop: '1vh'}}>
               <Stack direction="horizontal" gap={2}>
-                {/* Search bar is currently down to fix the major bug of searching set data from the QR Code Scanner d */}
-                {/* <Form.Control onChange={handleSearchChange} value={searchItem} style = {{width: '50%'}} aria-label="Text input with dropdown button" placeholder='Search for a Student...'/> */}
+              <InputGroup size="lg">
+        <Form.Control
+          aria-label="Large"
+          aria-describedby="inputGroup-sizing-sm"
+          placeholder='Search Student'
+          id='myInput'
+          onKeyUp={() => ComponentDidMount()}
+        />
+      </InputGroup>
                 <Form.Select style = {{width: '20rem'}} value={selectSortType}onChange={handleSortTypeChange}>
                   <option value="">Show All Attendance</option>
                   <option value="highlight">Highlight Duplicate Device Fingerprint</option>
                   <option value="filter">Show Only Duplicate Device Fingerprint</option>
                 </Form.Select>
               </Stack>
+
                 {/* table which shows all students */}
                 {table}
             </div>

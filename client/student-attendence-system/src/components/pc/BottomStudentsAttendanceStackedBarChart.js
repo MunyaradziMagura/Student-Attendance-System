@@ -6,7 +6,7 @@ export default function BottomStudentsAttendanceStackedBarChart({data}, props) {
         <BarChart
           width={600}
           height={400}
-          data={data}
+          data={data.slice(0,5)}
           margin={{
             top: 20,
             right: 30,
