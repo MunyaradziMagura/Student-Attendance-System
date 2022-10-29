@@ -22,10 +22,26 @@ export default function AttendanceTakingPopUp(props) {
   var jsonObjectsArray = [] // stores student objects scanned in 
   var attendies = [] //Array to store student usernames/IDs
 
-
   function convertToJSON(element) {
     try {
       let jsonFormat = JSON.parse(element)
+      
+      var qrKeys = ["deviceFingerPrint", "userName", "firstName", "lastName", "date", "courseID"]
+      let keys = Object.keys(jsonFormat)
+
+      if(qrKeys.length !== keys.length) {
+        console.log(`Scanned QR code key size mismatch, expected ${qrKeys.length} but got ${keys.length}`)
+        return false
+      }
+
+
+      keys.forEach((key, index) => {
+        if(key !== qrKeys[index]) {
+          console.log(`Key mismatch error. Expected ${qrKeys[index]}, but got ${key}`)
+          return false
+        }
+      })
+        
       // check if the person has already been scanned. if not then add their information
       if(!(jsonObjectsArraySet.has(JSON.stringify(jsonFormat)))){
 
