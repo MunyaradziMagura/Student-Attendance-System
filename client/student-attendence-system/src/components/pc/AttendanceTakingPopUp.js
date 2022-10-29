@@ -24,13 +24,17 @@ export default function AttendanceTakingPopUp(props) {
 
 
   function convertToJSON(element) {
-    let jsonFormat = JSON.parse(element)
-    // check if the person has already been scanned. if not then add their information
-    if(!(jsonObjectsArraySet.has(JSON.stringify(jsonFormat)))){
+    try {
+      let jsonFormat = JSON.parse(element)
+      // check if the person has already been scanned. if not then add their information
+      if(!(jsonObjectsArraySet.has(JSON.stringify(jsonFormat)))){
 
-      jsonObjectsArraySet.add(JSON.stringify(jsonFormat))
-      attendies.push(jsonFormat.userName)
-      jsonObjectsArray.push(jsonFormat)
+        jsonObjectsArraySet.add(JSON.stringify(jsonFormat))
+        attendies.push(jsonFormat.userName)
+        jsonObjectsArray.push(jsonFormat)
+      }
+  } catch(error) {
+    return false
     }
   }
 
