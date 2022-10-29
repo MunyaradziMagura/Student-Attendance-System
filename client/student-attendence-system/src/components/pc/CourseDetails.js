@@ -173,6 +173,32 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     return [totalAttendance, classAttendance]
   }
 
+
+  // this function allows for multiple tables to be queried 
+  function ComponentDidMount (){
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    const nodeList = document.querySelectorAll('table');
+    for (let i = 0; i < nodeList.length; i++) {
+      mytable(nodeList[i])
+    }
+    function mytable(tableName){
+      tr = tableName.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+      }
+  }
+
     return(
         <>
           <div className={sty.form}>
@@ -228,12 +254,22 @@ export default function CourseDetails ({backFunction, staffID}, props) {
           </div>  
             <div style={{paddingTop: '1vh'}}>
               <Stack direction="horizontal" gap={2}>
+              <InputGroup size="lg">
+        <Form.Control
+          aria-label="Large"
+          aria-describedby="inputGroup-sizing-sm"
+          placeholder='Search Student'
+          id='myInput'
+          onKeyUp={() => ComponentDidMount()}
+        />
+      </InputGroup>
                 <Form.Select style = {{width: '20rem'}} value={selectSortType}onChange={handleSortTypeChange}>
                   <option value="">Show All Attendance</option>
                   <option value="highlight">Highlight Duplicate Device Fingerprint</option>
                   <option value="filter">Show Only Duplicate Device Fingerprint</option>
                 </Form.Select>
               </Stack>
+
                 {/* table which shows all students */}
                 {table}
             </div>
