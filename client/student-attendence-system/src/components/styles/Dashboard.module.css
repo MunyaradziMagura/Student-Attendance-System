@@ -27,7 +27,7 @@
     /* padding: 20px; */
     background-color: white;
     border-right: 1px solid #555962; 
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .helloSideNav {
@@ -81,7 +81,7 @@
     width: 400px;
     height: 30px;
     margin: auto;
-    margin-top: 80px; 
+    margin-top: 50px; 
     cursor: pointer;
 }
 

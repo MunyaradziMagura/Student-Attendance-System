@@ -256,15 +256,15 @@ export default function CourseDetails ({backFunction, staffID}, props) {
           </div>  
             <div style={{paddingTop: '1vh'}}>
               <Stack direction="horizontal" gap={2}>
-              <InputGroup size="lg">
-        <Form.Control
-          aria-label="Large"
-          aria-describedby="inputGroup-sizing-sm"
-          placeholder='Search Student'
-          id='myInput'
-          onKeyUp={() => ComponentDidMount()}
-        />
-      </InputGroup>
+                <InputGroup size="lg" style={{width:'50%'}}>
+                  <Form.Control
+                    aria-label="Large"
+                    aria-describedby="inputGroup-sizing-sm"
+                    placeholder='Search Student'
+                    id='myInput'
+                    onKeyUp={() => ComponentDidMount()}
+                  />
+                </InputGroup>
                 <Form.Select style = {{width: '20rem'}} value={selectSortType}onChange={handleSortTypeChange}>
                   <option value="">Show All Attendance</option>
                   <option value="highlight">Highlight Duplicate Device Fingerprint</option>

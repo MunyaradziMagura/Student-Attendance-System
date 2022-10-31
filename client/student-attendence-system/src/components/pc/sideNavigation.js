@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import sty from "../styles/Dashboard.module.css"; 
 import Nav from "react-bootstrap/Nav";
@@ -17,9 +17,29 @@ export default function SideNavigation (props) {
       localStorage.clear();
       navigate("/Login");
     };
+    const[windowSize, setWindowSize] = useState("100vh");
+    const handleResize = ()=>{
+      if(window.innerHeight<=701){
+        setWindowSize(window.innerHeight+250);
+      }else{
+        setWindowSize("100vh");
+      }
+    };
+    useEffect(() => {
+      //This section will automatically resize of the sideNavigation every time the page is moving to the next page or reload
+      if(window.innerHeight<=701){
+        setWindowSize(window.innerHeight+250);
+      }else{
+        setWindowSize("100vh");
+      }
+      //This section will automactically resize of the sideNagivation every the browser detect a resize of devices resolution
+      window.addEventListener("resize", handleResize);
+    }, [windowSize])
+
+    
+
     return(<>
-        <div className ={sty.box} style={{position:'sticky', top:0}}>
-          <div className={sty.left}>
+          <div className={sty.left} style={{position:'sticky', top:0, height:windowSize, borderRight: '1px solid #555962' }}>
             <div style={{width:430, height:112, backgroundColor:'#0052A0'}}>
               <img src={horizontalLogo} style={{maxWidth:'85%', height:'85%', backgroundColor:'#0052A0', paddingLeft:50, paddingTop:15}} alt="logo"></img>
             </div>
@@ -52,6 +72,5 @@ export default function SideNavigation (props) {
               </Button>
             </div>
           </div>
-        </div>
       </>)
 }
