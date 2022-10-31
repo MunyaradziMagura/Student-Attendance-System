@@ -1,9 +1,10 @@
-import React,  { useEffect, useState } from 'react'
+import React,  { useEffect, useState ,useRef} from 'react'
 import Form from "react-bootstrap/Form"
 import Stack from "react-bootstrap/Stack";
 import Button from 'react-bootstrap/esm/Button';
 import InputGroup from 'react-bootstrap/InputGroup'
 import AttendanceTakingPopUp from "./AttendanceTakingPopUp";
+import PDFExportPopUp  from './PDFExportPopup';
 import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import CourseDetailsTable from './CourseDetailsTable';
@@ -12,9 +13,11 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import SplitButton from 'react-bootstrap/SplitButton';
 import {useNavigate } from "react-router-dom";
 import AttendanceTables from './AttendanceTables'
+import { exportFile } from '../exportPDF';
 const CourseDetails = ({backFunction, staffID}, props) => {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
+  const [exportShow, setExportShow] = useState(false);
   const [attendanceData, setAttendanceData] = useState([])
   const [table, setTable] = useState()
   const [SelectedClassType, setSelectedClassType] = useState("")
@@ -62,7 +65,15 @@ const CourseDetails = ({backFunction, staffID}, props) => {
     // console.log(classAttendanceData[0])
     
   }
+  let pdfRef = useRef();
+  
+  const onExportPDF = () => {
+    exportFile('course pdf', pdfRef.current)
+  }
 
+  const openExoprt = () => {
+    
+  }
   useEffect(() => {
     let attendanceCounter = getStudentAttendanceCount(profileData[0], SelectedClassType)
     setStudentProfileComponent(<StudentProfile userName={profileData[0]} fullName={profileData[1]} attendanceCount={profileData[2]} classType={SelectedClassType}  attendancesCount={attendanceCounter[1]} totalAttendances={attendanceCounter[0]}/>)
@@ -114,7 +125,8 @@ const CourseDetails = ({backFunction, staffID}, props) => {
         <>
           <h1>{localStorage.getItem('courseName')}</h1>
             <div>
-                <Stack direction="horizontal" gap={2}>
+                <Stack direction="horizontal" gap={2}>                
+                <Button onClick={() => setExportShow(true)}> Export</Button>
                     <Button onClick={() => navigate(-1)}>Back</Button>
                     <h4>Class Type:</h4>
                     <Form.Select style = {{width: '20rem'}} onChange={(e) => getClassTypeData(e.target.value)}>
@@ -142,6 +154,16 @@ const CourseDetails = ({backFunction, staffID}, props) => {
                     show={takeAttendance}
                     style={{ width: "100%", fontSize: "0.8rem" }}
                     onHide={() => setTakeAttendance(false)}
+                    />
+                    <PDFExportPopUp
+                    classType = {SelectedClassType}
+                    date = {`${currentDate.getDate() }/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
+                    // set popup state 
+                    show={exportShow}
+                    attendanceData={attendanceData}
+                    selectedGraphClassType={selectedGraphClassType}
+                    style={{ width: "100%", fontSize: "0.8rem" }}
+                    onHide={() => setExportShow(false)}
                     />
                 </Stack>
             </div>

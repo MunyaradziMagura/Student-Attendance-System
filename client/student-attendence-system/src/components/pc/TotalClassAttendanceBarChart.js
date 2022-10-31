@@ -9,7 +9,7 @@ import {
     Legend
   } from "recharts";
 function TotalClassAttendanceBarChart({data}, props) {
-
+    
     return (
         <BarChart
           width={600}
