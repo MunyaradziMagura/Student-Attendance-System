@@ -1,5 +1,5 @@
 import Modal from "react-bootstrap/Modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import ReactTypingEffect from "react-typing-effect";
 import Table from "react-bootstrap/Table"
@@ -57,8 +57,9 @@ export default function AttendanceTakingPopUp(props) {
   const staff = JSON.parse(localStorage.getItem('lecturer'))
 
 
-  function submitStudents(){
 
+  function submitStudents(){
+    // console.log("Delete Section");
     setShowToast(true)
     let students = "";
 
@@ -86,7 +87,16 @@ export default function AttendanceTakingPopUp(props) {
   jsonObjectsArraySet = new Set()
   jsonObjectsArray = []
   attendies = []
+
 };
+  
+  const[isSubmit, setSubmit] = useState(false);
+  const handleSubmit = (e) =>{
+    submitStudents();
+    setSubmit(true);
+  }
+  useEffect(()=>{
+  },[isSubmit]);
 
   return (
     <>
@@ -151,7 +161,7 @@ export default function AttendanceTakingPopUp(props) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="outline-primary" disabled={(jsonObjectsArray.length === 0) ? true: false} onClick={() => submitStudents()}>Submit Students</Button>
+        <Button variant="outline-primary" disabled={(jsonObjectsArray.length === 0) ? true: false} onClick={handleSubmit}>Submit Students</Button>
         <Button variant="outline-warning" onClick={props.onHide}>Close</Button>
       </Modal.Footer>
       
