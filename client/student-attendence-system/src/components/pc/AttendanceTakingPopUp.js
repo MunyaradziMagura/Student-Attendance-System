@@ -82,7 +82,7 @@ export default function AttendanceTakingPopUp(props) {
         "staffID": staff.staffID,
         "date": props.date,
         "studyPeriod": localStorage.getItem('studyPeriod'),
-        "attendies": attendies,
+        "attendies": getAttendies,
         "classType": props.classType,
         "attendance": students
     })
@@ -123,6 +123,7 @@ export default function AttendanceTakingPopUp(props) {
     var tmp = jsonObjectsArray;
     tmp = splittingResult(tmp);
     setJsonObjectsArray(tmp);
+    setAttendies(attendies);
   },[isSubmit,result]);
 
   return (
