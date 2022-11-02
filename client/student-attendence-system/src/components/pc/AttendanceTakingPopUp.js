@@ -88,6 +88,7 @@ export default function AttendanceTakingPopUp(props) {
     })
     
   // clear attendance
+  setResult("");
   setJsonObjectsArray([]);
   array = []
   jsonObjectsArraySet = new Set()
