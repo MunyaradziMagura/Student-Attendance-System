@@ -68,7 +68,7 @@ export default function AttendanceTakingPopUp(props) {
     setShowToast(true)
     let students = "";
 
-    jsonObjectsArray.forEach(e => {
+    getJsonObjectsArray.forEach(e => {
       let person = JSON.stringify(e)
       person = person.replaceAll(`"`, `'`);
       students = students + person + '||'
