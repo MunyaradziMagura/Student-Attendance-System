@@ -53,7 +53,6 @@ export default function AttendanceTakingPopUp(props) {
         jsonObjectsArraySet.add(JSON.stringify(jsonFormat))
         attendies.push(jsonFormat.userName)
         jsonObjectsArray.push(jsonFormat);
-        setJsonObjectsArray(jsonObjectsArray);
       }
   } catch(error) {
     return false
@@ -97,13 +96,33 @@ export default function AttendanceTakingPopUp(props) {
 
 };
   
+  const splittingResult = (jsonObjectsArray) =>{
+    if(result === ""){
+      return [];
+    }
+    // Splits our array on the '||' salt
+    array = result.split("||")
+
+    // Filters out the initial array starting value of an empty string, returning only non-empty array elements
+    array = array.filter(element => {            
+        return element !== '';
+    })
+
+    // For each element in the array, convert each into JSON format 
+    array.forEach(convertToJSON);
+    return jsonObjectsArray;
+  } 
+
   const[isSubmit, setSubmit] = useState(false);
   const handleSubmit = (e) =>{
     submitStudents();
     setSubmit(true);
   }
   useEffect(()=>{
-  },[isSubmit, getJsonObjectsArray]);
+    var tmp = jsonObjectsArray;
+    tmp = splittingResult(tmp);
+    setJsonObjectsArray(tmp);
+  },[isSubmit,result]);
 
   return (
     <>
@@ -133,16 +152,16 @@ export default function AttendanceTakingPopUp(props) {
                 onScan={(data) => setResult(result + "||" + data)} //Concatenates a 'salt' at the end of our strings
             />
 
-        {/* Splits our array on the '||' salt*/}
+        {/* Splits our array on the '||' salt
         {array = result.split("||")}
 
-        {/* Filters out the initial array starting value of an empty string, returning only non-empty array elements*/}
+         Filters out the initial array starting value of an empty string, returning only non-empty array elements
         {array = array.filter(element => {            
             return element !== '';
         })}
 
-        {/* For each element in the array, convert each into JSON format */}
-        {array.forEach(convertToJSON)}
+         For each element in the array, convert each into JSON format
+        {array.forEach(convertToJSON)} */}
       </div>
         
         <Table responsive striped bordered hover>
