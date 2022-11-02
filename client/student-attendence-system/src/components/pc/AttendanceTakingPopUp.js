@@ -187,7 +187,7 @@ export default function AttendanceTakingPopUp(props) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="outline-primary" disabled={(jsonObjectsArray.length === 0) ? true: false} onClick={handleSubmit}>Submit Students</Button>
+        <Button variant="outline-primary" disabled={(getJsonObjectsArray.length === 0) ? true: false} onClick={handleSubmit}>Submit Students</Button>
         <Button variant="outline-warning" onClick={props.onHide}>Close</Button>
       </Modal.Footer>
       
