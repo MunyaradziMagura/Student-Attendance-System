@@ -22,6 +22,11 @@ export default function AttendanceTakingPopUp(props) {
   var jsonObjectsArray = [] // stores student objects scanned in 
   var attendies = [] //Array to store student usernames/IDs
 
+  const [getArray,setArray] = useState([]);
+  const [getJsonObjectsArraySet, setJsonObjectsArraySet] = useState(new Set());
+  const [getJsonObjectsArray,setJsonObjectsArray] = useState([]);
+  const [getAttendies,setAttendies] = useState([]);
+
   function convertToJSON(element) {
     try {
       let jsonFormat = JSON.parse(element)
@@ -47,7 +52,8 @@ export default function AttendanceTakingPopUp(props) {
 
         jsonObjectsArraySet.add(JSON.stringify(jsonFormat))
         attendies.push(jsonFormat.userName)
-        jsonObjectsArray.push(jsonFormat)
+        jsonObjectsArray.push(jsonFormat);
+        setJsonObjectsArray(jsonObjectsArray);
       }
   } catch(error) {
     return false
@@ -83,6 +89,7 @@ export default function AttendanceTakingPopUp(props) {
     })
     
   // clear attendance
+  setJsonObjectsArray([]);
   array = []
   jsonObjectsArraySet = new Set()
   jsonObjectsArray = []
@@ -96,7 +103,7 @@ export default function AttendanceTakingPopUp(props) {
     setSubmit(true);
   }
   useEffect(()=>{
-  },[isSubmit]);
+  },[isSubmit, getJsonObjectsArray]);
 
   return (
     <>
@@ -148,7 +155,7 @@ export default function AttendanceTakingPopUp(props) {
           </thead>
 
           <tbody>
-            {jsonObjectsArray.map(student => (
+            {getJsonObjectsArray.map(student => (
             <tr className={deviceFingerprintsSet.has(student.deviceFingerPrint) ? "bg-danger" : deviceFingerprintsSet.add(student.deviceFingerPrint)}>
               <td>{student.date}</td>
               <td>{student.firstName} {student.lastName}</td>
