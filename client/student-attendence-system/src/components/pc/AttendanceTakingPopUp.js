@@ -200,7 +200,6 @@ export default function AttendanceTakingPopUp(props) {
     <ToastContainer position="bottom-start">
         <Toast onClose={() => setShowToast(false)} bg={'success'} show={showToast}  delay={2500} autohide>
           <Toast.Header>
-            {(jsonObjectsArray.length >0) ? <IoCheckmarkCircle/> : <IoCloseCircle/>}
             <strong>Submission Successful</strong>
           </Toast.Header>
           <Toast.Body style={{color: "white"}}>
