@@ -122,7 +122,7 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     filteredListData=flagByAttendance(filteredListData);//This will create a flag when it retrieve the Attendance Object from the date picker and class type
     //The Section of displaying table of data 
     setTable(generateAttendanceTable(filteredListData, selectSortType)) //This will create a table based on the updating of filterListData
-  },[profileData,selectedGraphClassType, selectSortType])
+  },[profileData,selectedGraphClassType, selectSortType, takeAttendance])
 
   function generateAttendanceTable(attendanceString, commandString){
 
