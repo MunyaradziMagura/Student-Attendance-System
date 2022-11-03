@@ -1,5 +1,5 @@
 import Modal from "react-bootstrap/Modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import ReactTypingEffect from "react-typing-effect";
 import Table from "react-bootstrap/Table"
@@ -21,6 +21,11 @@ export default function AttendanceTakingPopUp(props) {
   var jsonObjectsArraySet = new Set()
   var jsonObjectsArray = [] // stores student objects scanned in 
   var attendies = [] //Array to store student usernames/IDs
+
+  const [getArray,setArray] = useState([]);
+  const [getJsonObjectsArraySet, setJsonObjectsArraySet] = useState(new Set());
+  const [getJsonObjectsArray,setJsonObjectsArray] = useState([]);
+  const [getAttendies,setAttendies] = useState([]);
 
   function convertToJSON(element) {
     try {
@@ -47,7 +52,7 @@ export default function AttendanceTakingPopUp(props) {
 
         jsonObjectsArraySet.add(JSON.stringify(jsonFormat))
         attendies.push(jsonFormat.userName)
-        jsonObjectsArray.push(jsonFormat)
+        jsonObjectsArray.push(jsonFormat);
       }
   } catch(error) {
     return false
@@ -57,12 +62,12 @@ export default function AttendanceTakingPopUp(props) {
   const staff = JSON.parse(localStorage.getItem('lecturer'))
 
 
-  function submitStudents(){
 
+  function submitStudents(){
     setShowToast(true)
     let students = "";
 
-    jsonObjectsArray.forEach(e => {
+    getJsonObjectsArray.forEach(e => {
       let person = JSON.stringify(e)
       person = person.replaceAll(`"`, `'`);
       students = students + person + '||'
@@ -76,17 +81,49 @@ export default function AttendanceTakingPopUp(props) {
         "staffID": staff.staffID,
         "date": props.date,
         "studyPeriod": localStorage.getItem('studyPeriod'),
-        "attendies": attendies,
+        "attendies": getAttendies,
         "classType": props.classType,
         "attendance": students
     })
     
   // clear attendance
+  setResult("");
+  setJsonObjectsArray([]);
   array = []
   jsonObjectsArraySet = new Set()
   jsonObjectsArray = []
   attendies = []
+
 };
+  
+  const splittingResult = (jsonObjectsArray) =>{
+    if(result === ""){
+      return [];
+    }
+    // Splits our array on the '||' salt
+    array = result.split("||")
+
+    // Filters out the initial array starting value of an empty string, returning only non-empty array elements
+    array = array.filter(element => {            
+        return element !== '';
+    })
+
+    // For each element in the array, convert each into JSON format 
+    array.forEach(convertToJSON);
+    return jsonObjectsArray;
+  } 
+
+  const[isSubmit, setSubmit] = useState(false);
+  const handleSubmit = (e) =>{
+    submitStudents();
+    setSubmit(true);
+  }
+  useEffect(()=>{
+    var tmp = jsonObjectsArray;
+    tmp = splittingResult(tmp);
+    setJsonObjectsArray(tmp);
+    setAttendies(attendies);
+  },[isSubmit,result]);
 
   return (
     <>
@@ -116,16 +153,16 @@ export default function AttendanceTakingPopUp(props) {
                 onScan={(data) => setResult(result + "||" + data)} //Concatenates a 'salt' at the end of our strings
             />
 
-        {/* Splits our array on the '||' salt*/}
+        {/* Splits our array on the '||' salt
         {array = result.split("||")}
 
-        {/* Filters out the initial array starting value of an empty string, returning only non-empty array elements*/}
+         Filters out the initial array starting value of an empty string, returning only non-empty array elements
         {array = array.filter(element => {            
             return element !== '';
         })}
 
-        {/* For each element in the array, convert each into JSON format */}
-        {array.forEach(convertToJSON)}
+         For each element in the array, convert each into JSON format
+        {array.forEach(convertToJSON)} */}
       </div>
         
         <Table responsive striped bordered hover>
@@ -138,7 +175,7 @@ export default function AttendanceTakingPopUp(props) {
           </thead>
 
           <tbody>
-            {jsonObjectsArray.map(student => (
+            {getJsonObjectsArray.map(student => (
             <tr className={deviceFingerprintsSet.has(student.deviceFingerPrint) ? "bg-danger" : deviceFingerprintsSet.add(student.deviceFingerPrint)}>
               <td>{student.date}</td>
               <td>{student.firstName} {student.lastName}</td>
@@ -151,7 +188,7 @@ export default function AttendanceTakingPopUp(props) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="outline-primary" disabled={(jsonObjectsArray.length === 0) ? true: false} onClick={() => submitStudents()}>Submit Students</Button>
+        <Button variant="outline-primary" disabled={(getJsonObjectsArray.length === 0) ? true: false} onClick={handleSubmit}>Submit Students</Button>
         <Button variant="outline-warning" onClick={props.onHide}>Close</Button>
       </Modal.Footer>
       
@@ -162,7 +199,7 @@ export default function AttendanceTakingPopUp(props) {
     <ToastContainer position="bottom-start">
         <Toast onClose={() => setShowToast(false)} bg={'success'} show={showToast}  delay={2500} autohide>
           <Toast.Header>
-            {(jsonObjectsArray.length >0) ? <IoCheckmarkCircle/> : <IoCloseCircle/>}
+            <IoCheckmarkCircle/>
             <strong>Submission Successful</strong>
           </Toast.Header>
           <Toast.Body style={{color: "white"}}>
