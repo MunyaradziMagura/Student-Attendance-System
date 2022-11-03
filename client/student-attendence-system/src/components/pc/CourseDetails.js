@@ -18,6 +18,8 @@ export default function CourseDetails ({backFunction, staffID}, props) {
   const [table, setTable] = useState()
   const [SelectedClassType, setSelectedClassType] = useState("")
 
+  const classTypeList = ["Lecture","Practical","Tutorial", "Seminar", "Workshop" ]
+
 
   const [profileData, setProfileData] = useState(["N/A", "Not Selected", "N/A"])
   const [studentProfileComponent, setStudentProfileComponent] = useState()
@@ -179,27 +181,35 @@ export default function CourseDetails ({backFunction, staffID}, props) {
 
     var input = document.getElementById("myInput");
     var filter = input.value.toUpperCase();
-    const nodeList = document.querySelectorAll('table');
-    for (let i = 0; i < nodeList.length; i++) {
-      mytable(nodeList[i])
+    // get a list of tables
+    const tablesList = document.querySelectorAll('table');
+    
+    for (let i = 0; i < tablesList.length; i++) {
+      // plug each table into the mytable function
+      mytable(tablesList[i])
     }
-    function mytable(tableName){
-      var tr = tableName.getElementsByTagName("tr");
-      for (let i = 0; i < tr.length; i++) {
-        var td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-          var studentSearchText = td.textContent || td.innerText;
 
-          // if search text is not in the rows set the display none
-          if (studentSearchText.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
-        }       
+    function mytable(tableName){
+        // get a list of table rows within the table
+        var tr = tableName.getElementsByTagName("tr");
+        for (let i = 0; i < tr.length; i++) {
+          // for each table row get the first td. in our case this contains the first name and last name
+          var td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            // get the contents of the td 
+            var studentSearchText = td.textContent || td.innerText;
+            // if search text is not in the rows set the display none
+            // if the search paramaters are contained within the td then set the display to "" if not then set the display to none
+            if (studentSearchText.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }       
+        }
       }
-      }
-  }
+    }
+
 
     return(
         <>
@@ -213,12 +223,8 @@ export default function CourseDetails ({backFunction, staffID}, props) {
                   {/* <Stack direction="horizontal" gap={3}> */}
                       <h4 style={{color: "black", paddingTop: "8px", paddingRight: "5px"}}>Class Type:</h4>
                       <Form.Select style = {{width: '12rem', paddingLeft: "10px"}} value = {SelectedClassType} onChange={handleClassTypeChange}>
-                          <option value= "">Select Class Type</option>
-                          <option value = "Lecture">Lecture</option>
-                          <option value = "Practical" >Practical</option>
-                          <option value = "Tutorial">Tutorial</option>
-                          <option value = "Seminar" >Seminar</option>
-                          <option value = "Workshop" >Workshop</option>
+                          <option value= "" selected>Select Class Type</option>
+                          {classTypeList.map(classType =>  (<option value={`${classType}`} >{classType}</option>))}
                       </Form.Select>
                       
                     <Button
