@@ -9,10 +9,9 @@ import defaultAvater from '../styles/avatar-default.jpg';
 export default function SideNavigation (props) {
     var userData = { userName: localStorage.getItem("name") };
     const navigate = useNavigate();
-    const [value, onChange] = useState(new Date());
-    var calendarDate = `${value.getDate()}/${value.getMonth() + 1}/${value.getFullYear()}`
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    var calendarDate = `${selectedDate.getDate()}/${selectedDate.getMonth() + 1}/${selectedDate.getFullYear()}`
     localStorage.setItem("calendarDate", calendarDate) // set calendar date to local storage 
-    console.log(localStorage);
     const doLogout = () => {
       localStorage.clear();
       navigate("/Login");
@@ -63,7 +62,7 @@ export default function SideNavigation (props) {
                 </Nav.Link>
               </Nav>
               <div className = {sty.calendar}>
-                <Calendar onChange={onChange} value={value}/>
+                <Calendar onChange={setSelectedDate} value={selectedDate}/>
               </div>
             </div>
             <div className = {sty.btn}>
