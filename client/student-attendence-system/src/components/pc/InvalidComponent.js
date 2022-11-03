@@ -1,6 +1,6 @@
 import { useLocation, useParams } from "react-router-dom";
 import React from "react";
-import Robot from './BrokenRobot.png';
+import Robot from '../styles/BrokenRobot.png';
 export default function InvalidComponent ({}, props) {
     const location = useLocation();
     const params = useParams();

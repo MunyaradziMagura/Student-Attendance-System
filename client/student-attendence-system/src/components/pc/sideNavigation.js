@@ -4,8 +4,8 @@ import sty from "../styles/Dashboard.module.css";
 import Nav from "react-bootstrap/Nav";
 import Calendar from "react-calendar";
 import Button from "react-bootstrap/Button";
-import horizontalLogo from './logo_unisa_horizontal.png';
-import defaultAvater from './avatar-default.jpg';
+import horizontalLogo from '../styles/logo_unisa_horizontal.png';
+import defaultAvater from '../styles/avatar-default.jpg';
 export default function SideNavigation (props) {
     var userData = { userName: localStorage.getItem("name") };
     const navigate = useNavigate();
