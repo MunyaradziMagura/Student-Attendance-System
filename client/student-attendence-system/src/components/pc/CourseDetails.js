@@ -88,15 +88,20 @@ export default function CourseDetails ({backFunction, staffID}, props) {
   
   const filteringByClassType = (attendanceData) =>{
     var tmpList = [];
+    // if there is no selected class type show the unknown students row 
     if(!SelectedClassType){
       tmpList.push(unknownStudents)
       return tmpList;
     }
+
+    // filter attendace data by the selected class type and the date selected on the calendar
     let classAttendanceData = attendanceData.filter(type => type.classType === SelectedClassType).filter(dateFilter => dateFilter.date === calendarDate); // add dynamic date capture 
+    // if there is nothing within the newly created array, return unknown students row
     if(classAttendanceData[0] === undefined){
       tmpList.push(unknownStudents)
       return tmpList;
     }
+    // append all classAttendanceData data to the tempList. At this point this array should contain all classes which have the corrosponding date & name 
     for(var i =0; i <classAttendanceData.length;++i){
       if(classAttendanceData[i]!=undefined){
         tmpList.push(classAttendanceData[i].attendance);
@@ -135,6 +140,7 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     if(attendanceString[0].includes('N/A')){
       return (<CourseDetailsTable attendanceString={attendanceString[0]}  passStudentInfo={getStudentCallBack} command = {commandString}/>)
     }
+
     return attendanceString.map((element, numClasses) => {
       return(<>
           <div style={{paddingTop:'10px'}}>
