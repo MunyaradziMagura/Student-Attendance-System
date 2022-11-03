@@ -143,6 +143,7 @@ function PDFExportPopUp(props) {
           
             <div>
                 <Stack  gap={2}>  
+                <h4  style={{textAlign:'center'}}>Course :{localStorage.getItem('courseName')}</h4>
                 <h4  style={{textAlign:'center'}}>Date :{calendarDate}</h4>
                 <h4  style={{textAlign:'center'}}>Teacher Name:{userData.userName}</h4>
                 <h4  style={{textAlign:'center'}}>Class Type:{props.classType}</h4>                    
@@ -187,7 +188,7 @@ function PDFExportPopUp(props) {
                 
                   <Card style={{ width: '18rem',margin:'5%',padding:'5%'}}>
                     {/* student profile */}
-                  {studentProfileComponent}
+                  {table}
               </Card>
               </CardGroup>
             </div>
