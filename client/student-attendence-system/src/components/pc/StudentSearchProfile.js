@@ -4,34 +4,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Image from "react-bootstrap/Image";
 import Stack from "react-bootstrap/esm/Stack";
 import YourCourseTable from "./YourCourseTable";
-// var studentDetail = {
-//   firstName: "Michael",
-//   lastName: "Pham",
-//   studentId: "123456789",
-//   program: "LHSG",
-//   courseEnrolled: {
-//     1: {
-//       Name: "System Architecture",
-//       CategoryCode: "COMP 3024",
-//       Units: "4.5",
-//       StudyPeriod: "SP1",
-//     },
-//     2: {
-//       Name: "Network Fundamentals",
-//       CategoryCode: "INFT 1012",
-//       Units: "4.5",
-//       StudyPeriod: "SP1",
-//     },
-//     3: {
-//       Name: "Problem Solving and Programming",
-//       CategoryCode: "COMP 1039",
-//       Units: "4.5",
-//       StudyPeriod: "SP2",
-//     },
-//   },
-// };
 
-const StudentSearchProfile = (studentDetail) => {
+export default function StudentSearchProfile ({studentDetail}, props) {
   return (
     <>
       <Stack direction="horizontal" gap={3}>
@@ -103,4 +77,3 @@ const StudentSearchProfile = (studentDetail) => {
     </>
   );
 };
-export default StudentSearchProfile;

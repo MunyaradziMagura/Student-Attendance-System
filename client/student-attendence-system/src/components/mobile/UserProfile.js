@@ -3,7 +3,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Image from "react-bootstrap/Image";
 //import { useState } from "react";
 
-const UserProfile = ({ fullName, studentID, program }) => {
+export default function UserProfile ({ fullName, studentID, program }, props) {
   //const [userinfo, setUserinfo] = useState({});
 
   return (<>
@@ -63,5 +63,3 @@ const UserProfile = ({ fullName, studentID, program }) => {
     </>
   );
 };
-
-export default UserProfile;

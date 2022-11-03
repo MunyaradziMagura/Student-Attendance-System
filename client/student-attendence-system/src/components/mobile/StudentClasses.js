@@ -1,7 +1,7 @@
 import React from "react";
 import StudentClassCard from "./StudentClassCard";
 // import image from '../'
-function StudentClasses({ width, attendance }) {
+export default function StudentClasses({ width, attendance }, props) {
   const varientList = [
     "primary",
     "secondary",
@@ -36,5 +36,3 @@ function StudentClasses({ width, attendance }) {
     );
   }
 }
-
-export default StudentClasses;

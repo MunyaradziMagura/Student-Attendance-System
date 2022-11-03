@@ -1,5 +1,5 @@
 import Modal from "react-bootstrap/Modal";
-import { useState,useRef } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import ReactTypingEffect from "react-typing-effect";
 import Table from "react-bootstrap/Table"
@@ -9,22 +9,49 @@ import Toast from 'react-bootstrap/Toast'
 import ToastContainer from 'react-bootstrap/ToastContainer'
 import { addCourseAttendanceRecord } from "../../utils/doRequest"
 import {IoCheckmarkCircle, IoCloseCircle} from 'react-icons/io5'
-import { exportFile } from '../exportPDF';
-function AttendanceTakingPopUp(props) {
+
+
+export default function AttendanceTakingPopUp(props) {
 
 
   let deviceFingerprintsSet = new Set()
   const [result, setResult] = useState("")
   const [showToast, setShowToast] = useState(false) //State variables for the toast notification
   var array = []
+  var jsonObjectsArraySet = new Set()
   var jsonObjectsArray = [] // stores student objects scanned in 
   var attendies = [] //Array to store student usernames/IDs
 
-  
   function convertToJSON(element) {
-    let jsonFormat = JSON.parse(element)
-    attendies.push(jsonFormat.userName)
-    jsonObjectsArray.push(jsonFormat)
+    try {
+      let jsonFormat = JSON.parse(element)
+      
+      var qrKeys = ["deviceFingerPrint", "userName", "firstName", "lastName", "date", "courseID"]
+      let keys = Object.keys(jsonFormat)
+
+      if(qrKeys.length !== keys.length) {
+        console.log(`Scanned QR code key size mismatch, expected ${qrKeys.length} but got ${keys.length}`)
+        return false
+      }
+
+
+      keys.forEach((key, index) => {
+        if(key !== qrKeys[index]) {
+          console.log(`Key mismatch error. Expected ${qrKeys[index]}, but got ${key}`)
+          return false
+        }
+      })
+        
+      // check if the person has already been scanned. if not then add their information
+      if(!(jsonObjectsArraySet.has(JSON.stringify(jsonFormat)))){
+
+        jsonObjectsArraySet.add(JSON.stringify(jsonFormat))
+        attendies.push(jsonFormat.userName)
+        jsonObjectsArray.push(jsonFormat)
+      }
+  } catch(error) {
+    return false
+    }
   }
 
   const staff = JSON.parse(localStorage.getItem('lecturer'))
@@ -52,15 +79,15 @@ function AttendanceTakingPopUp(props) {
         "attendies": attendies,
         "classType": props.classType,
         "attendance": students
-    }
+    })
     
-  )};
+  // clear attendance
+  array = []
+  jsonObjectsArraySet = new Set()
+  jsonObjectsArray = []
+  attendies = []
+};
 
-  let pdfRef = useRef();
-  
-const onExportPDF = () => {
-  exportFile('course pdf', pdfRef.current)
-}
   return (
     <>
     <Modal
@@ -100,8 +127,7 @@ const onExportPDF = () => {
         {/* For each element in the array, convert each into JSON format */}
         {array.forEach(convertToJSON)}
       </div>
-      <div onClick={onExportPDF} > Export PDF</div>
-        <div  ref={pdfRef}>
+        
         <Table responsive striped bordered hover>
           <thead style={{textAlign: "center"}}>
             <tr>
@@ -120,14 +146,12 @@ const onExportPDF = () => {
               </tr>))}
           </tbody>
         </Table>
-        </div>
-        
         
 
       </Modal.Body>
 
       <Modal.Footer>
-        <Button disabled={(jsonObjectsArray.length === 0) ? true: false}variant="primary" onClick={() => submitStudents()}>Submit Students</Button>
+        <Button variant="outline-primary" disabled={(jsonObjectsArray.length === 0) ? true: false} onClick={() => submitStudents()}>Submit Students</Button>
         <Button variant="outline-warning" onClick={props.onHide}>Close</Button>
       </Modal.Footer>
       
@@ -151,5 +175,3 @@ const onExportPDF = () => {
 
   );
 }
-
-export default AttendanceTakingPopUp;

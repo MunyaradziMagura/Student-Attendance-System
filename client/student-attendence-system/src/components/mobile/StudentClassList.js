@@ -2,7 +2,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Badge from "react-bootstrap/Badge";
 import StudentAttendenceGraph from "./StudentAttendenceGraph";
 import React from "react";
-const StudentClassList = ({ classes, varientList }) => {
+export default function StudentClassList ({ classes }, props) {
   // show model for visualising a students attendence
   const [modalShow, setModalShow] = React.useState(false);
   return (
@@ -37,4 +37,3 @@ const StudentClassList = ({ classes, varientList }) => {
   );
 };
 
-export default StudentClassList;

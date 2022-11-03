@@ -25,11 +25,13 @@ function StudentHome() {
       break;
 
     case "Classes":
-      pageComponent = 
-        <StudentClasses
+      pageComponent =
+        <><div style={{paddingBottom: "10px"}}>
+          <StudentClasses
           width={window.screen.width}
           attendance={student.attendance}
         />
+        </div></>
       ;
       break;
 
@@ -58,7 +60,7 @@ function StudentHome() {
 
   return (
     <>
-      <div  style={{backgroundColor:"#0052a0", height:window.screen.height + 25}}>
+      <div  style={{backgroundColor:"#0052a0", minHeight:window.screen.height}}>
         <StudentNavigation
               style={{ backgroundColor: "#0052a0", borderstyle:"solid" }}
               fullName={student.fullName}
@@ -67,8 +69,6 @@ function StudentHome() {
           <div>
             {pageComponent}
           </div>
-      
-
       </div>
     </>
   );

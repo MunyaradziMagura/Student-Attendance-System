@@ -1,6 +1,7 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from 'react-bootstrap/Button'
+import { IoPersonSharp, IoLockClosedSharp } from 'react-icons/io5'
 import { useState } from "react";
 import { userLogin } from "../utils/doRequest";
 import { useNavigate } from "react-router-dom";
@@ -56,8 +57,9 @@ function Login() {
         <h1>Login</h1>
         <div>
           <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon3">Username:</InputGroup.Text>
+            <InputGroup.Text id="basic-addon3"><IoPersonSharp/></InputGroup.Text>
             <Form.Control
+              placeholder="Username"
               id="basic-url"
               aria-describedby="basic-addon3"
               name="email"
@@ -69,8 +71,9 @@ function Login() {
         </div>
         <div>
           <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon3">Password:</InputGroup.Text>
+            <InputGroup.Text id="basic-addon3" ><IoLockClosedSharp/></InputGroup.Text>
             <Form.Control
+              placeholder="Password"
               id="basic-url"
               aria-describedby="basic-addon3"
               type="password"

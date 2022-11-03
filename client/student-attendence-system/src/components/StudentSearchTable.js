@@ -14,7 +14,7 @@ function StudentSearchTable() {
             <Form.Select></Form.Select>
             <Form.Label style={{paddingRight: 5, paddingTop: 5, fontWeight: "bold"}}>Student Name:</Form.Label>
             <Form.Control></Form.Control>
-            <Button><IoSearch/></Button>
+            <Button variant="outline-primary"><IoSearch/></Button>
         </Stack>
         <Table responsive striped bordered>
             <thead style={{textAlign: "center"}}>
