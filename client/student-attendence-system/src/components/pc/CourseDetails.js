@@ -131,18 +131,16 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     function getStudentCallBack(_studentID, _fullName){
       setProfileData([_studentID, _fullName, "000"])
     }
-    var cnt = 0;
     console.log(attendanceString[0]);
     if(attendanceString[0].includes('N/A')){
       return (<CourseDetailsTable attendanceString={attendanceString[0]}  passStudentInfo={getStudentCallBack} command = {commandString}/>)
     }
-    return attendanceString.map(element => {
-      cnt++;
+    return attendanceString.map((element, numClasses) => {
       return(<>
           <div style={{paddingTop:'10px'}}>
             <div className={sty.form}>
               <div className={sty.formHeader}>
-                <h1>Class {cnt}</h1>
+                <h1>Class {numClasses + 1}</h1>
               </div>
               <div className={sty.formBody}>
                 <CourseDetailsTable attendanceString={element}  passStudentInfo={getStudentCallBack} command = {commandString}/>
