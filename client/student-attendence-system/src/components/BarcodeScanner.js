@@ -10,7 +10,6 @@ function BarcodeScanner() {
 
     function convertToJSON(element) {
         let jsonFormat = JSON.parse(element)
-        // console.log(jsonFormat)
 
         newArray.push(jsonFormat)
     }
@@ -27,7 +26,6 @@ function BarcodeScanner() {
         })}
         
         {array.forEach(convertToJSON)}
-        {console.log(newArray)}
         </div>
     )
 }

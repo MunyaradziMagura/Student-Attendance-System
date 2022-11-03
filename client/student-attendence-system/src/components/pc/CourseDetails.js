@@ -136,7 +136,6 @@ export default function CourseDetails ({backFunction, staffID}, props) {
     function getStudentCallBack(_studentID, _fullName){
       setProfileData([_studentID, _fullName, "000"])
     }
-    console.log(attendanceString[0]);
     if(attendanceString[0].includes('N/A')){
       return (<CourseDetailsTable attendanceString={attendanceString[0]}  passStudentInfo={getStudentCallBack} command = {commandString}/>)
     }

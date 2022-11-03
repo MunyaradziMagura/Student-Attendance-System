@@ -64,7 +64,6 @@ export default function AttendanceTakingPopUp(props) {
 
 
   function submitStudents(){
-    // console.log("Delete Section");
     setShowToast(true)
     let students = "";
 
