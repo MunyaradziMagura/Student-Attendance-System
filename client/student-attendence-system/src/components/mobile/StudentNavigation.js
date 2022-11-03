@@ -9,7 +9,7 @@ import {
 } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
-function StudentNavigation({ fullName, setPage }) {
+export default function StudentNavigation({ fullName, setPage }, props) {
   // logout function
   const navigate = useNavigate();
   const doLogout = () => {
@@ -56,5 +56,3 @@ function StudentNavigation({ fullName, setPage }) {
     </Navbar>
   );
 }
-
-export default StudentNavigation;

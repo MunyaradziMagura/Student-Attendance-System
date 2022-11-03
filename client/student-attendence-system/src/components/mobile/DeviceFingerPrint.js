@@ -16,7 +16,7 @@ import { ClientJS } from "clientjs";
 // system language
 // cookies
 // canvas print
-class DeviceFingerPrint {
+export default class DeviceFingerPrint {
   constructor() {
     this.client = new ClientJS();
   }
@@ -28,5 +28,3 @@ class DeviceFingerPrint {
     this.client.getBrowserVersion();
   }
 }
-
-export default DeviceFingerPrint;

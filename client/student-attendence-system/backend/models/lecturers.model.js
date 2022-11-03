@@ -17,13 +17,13 @@ const lecturerSchema = new Schema(
         },
         userName: { 
             type: String,
-            require: true,
+            required: true,
             unique: true,
             trim: true,
         },
         email: {
             type: String,
-            require: [true, "Please provide an email"],
+            required: [true, "Please provide an email"],
             unique: true,
             trim: true
         },

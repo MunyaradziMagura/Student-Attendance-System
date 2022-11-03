@@ -4,7 +4,7 @@ const coursesRouter = express.Router();
 import course from '../models/course.model.js'; //Import the 'courses' model for validation when adding new course to MongoDB
 
 //Default enpoint GET request that will return all of the course information contained in the 'courses' collection
-coursesRouter.route('/').get((req, res) => {
+coursesRouter.route('/getCourses').get((req, res) => {
     course.find()
     .then(course => res.json(course))
     .catch(err => res.status(400).json('Error: ' + err))

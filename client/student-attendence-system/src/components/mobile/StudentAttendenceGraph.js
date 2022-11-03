@@ -1,9 +1,8 @@
 import Modal from "react-bootstrap/Modal";
 import AttendenceChart from "./AttendenceChart";
-const StudentAttendenceGraph = (props) => {
+export default function StudentAttendenceGraph (props) {
   return (
     <Modal
-      {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -21,4 +20,3 @@ const StudentAttendenceGraph = (props) => {
   );
 };
 
-export default StudentAttendenceGraph;

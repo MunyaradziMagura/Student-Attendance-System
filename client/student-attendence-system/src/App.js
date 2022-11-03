@@ -30,7 +30,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/Login" element={<Login />} />
           <Route
-            path="/Dashboard"
+            path="/Dashboard/*"
             element={
               <RequireAuth>
                 <Dashboard />

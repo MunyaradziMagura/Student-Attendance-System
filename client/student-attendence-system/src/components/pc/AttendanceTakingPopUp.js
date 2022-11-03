@@ -11,18 +11,47 @@ import { addCourseAttendanceRecord } from "../../utils/doRequest"
 import {IoCheckmarkCircle, IoCloseCircle} from 'react-icons/io5'
 
 
-function AttendanceTakingPopUp(props) {
+export default function AttendanceTakingPopUp(props) {
 
 
   let deviceFingerprintsSet = new Set()
   const [result, setResult] = useState("")
   const [showToast, setShowToast] = useState(false) //State variables for the toast notification
   var array = []
+  var jsonObjectsArraySet = new Set()
   var jsonObjectsArray = [] // stores student objects scanned in 
+  var attendies = [] //Array to store student usernames/IDs
 
-    function convertToJSON(element) {
+  function convertToJSON(element) {
+    try {
       let jsonFormat = JSON.parse(element)
-      jsonObjectsArray.push(jsonFormat)
+      
+      var qrKeys = ["deviceFingerPrint", "userName", "firstName", "lastName", "date", "courseID"]
+      let keys = Object.keys(jsonFormat)
+
+      if(qrKeys.length !== keys.length) {
+        console.log(`Scanned QR code key size mismatch, expected ${qrKeys.length} but got ${keys.length}`)
+        return false
+      }
+
+
+      keys.forEach((key, index) => {
+        if(key !== qrKeys[index]) {
+          console.log(`Key mismatch error. Expected ${qrKeys[index]}, but got ${key}`)
+          return false
+        }
+      })
+        
+      // check if the person has already been scanned. if not then add their information
+      if(!(jsonObjectsArraySet.has(JSON.stringify(jsonFormat)))){
+
+        jsonObjectsArraySet.add(JSON.stringify(jsonFormat))
+        attendies.push(jsonFormat.userName)
+        jsonObjectsArray.push(jsonFormat)
+      }
+  } catch(error) {
+    return false
+    }
   }
 
   const staff = JSON.parse(localStorage.getItem('lecturer'))
@@ -40,7 +69,6 @@ function AttendanceTakingPopUp(props) {
     });
 
 
-
     addCourseAttendanceRecord({
     // object which will be sent to the 'course attendance records' collection
         "catalogueID": localStorage.getItem('catalogueID'),
@@ -48,12 +76,17 @@ function AttendanceTakingPopUp(props) {
         "staffID": staff.staffID,
         "date": props.date,
         "studyPeriod": localStorage.getItem('studyPeriod'),
+        "attendies": attendies,
         "classType": props.classType,
         "attendance": students
-    }
+    })
     
-  )};
-
+  // clear attendance
+  array = []
+  jsonObjectsArraySet = new Set()
+  jsonObjectsArray = []
+  attendies = []
+};
 
   return (
     <>
@@ -71,7 +104,7 @@ function AttendanceTakingPopUp(props) {
             cursor={" "}
             typingDelay={500}
             eraseSpeed={80}
-            text={[`TAKING ATTENDANCE..., DO NOT TOUCH KEYBOARD`]}
+            text={[`TAKING ATTENDANCE... DO NOT TOUCH KEYBOARD`]}
           />
         </Modal.Title>
       </Modal.Header>
@@ -118,7 +151,7 @@ function AttendanceTakingPopUp(props) {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button disabled={(jsonObjectsArray.length === 0) ? true: false}variant="primary" onClick={() => submitStudents()}>Submit Students</Button>
+        <Button variant="outline-primary" disabled={(jsonObjectsArray.length === 0) ? true: false} onClick={() => submitStudents()}>Submit Students</Button>
         <Button variant="outline-warning" onClick={props.onHide}>Close</Button>
       </Modal.Footer>
       
@@ -142,5 +175,3 @@ function AttendanceTakingPopUp(props) {
 
   );
 }
-
-export default AttendanceTakingPopUp;

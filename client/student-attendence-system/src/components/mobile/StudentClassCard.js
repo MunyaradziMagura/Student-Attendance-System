@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import React from "react";
 import StudentAttendenceGraph from "./StudentAttendenceGraph";
 
-const StudentClassCard = ({ classesObject, varientList }) => {
+export default function StudentClassCard ({ classesObject, varientList }, props) {
   const [modalShow, setModalShow] = React.useState(false);
 
   return (
@@ -83,5 +83,3 @@ const StudentClassCard = ({ classesObject, varientList }) => {
     </ListGroup>
   );
 };
-
-export default StudentClassCard;

@@ -4,16 +4,9 @@ import qrcode from "qrcode";
 import { useEffect, useState } from "react";
 import DeviceFingerPrint from "./DeviceFingerPrint";
 // import image from '../'
-function QRCode({ studentInfo }, props) {
+export default function QRCode({ studentInfo }, props) {
   const [personQRSrc, setpersonQRSrc] = useState("");
 
-  // get Device fineger print
-  const [fingerPrint, setFingerprint] = useState();
-
-  const passFingerPrint = (data) => {
-    // set finger print
-    setFingerprint(data);
-  };
 
   // download QR code
   const base64ToBlob = (code) => {
@@ -36,7 +29,6 @@ function QRCode({ studentInfo }, props) {
   const fingerprint = createFingerprint.fingerprint();
   // get browser
   const browser = createFingerprint.browser();
-  //console.log(browser);
   // object of values used to generate qrcode
   const person = {
     deviceFingerPrint: fingerprint,
@@ -80,7 +72,8 @@ function QRCode({ studentInfo }, props) {
             methods and apply professional skills to produce an agreed upon
             software artefact for a client, while working in a project team.
           </Card.Text> */}
-          <Button
+          <Button 
+            variant="outline-primary"
             onClick={() => {
               let aLink = document.createElement("a");
               let blob = base64ToBlob(personQRSrc);
@@ -91,7 +84,6 @@ function QRCode({ studentInfo }, props) {
               aLink.click();
               aLink.remove();
             }}
-            variant="primary"
           >
             Download QR
           </Button>
@@ -100,5 +92,3 @@ function QRCode({ studentInfo }, props) {
     </div>
   );
 }
-
-export default QRCode;

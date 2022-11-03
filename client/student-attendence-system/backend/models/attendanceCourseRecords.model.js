@@ -33,6 +33,11 @@ const courseRecordsSchema = new Schema ({
         trim: true
 
     },
+    attendies: {
+        type: [],
+        required: true,
+        trim: true
+    },
     classType: {
         type: String,
         required: true,
