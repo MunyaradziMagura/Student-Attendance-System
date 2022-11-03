@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 
 import StudentHome from "./pages/StudentHome";
 import Dashboard from "./pages/Dashboard";
+import InvalidComponent from "./components/pc/InvalidComponent";
 function RequireAuth({ children }) {
   const authed = localStorage.getItem("login");
 
@@ -27,7 +28,8 @@ function App() {
       <Router>
         {/* <Navigation /> */}
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="*" element={<InvalidComponent/>}/>
+          <Route path="/" element={<Navigate replace to="/Login"/>} />
           <Route path="/Login" element={<Login />} />
           <Route
             path="/Dashboard/*"
@@ -45,7 +47,6 @@ function App() {
               </RequireAuth>
             }
           />
-          <Route path="/Login" element={<Login />} />
         </Routes>
       </Router>
     </div>
