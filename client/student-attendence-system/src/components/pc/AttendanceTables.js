@@ -55,7 +55,7 @@ if (tabState.length > 0  && attendanceData.length > 0){
     let topStudents = rankStudents.sort((a, b) =>  {
       return a.totalAttendace() - b.totalAttendace();
     });
-
+    // sort students lowest to highest attendance
     let bottomStudents = rankStudents.sort((a, b) => {
       return a.totalAttendace() + b.totalAttendace();
     });

@@ -3,7 +3,7 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 
 export default function TotalStudentAttendanceStackedBarChart({data}, props) {
 
-  console.log()
+  
     return (
         <BarChart
           width={600}

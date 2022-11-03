@@ -8,9 +8,9 @@ export default function Courses ({sendDetailsPageButton, classesObject, studyPer
         localStorage.setItem('studyPeriod', studyPeriod);
         localStorage.setItem('catalogueID', classesObject[index].catalogueID);
         localStorage.setItem('courseName', classesObject[index].courseName);
-
         sendDetailsPageButton()
     }
+    
     return(<>
         <div style ={{paddingTop:'10px'}}>
             <Table striped bordered hover variant="light">
