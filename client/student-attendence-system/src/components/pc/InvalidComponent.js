@@ -4,10 +4,7 @@ import Robot from '../styles/BrokenRobot.png';
 export default function InvalidComponent ({}, props) {
     const location = useLocation();
     const params = useParams();
-    //const { from } = location.state;
-    console.log(params);
     const result  = Object.keys(params).map((int) => {return params[int]});
-    console.log(result);
     const output = "The requested URL /" + result+ " was not found on this server. That's all we know";
     return(<>
         <div style={{margin:'auto'}}>
