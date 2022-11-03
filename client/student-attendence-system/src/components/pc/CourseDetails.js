@@ -216,6 +216,7 @@ export default function CourseDetails ({backFunction, staffID}, props) {
         <>
           <div className={sty.form}>
             <div className={sty.formHeader} style={{display:'flex'}}>
+              <Button variant="warning"  onClick={()=>{setExportShow(true)}}>Export</Button>
               <Button variant="warning" style={{marginLeft:'10px', height:'41px', textAlign:'center'}}href="/Dashboard/Courses">Back</Button>
               <h1 style={{marginLeft:'5px'}}>{localStorage.getItem('courseName')}</h1>
             </div>
