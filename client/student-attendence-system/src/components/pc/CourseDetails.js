@@ -251,6 +251,16 @@ export default function CourseDetails ({backFunction, staffID}, props) {
                       style={{ width: "100%", fontSize: "0.8rem" }}
                       onHide={() => setTakeAttendance(false)}
                       />
+                <PDFExportPopUp
+                    classType = {SelectedClassType}
+                    date = {`${currentDate.getDate() }/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
+                    // set popup state
+                    show={exportShow}
+                    attendanceData={attendanceData}
+                    selectedGraphClassType={selectedGraphClassType}
+                    style={{ width: "100%", fontSize: "0.8rem" }}
+                    onHide={() => setExportShow(false)}
+                />
                   {/* </Stack> */}
               </div>
               <div style={{paddingTop:'10px'}}>
