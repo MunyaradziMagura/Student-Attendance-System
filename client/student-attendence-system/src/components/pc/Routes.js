@@ -15,7 +15,7 @@ export default function MainRoutes (props){
             <Route path="*" element={<><Header pageName={"404"}/><div className={sty.rightDesc}><InvalidComponent/></div></>}/>
             <Route path="/" element={<Navigate replace to="Courses"/>}/>
             <Route path="Courses" element={<><Header pageName={"Your Course"}/><div className={sty.rightDesc}><YourCourse courseList={lecturer.courses}/></div></>}/>
-            <Route path="CoursesDetail" element={<><Header pageName={"Course"}/><div className={sty.rightDesc}><CourseDetails courseName={lecturer.courseName} staffID={lecturer.staffID}></CourseDetails></div></>}></Route>
+            <Route path="CoursesDetail" element={<><Header pageName={"Course Detail"}/><div className={sty.rightDesc}><CourseDetails courseName={lecturer.courseName} staffID={lecturer.staffID}></CourseDetails></div></>}></Route>
         </Route>
         </Routes>
     )

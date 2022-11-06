@@ -24,7 +24,7 @@ export default function YourCourse ({courseList, forwardFunction}, props) {
                 </div>
                 <div className={sty.formBody}>
                         <Form.Select onChange={(e) => classandStudyPeriod(e.target.value)}>
-                                <option key = "default" value="SP0" selected>Select A Course</option>
+                                <option key = "default" value="SP0" selected disabled>Select A Course</option>
                                 {avalibleStudyPeriod.map((studyPeriod) => (
                                         <option key={`SP${studyPeriod}`} value={`SP${studyPeriod}`}>Study Period {studyPeriod}</option>
                                 ))}
