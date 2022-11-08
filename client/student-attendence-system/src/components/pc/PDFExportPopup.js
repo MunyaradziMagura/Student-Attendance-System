@@ -188,7 +188,7 @@ function PDFExportPopUp(props) {
                 
                   <Card style={{ width: '18rem',margin:'5%',padding:'5%'}}>
                     {/* student profile */}
-                  {table}
+                  {props.table}
               </Card>
               </CardGroup>
             </div>

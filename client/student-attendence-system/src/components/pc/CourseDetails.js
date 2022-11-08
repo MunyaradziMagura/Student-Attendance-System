@@ -228,8 +228,8 @@ export default function CourseDetails ({backFunction, staffID}, props) {
         <>
           <div className={sty.form}>
             <div className={sty.formHeader} style={{display:'flex'}}>
-              <Button variant="warning"  onClick={()=>{setExportShow(true)}}>Export</Button>
-              <Button variant="warning" style={{marginLeft:'10px', height:'41px', textAlign:'center'}}href="/Dashboard/Courses">Back</Button>
+              
+            <Button variant="warning" style={{marginLeft:'10px', height:'41px', textAlign:'center'}}href="/Dashboard/Courses">Back</Button>
               <h1 style={{marginLeft:'5px'}}>{localStorage.getItem('courseName')}</h1>
             </div>
             <div className={sty.formBody}>
@@ -263,6 +263,7 @@ export default function CourseDetails ({backFunction, staffID}, props) {
                       date = {`${currentDate.getDate() }/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
                       // set popup state
                       show={exportShow}
+                      table={table}
                       attendanceData={attendanceData}
                       selectedGraphClassType={selectedGraphClassType}
                       style={{ width: "100%", fontSize: "0.8rem" }}
@@ -301,6 +302,8 @@ export default function CourseDetails ({backFunction, staffID}, props) {
                   <option value="filter">Show Only Duplicate Device Fingerprint</option>
                 </Form.Select>
               </Stack>
+              
+              <Button variant="warning" style={{marginTop:'10px'}}  onClick={()=>{setExportShow(true)}}>Export</Button>
 
                 {/* table which shows all students */}
                 {table}
