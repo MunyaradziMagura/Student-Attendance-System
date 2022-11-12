@@ -39,9 +39,6 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
   
   if(command === "highlight"){
     return(<>
-      <Badge id="classHeadingBall" bg={badgeColor} pill>
-        {cntfunction(attandanceObject, command)} Student(s)
-      </Badge>
       <div style={{overflow: "scroll", height:"230px"}}>
         <Table striped bordered hover size="sm" > 
           <thead style={{position:'sticky', top: -1,  backgroundColor:'white'}}>
@@ -72,9 +69,6 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
     </>)
   }else if(command === "filter"){
     return(<>
-      <Badge id="classHeadingBall" bg={badgeColor} pill>
-        {cntfunction(attandanceObject, command)} Student(s)
-      </Badge>
       <div style={{overflow: "scroll", height:"230px"}}>
         <Table striped bordered hover size="sm"> 
           <thead style = {{position: 'sticky', top:-1,  backgroundColor:'white'}}>
@@ -104,9 +98,6 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
     </>)
   }else{
     return (<>
-      <Badge id="classHeadingBall" bg={badgeColor} pill>
-        {cntfunction(attandanceObject, command)} Student(s)
-      </Badge>
       <div style={{overflow: "scroll", height:"230px"}}>
         <Table striped bordered hover size="sm"> 
           <thead bordered style = {{position: 'sticky', top:-1, backgroundColor:'white'}} >
