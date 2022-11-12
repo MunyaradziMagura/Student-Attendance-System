@@ -152,8 +152,20 @@ export default function CourseDetails ({backFunction, staffID}, props) {
       return(<>
           <div style={{paddingTop:'10px'}}>
             <div className={sty.form}>
+
               <div className={sty.formHeader}>
-                <h1>Class {numClasses + 1} <Badge bg="primary">{element.split("||").length -1}</Badge></h1>
+              <OverlayTrigger
+          key={'left'}
+          placement={'left'}
+          overlay={
+            <Tooltip id={`tooltip-${'left'}`}>
+              <strong>Class Number and Number of Student Attendees</strong>.
+            </Tooltip>
+          }
+        >
+                <h1>Class {numClasses + 1} <Badge style={{width: "3rem"}} bg="primary">{element.split("||").length -1}</Badge></h1>
+                </OverlayTrigger>
+
               </div>
               <div className={sty.formBody}>
                 <CourseDetailsTable attendanceString={element} passStudentInfo={getStudentCallBack} command = {commandString}/>
