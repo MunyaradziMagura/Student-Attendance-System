@@ -1,11 +1,13 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+
 import {
   IoHome,
   IoPersonCircleOutline,
   IoBook,
   IoLogOutSharp,
+  IoAlbums
 } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
@@ -47,11 +49,11 @@ export default function StudentNavigation({ fullName, setPage }, props) {
               <IoBook id="navPageLinkIcon" /> Classes
             </Nav.Link>
             <Nav.Link
-              href="#Report"
+              href="#Notes"
               id="navPageLink"
               onClick={() => setPage("Report")}
             >
-              <IoBook id="navPageLinkIcon" /> Report
+              <IoAlbums id="IoAlbums"/> Class History & Notes
             </Nav.Link>
             <Nav.Link onClick={doLogout}>
               <IoLogOutSharp />
