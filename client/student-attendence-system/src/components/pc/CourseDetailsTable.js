@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Table from 'react-bootstrap/Table'
 import Badge from "react-bootstrap/Badge";
 
 export default function  CourseDetailsTable({attendanceString, passStudentInfo, command}, props) {
+  const [badgeColor, setBadgeColor] = useState("secondary")
   // split string on ||, then replace single quotes with double quotes, then remove empty spaces from array, then convert string to json object
   let attandanceObject = attendanceString.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
   // object. key = hash, value = number 
@@ -12,6 +13,11 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
     passStudentInfo(id, fullName)
     // console.log(`${id} : ${fullName}`)
   }
+  useEffect(() => {
+    setBadgeColor((attandanceObject[0].deviceFingerPrint === "N/A") ? "secondary" : "primary")
+  },[attandanceObject])
+  
+   
 
   function cntfunction(attandanceObject, command){
     var count = 0;
@@ -33,7 +39,7 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
   
   if(command === "highlight"){
     return(<>
-      <Badge id="classHeadingBall" bg="primary" pill>
+      <Badge id="classHeadingBall" bg={badgeColor} pill>
         {cntfunction(attandanceObject, command)} Student(s)
       </Badge>
       <div style={{overflow: "scroll", height:"230px"}}>
@@ -66,7 +72,7 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
     </>)
   }else if(command === "filter"){
     return(<>
-      <Badge id="classHeadingBall" bg="primary" pill>
+      <Badge id="classHeadingBall" bg={badgeColor} pill>
         {cntfunction(attandanceObject, command)} Student(s)
       </Badge>
       <div style={{overflow: "scroll", height:"230px"}}>
@@ -98,7 +104,7 @@ export default function  CourseDetailsTable({attendanceString, passStudentInfo, 
     </>)
   }else{
     return (<>
-      <Badge id="classHeadingBall" bg="primary" pill>
+      <Badge id="classHeadingBall" bg={badgeColor} pill>
         {cntfunction(attandanceObject, command)} Student(s)
       </Badge>
       <div style={{overflow: "scroll", height:"230px"}}>

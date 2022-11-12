@@ -242,11 +242,11 @@ export default function CourseDetails ({backFunction, staffID}, props) {
                       </Form.Select>
 
                       {/* button to launch pdf screen */}
-                      <Button variant="outline-success" size="lg" disabled = {(SelectedClassType === "") ? true : false} style={{ marginTop:"0.2vh", height: "2.5rem",width: "20%", fontSize: "1rem", marginLeft:'1rem', outlineStyle: "solid", outlineColor: "green", outlineWidth: "thin" }} onClick={()=>{setExportShow(true)}}>Export Attendance (PDF)</Button>
+                      <Button variant={(SelectedClassType === "") ? "outline-secondary" : "outline-success"} size="lg" disabled = {(SelectedClassType === "") ? true : false} style={{ marginTop:"0.2vh", height: "2.5rem",width: "20%", fontSize: "1rem", marginLeft:'1rem', outlineStyle: "solid", outlineColor: (SelectedClassType === "") ? "" : "green", outlineWidth: "thin" }} onClick={()=>{setExportShow(true)}}>Export Attendance (PDF)</Button>
 
 
                     <Button
-                      variant="primary"
+                      variant={(SelectedClassType === "") ? "outline-secondary" : "primary"}
                       style={{ width: "35%", fontSize: "0.8rem", marginLeft:'auto' }}
                       onClick={() => setTakeAttendance(true)}
                       disabled = {(SelectedClassType === "") ? true : false}
