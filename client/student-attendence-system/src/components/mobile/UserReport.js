@@ -56,7 +56,7 @@ data.map((data) => {
         <Card.Title>{data.courseName}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{data.classType} | {data.date}</Card.Subtitle>
         
-        <FloatingLabel controlId="floatingTextarea2" label="Leave Notes & Nomment Here">
+        <FloatingLabel controlId="floatingTextarea2" label="Leave Notes & Comment Here">
         <Form.Control
           as="textarea"
           placeholder="Leave Notes & Comment Here"
