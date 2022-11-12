@@ -240,6 +240,8 @@ export default function CourseDetails ({backFunction, staffID}, props) {
                           <option value= "" selected>Select Class Type</option>
                           {classTypeList.map(classType =>  (<option value={`${classType}`} >{classType}</option>))}
                       </Form.Select>
+                      <Button variant="success" size="lg" style={{ width: "20%", fontSize: "1rem", marginLeft:'1rem' }} onClick={()=>{setExportShow(true)}}>Export Attendance (PDF)</Button>
+
 
                     <Button
                       variant="primary"
@@ -258,6 +260,8 @@ export default function CourseDetails ({backFunction, staffID}, props) {
                       style={{ width: "100%", fontSize: "0.8rem" }}
                       onHide={() => setTakeAttendance(false)}
                       />
+
+                      {/* this is where we export course data into a pdf  */}
                   <PDFExportPopUp
                       classType = {SelectedClassType}
                       date = {`${currentDate.getDate() }/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
@@ -303,8 +307,6 @@ export default function CourseDetails ({backFunction, staffID}, props) {
                 </Form.Select>
               </Stack>
               
-              <Button variant="warning" style={{marginTop:'10px'}}  onClick={()=>{setExportShow(true)}}>Export</Button>
-
                 {/* table which shows all students */}
                 {table}
             </div>
