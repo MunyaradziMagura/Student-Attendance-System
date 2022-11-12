@@ -11,8 +11,11 @@ import CourseDetailsTable from './CourseDetailsTable';
 import StudentProfile from './StudentProfile';
 import {json, useNavigate } from "react-router-dom";
 import AttendanceTables from './AttendanceTables'
+import Badge from "react-bootstrap/Badge";
 import sty from "../styles/Dashboard.module.css";
 import { exportFile } from '../exportPDF';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 export default function CourseDetails ({backFunction, staffID}, props) {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
@@ -119,15 +122,8 @@ export default function CourseDetails ({backFunction, staffID}, props) {
   const handleSortTypeChange = (event) =>{
     setSortType(event.target.value);
   }
-  let pdfRef = useRef();
 
-  const onExportPDF = () => {
-    exportFile('course pdf', pdfRef.current)
-  }
 
-  const openExoprt = () => {
-
-  }
   useEffect(() => {
     let attendanceCounter = getStudentAttendanceCount(profileData[0], SelectedClassType)
     setStudentProfileComponent(<StudentProfile userName={profileData[0]} fullName={profileData[1]} attendanceCount={profileData[2]} classType={SelectedClassType}  attendancesCount={attendanceCounter[1]} totalAttendances={attendanceCounter[0]}/>)
@@ -149,15 +145,18 @@ export default function CourseDetails ({backFunction, staffID}, props) {
       return (<CourseDetailsTable attendanceString={attendanceString[0]}  passStudentInfo={getStudentCallBack} command = {commandString}/>)
     }
 
+
+    // NOTE: this needs some updating, as it should not take in a student attendance string but should instead take in a deconstructed object
+    // this code is responsible for generating student attendance tables 
     return attendanceString.map((element, numClasses) => {
       return(<>
           <div style={{paddingTop:'10px'}}>
             <div className={sty.form}>
               <div className={sty.formHeader}>
-                <h1>Class {numClasses + 1}</h1>
+                <h1>Class {numClasses + 1} <Badge bg="primary">{element.split("||").length -1}</Badge></h1>
               </div>
               <div className={sty.formBody}>
-                <CourseDetailsTable attendanceString={element}  passStudentInfo={getStudentCallBack} command = {commandString}/>
+                <CourseDetailsTable attendanceString={element} passStudentInfo={getStudentCallBack} command = {commandString}/>
               </div>
             </div>
           </div>
