@@ -1,19 +1,25 @@
-import React,  { useEffect, useState } from 'react'
+import React,  { useEffect, useState ,useRef} from 'react'
 import Form from "react-bootstrap/Form"
 import Stack from "react-bootstrap/Stack";
 import Button from 'react-bootstrap/esm/Button';
 import InputGroup from 'react-bootstrap/InputGroup'
 import AttendanceTakingPopUp from "./AttendanceTakingPopUp";
+import PDFExportPopUp  from './PDFExportPopup';
 import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import CourseDetailsTable from './CourseDetailsTable';
 import StudentProfile from './StudentProfile';
 import {json, useNavigate } from "react-router-dom";
 import AttendanceTables from './AttendanceTables'
+import Badge from "react-bootstrap/Badge";
 import sty from "../styles/Dashboard.module.css";
+import { exportFile } from '../exportPDF';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 export default function CourseDetails ({backFunction, staffID}, props) {
 
   const [takeAttendance, setTakeAttendance] = useState(false);
+  const [exportShow, setExportShow] = useState(false);
   const [attendanceData, setAttendanceData] = useState([])
   const [table, setTable] = useState()
   const [SelectedClassType, setSelectedClassType] = useState("")
@@ -53,9 +59,9 @@ export default function CourseDetails ({backFunction, staffID}, props) {
   //Section of flagging the data
   const flagByAttendance = (attendanceData) =>{
     return attendanceData.map(element1 =>{
-      let attandanceObject = element1.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e)); 
+      let attandanceObject = element1.split("||").map((e) => e.replaceAll("'", '"')).filter((e) => {if(e.length > 1) return true}).map((e) => JSON.parse(e));
       var modifiedUserList = attandanceObject.map(element => ({...element, yellowFlag: false,redFlag: false})) //This is AttdanceObject has been modified to add another flag attribut
-      var uniqueDeviceHash = []; //This list ensure the unique of deviceFingerPrint data only 
+      var uniqueDeviceHash = []; //This list ensure the unique of deviceFingerPrint data only
       var badListDevice = [];
       var unique = modifiedUserList.filter(element => { //the unique variable is a Set of Array with no duplication of dataset
         const isDuplicate = uniqueDeviceHash.includes(element.deviceFingerPrint);
@@ -66,8 +72,8 @@ export default function CourseDetails ({backFunction, staffID}, props) {
         element.redFlag = true;
         badListDevice.push(element.deviceFingerPrint);
         return false;
-      }); 
-    
+      });
+
       var newUnique = modifiedUserList.filter(element =>{
         const isYellowFlag = badListDevice.includes(element.deviceFingerPrint);
         if(isYellowFlag === true && element.redFlag === false){
@@ -76,7 +82,7 @@ export default function CourseDetails ({backFunction, staffID}, props) {
         }
         return false;
       })
-      
+
       var jsonString = JSON.stringify(Object.keys(modifiedUserList).map((id) => modifiedUserList[id]));
       jsonString = jsonString.replace("[", "");
       jsonString = jsonString.replace("]", "||");
@@ -85,7 +91,7 @@ export default function CourseDetails ({backFunction, staffID}, props) {
       return jsonString;
     })
   }
-  
+
   const filteringByClassType = (attendanceData) =>{
     var tmpList = [];
     // if there is no selected class type show the unknown students row 
@@ -93,10 +99,8 @@ export default function CourseDetails ({backFunction, staffID}, props) {
       tmpList.push(unknownStudents)
       return tmpList;
     }
-
-    // filter attendace data by the selected class type and the date selected on the calendar
-    let classAttendanceData = attendanceData.filter(type => type.classType === SelectedClassType).filter(dateFilter => dateFilter.date === calendarDate); // add dynamic date capture 
-    // if there is nothing within the newly created array, return unknown students row
+ let classAttendanceData = attendanceData.filter(type => type.classType === SelectedClassType).filter(dateFilter => dateFilter.date === calendarDate); // add dynamic date capture 
+   
     if(classAttendanceData[0] === undefined){
       tmpList.push(unknownStudents)
       return tmpList;
@@ -112,22 +116,23 @@ export default function CourseDetails ({backFunction, staffID}, props) {
 
   const handleClassTypeChange =(event)=>{
     setSelectedGraphClassType(event.target.value)
-    setSelectedClassType(event.target.value)  
+    setSelectedClassType(event.target.value)
   }
 
   const handleSortTypeChange = (event) =>{
     setSortType(event.target.value);
   }
 
+
   useEffect(() => {
     let attendanceCounter = getStudentAttendanceCount(profileData[0], SelectedClassType)
     setStudentProfileComponent(<StudentProfile userName={profileData[0]} fullName={profileData[1]} attendanceCount={profileData[2]} classType={SelectedClassType}  attendancesCount={attendanceCounter[1]} totalAttendances={attendanceCounter[0]}/>)
     // check if we can generate attendance graphical data (Have been combined from the statement below)
     setAttendanceGraphs(<AttendanceTables tabState={selectedGraphClassType} attendanceData={attendanceData}/>)
-    //The Section is filtering 
+    //The Section is filtering
     let filteredListData = filteringByClassType(attendanceData); //This will return a list of class data based on selected Class Type
     filteredListData=flagByAttendance(filteredListData);//This will create a flag when it retrieve the Attendance Object from the date picker and class type
-    //The Section of displaying table of data 
+    //The Section of displaying table of data
     setTable(generateAttendanceTable(filteredListData, selectSortType)) //This will create a table based on the updating of filterListData
   },[profileData,selectedGraphClassType, selectSortType, attendanceData])
 
@@ -140,15 +145,30 @@ export default function CourseDetails ({backFunction, staffID}, props) {
       return (<CourseDetailsTable attendanceString={attendanceString[0]}  passStudentInfo={getStudentCallBack} command = {commandString}/>)
     }
 
+
+    // NOTE: this needs some updating, as it should not take in a student attendance string but should instead take in a deconstructed object
+    // this code is responsible for generating student attendance tables 
     return attendanceString.map((element, numClasses) => {
       return(<>
           <div style={{paddingTop:'10px'}}>
             <div className={sty.form}>
+
               <div className={sty.formHeader}>
-                <h1>Class {numClasses + 1}</h1>
+              <OverlayTrigger
+          key={'left'}
+          placement={'left'}
+          overlay={
+            <Tooltip id={`tooltip-${'left'}`}>
+              <strong>Class Number and Number of Student Attendees</strong>.
+            </Tooltip>
+          }
+        >
+                <h1>Class {numClasses + 1} <Badge style={{width: "3rem"}} bg="primary">{element.split("||").length -1}</Badge></h1>
+                </OverlayTrigger>
+
               </div>
               <div className={sty.formBody}>
-                <CourseDetailsTable attendanceString={element}  passStudentInfo={getStudentCallBack} command = {commandString}/>
+                <CourseDetailsTable attendanceString={element} passStudentInfo={getStudentCallBack} command = {commandString}/>
               </div>
             </div>
           </div>
@@ -210,6 +230,7 @@ export default function CourseDetails ({backFunction, staffID}, props) {
             }
           }       
         }
+
       }
     }
 
@@ -218,8 +239,9 @@ export default function CourseDetails ({backFunction, staffID}, props) {
         <>
           <div className={sty.form}>
             <div className={sty.formHeader} style={{display:'flex'}}>
-              <Button variant="warning" style={{marginLeft:'10px', height:'41px', textAlign:'center'}}href="/Dashboard/Courses">Back</Button>
-              <h1 style={{marginLeft:'5px'}}>{localStorage.getItem('courseName')}</h1> 
+              
+            <Button variant="warning" style={{marginLeft:'10px', height:'41px', textAlign:'center'}}href="/Dashboard/Courses">Back</Button>
+              <h1 style={{marginLeft:'5px'}}>{localStorage.getItem('courseName')}</h1>
             </div>
             <div className={sty.formBody}>
               <div style={{display:'flex'}}>
@@ -229,9 +251,13 @@ export default function CourseDetails ({backFunction, staffID}, props) {
                           <option value= "" selected>Select Class Type</option>
                           {classTypeList.map(classType =>  (<option value={`${classType}`} >{classType}</option>))}
                       </Form.Select>
-                      
+
+                      {/* button to launch pdf screen */}
+                      <Button variant={(SelectedClassType === "") ? "outline-secondary" : "outline-success"} size="lg" disabled = {(SelectedClassType === "") ? true : false} style={{ marginTop:"0.2vh", height: "2.5rem",width: "20%", fontSize: "1rem", marginLeft:'1rem', outlineStyle: "solid", outlineColor: (SelectedClassType === "") ? "" : "green", outlineWidth: "thin" }} onClick={()=>{setExportShow(true)}}>Export Attendance (PDF)</Button>
+
+
                     <Button
-                      variant="primary"
+                      variant={(SelectedClassType === "") ? "outline-secondary" : "primary"}
                       style={{ width: "35%", fontSize: "0.8rem", marginLeft:'auto' }}
                       onClick={() => setTakeAttendance(true)}
                       disabled = {(SelectedClassType === "") ? true : false}
@@ -242,11 +268,24 @@ export default function CourseDetails ({backFunction, staffID}, props) {
                       <AttendanceTakingPopUp
                       classType = {SelectedClassType}
                       date = {`${currentDate.getDate() }/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
-                      // set popup state 
+                      // set popup state
                       show={takeAttendance}
                       style={{ width: "100%", fontSize: "0.8rem" }}
                       onHide={() => setTakeAttendance(false)}
                       />
+
+                      {/* this is where we export course data into a pdf  */}
+                  <PDFExportPopUp
+                      classType = {SelectedClassType}
+                      date = {`${currentDate.getDate() }/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`}
+                      // set popup state
+                      show={exportShow}
+                      table={table}
+                      attendanceData={attendanceData}
+                      selectedGraphClassType={selectedGraphClassType}
+                      style={{ width: "100%", fontSize: "0.8rem" }}
+                      onHide={() => setExportShow(false)}
+                  />
                   {/* </Stack> */}
               </div>
               <div style={{paddingTop:'10px'}}>
@@ -261,8 +300,8 @@ export default function CourseDetails ({backFunction, staffID}, props) {
                 </Card>
                 </CardGroup>
               </div>
-            </div>  
-          </div>  
+            </div>
+          </div>
             <div style={{paddingTop: '1vh'}}>
               <Stack direction="horizontal" gap={2}>
                 <InputGroup size="lg" style={{width:'50%'}}>
@@ -280,7 +319,7 @@ export default function CourseDetails ({backFunction, staffID}, props) {
                   <option value="filter">Show Only Duplicate Device Fingerprint</option>
                 </Form.Select>
               </Stack>
-
+              
                 {/* table which shows all students */}
                 {table}
             </div>

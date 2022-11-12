@@ -36,3 +36,21 @@ export function getAttendanceDetails(data) {
     data
   })
 }
+
+
+export function getStudentAttendanceDetails(data) {
+  return service.request({
+    url: `/courseAttendanceRecords/getAttendance/student`,
+    method: "POST",
+    data
+  })
+}
+
+
+export function getClassAttendanceDetails(data) {
+  return service.request({
+    url: `/courseAttendanceRecords/getAttendance/class`,
+    method: "POST",
+    data
+  })
+}
