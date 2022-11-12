@@ -138,6 +138,10 @@ function PDFExportPopUp(props) {
         size="xl"
         style={{ width: "100%", fontSize: "0.8rem" }}
         onHide={() => setTakeAttendance(false)}>
+                    <Modal.Header>
+        <Button variant="primary" onClick={onExportPDF} >export</Button>
+        <Button variant="outline-warning" onClick={props.onHide}>Close</Button>
+      </Modal.Header>
           <div ref={pdfRef}>
           <h1 style={{textAlign:'center'}}>{'Student attendance report for' + localStorage.getItem('courseName') + 'class'}</h1>
           
@@ -200,10 +204,7 @@ function PDFExportPopUp(props) {
             </div>
           </div>
             
-            <Modal.Footer>
-        <Button variant="primary" onClick={onExportPDF} >export</Button>
-        <Button variant="outline-warning" onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
+
         </Modal>
           
         </>
