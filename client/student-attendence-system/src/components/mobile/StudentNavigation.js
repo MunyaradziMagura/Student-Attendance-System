@@ -1,13 +1,13 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { IoAlbums } from "react-icons/io5";
 
 import {
   IoHome,
   IoPersonCircleOutline,
   IoBook,
   IoLogOutSharp,
+  IoAlbums
 } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
