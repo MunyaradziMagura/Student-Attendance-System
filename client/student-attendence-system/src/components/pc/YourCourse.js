@@ -3,11 +3,10 @@ import Form from "react-bootstrap/Form"
 import Courses from "./Courses";
 import sty from "../styles/Dashboard.module.css"; 
 export default function YourCourse ({courseList, forwardFunction}, props) {
-
-        
         const [classes, setClasses] = useState({});
         const [studyPeriod, setStudyPeriod] = useState("")
-        
+        const avalibleStudyPeriod = [1,2,3,4,5,6,7]
+
         function classandStudyPeriod (value){
                 // set class object
                 setClasses(courseList[value])
@@ -25,14 +24,10 @@ export default function YourCourse ({courseList, forwardFunction}, props) {
                 </div>
                 <div className={sty.formBody}>
                         <Form.Select onChange={(e) => classandStudyPeriod(e.target.value)}>
-                                <option key = "default" value="SP1">Select A Course</option>
-                                <option key = "SP1" value = "SP1">Study Period 1</option>
-                                <option key = "SP2" value = "SP2">Study Period 2</option>
-                                <option key = "SP3" value = "SP3">Study Period 3</option>
-                                <option key = "SP4" value = "SP4">Study Period 4</option>
-                                <option key = "SP5" value = "SP5">Study Period 5</option>
-                                <option key = "SP6" value = "SP6">Study Period 6</option>
-                                <option key = "SP7" value = "SP7">Study Period 7</option>
+                                <option key = "default" value="SP0" selected disabled>Select A Course</option>
+                                {avalibleStudyPeriod.map((studyPeriod) => (
+                                        <option key={`SP${studyPeriod}`} value={`SP${studyPeriod}`}>Study Period {studyPeriod}</option>
+                                ))}
                         </Form.Select>
                         <Courses classesObject={classes} sendDetailsPageButton={detailsPage} studyPeriod={studyPeriod}></Courses>        
                 </div>
